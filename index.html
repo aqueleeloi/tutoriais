@@ -4,25 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DESIGN HUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Cores de Fundo Deep Space */
+            /* FUNDOS */
             --bg-body: #050505;
-            --sidebar-bg: rgba(20, 20, 20, 0.6);
-            --card-bg: #121212;
+            --sidebar-bg: #0a0a0a;
+            --card-bg: #111111;
             
-            /* NEON GRADIENTS (A Vida do Site) */
-            --gradient-blue: linear-gradient(135deg, #00C6FF, #0072FF);
-            --gradient-purple: linear-gradient(135deg, #a855f7, #6366f1);
-            --gradient-hot: linear-gradient(135deg, #FF416C, #FF4B2B);
-            --gradient-green: linear-gradient(135deg, #00b09b, #96c93d);
+            /* NEON GRADIENTS (Para as bordas) */
+            --border-blue: linear-gradient(90deg, #00C6FF, #0072FF);
+            --border-pink: linear-gradient(90deg, #FF00CC, #333399);
+            --border-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
             
-            /* Textos */
+            /* CORES DAS MARCAS */
+            --brand-ps: #31A8FF;
+            --brand-pp: #00D26A;
+            --brand-cv: #8B5CF6;
+
+            /* TEXTOS */
             --text-main: #ffffff;
-            --text-muted: #888888;
+            --text-dim: #666666;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,121 +34,136 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
-            /* Grid subtil no fundo para dar textura técnica */
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
             color: var(--text-main);
             display: flex;
             height: 100vh;
-            overflow: hidden; /* App feel */
+            overflow: hidden;
         }
 
-        /* --- SIDEBAR (Hub Navigation) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
-            width: 280px;
-            height: 100%;
+            width: 300px;
             background: var(--sidebar-bg);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid #1a1a1a;
             display: flex;
             flex-direction: column;
-            padding: 30px;
+            padding: 40px 30px;
             flex-shrink: 0;
         }
 
         .brand {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 50px;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 60px;
+            color: white;
+            letter-spacing: -0.5px;
         }
+        .brand span { color: var(--brand-ps); }
 
+        /* Botões de Navegação (Iguais em tamanho) */
         .nav-btn {
+            width: 100%;
             background: transparent;
-            border: none;
-            color: var(--text-muted);
+            border: 1px solid transparent;
+            color: var(--text-dim);
             text-align: left;
-            padding: 15px 20px;
+            padding: 18px 25px;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
             display: flex; align-items: center; gap: 15px;
-            margin-bottom: 10px;
-            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 12px;
+            position: relative;
+            background-clip: padding-box; /* Importante para a borda */
         }
 
-        .nav-btn i { width: 20px; text-align: center; font-size: 1.1rem; }
+        .nav-btn i { width: 24px; text-align: center; font-size: 1.2rem; }
 
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-btn:hover { color: white; background: #111; }
 
-        /* Estados Ativos com Brilho Neon */
-        .nav-btn.active.soft { background: var(--gradient-blue); color: white; box-shadow: 0 5px 20px rgba(0, 114, 255, 0.4); }
-        .nav-btn.active.mkt { background: var(--gradient-hot); color: white; box-shadow: 0 5px 20px rgba(255, 75, 43, 0.4); }
-        .nav-btn.active.inspo { background: var(--gradient-green); color: white; box-shadow: 0 5px 20px rgba(150, 201, 61, 0.4); }
+        /* ESTADO ATIVO (Borda Neon, Fundo Escuro) */
+        .nav-btn.active {
+            background: #0f0f0f;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Borda Gradiente via Pseudo-elemento */
+        .nav-btn.active::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px; 
+            padding: 2px; /* Espessura da borda */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .nav-btn.active.soft::before { background: var(--border-blue); }
+        .nav-btn.active.mkt::before { background: var(--border-pink); }
+        .nav-btn.active.inspo::before { background: var(--border-yellow); }
 
         /* --- MAIN AREA --- */
         .main-content {
             flex-grow: 1;
-            padding: 40px;
-            overflow-y: auto; /* Scroll só aqui */
-            position: relative;
+            padding: 50px;
+            overflow-y: auto;
         }
 
-        /* Sub-Header */
-        .section-header { margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; }
-        .section-title { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: white; }
-        .section-desc { color: var(--text-muted); margin-top: 5px; }
+        .section-header { margin-bottom: 40px; }
+        .section-title { font-size: 2.2rem; font-family: 'Outfit', sans-serif; font-weight: 700; color: white; }
+        .section-desc { color: var(--text-dim); margin-top: 5px; }
 
-        /* Sub-Tabs (Chips) */
-        .chips-container { display: flex; gap: 10px; margin-bottom: 30px; }
+        /* SUB-TABS (SOFTWARE) - CORES DAS MARCAS */
+        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        
         .chip {
-            background: #1a1a1a;
-            border: 1px solid #333;
+            background: #111;
+            border: 1px solid #222;
             color: #888;
-            padding: 8px 20px;
-            border-radius: 50px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: 0.3s;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 10px;
         }
-        .chip:hover { border-color: #666; color: white; }
-        .chip.active { background: white; color: black; border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        /* --- GRID DE CARTÕES (A Alma do Hub) --- */
+        .chip:hover { transform: translateY(-2px); color: white; }
+
+        /* Cores Ativas Específicas */
+        .chip.active[data-prog="ps"] { background: rgba(49, 168, 255, 0.1); border-color: var(--brand-ps); color: var(--brand-ps); box-shadow: 0 0 15px rgba(49, 168, 255, 0.2); }
+        .chip.active[data-prog="pp"] { background: rgba(0, 210, 106, 0.1); border-color: var(--brand-pp); color: var(--brand-pp); box-shadow: 0 0 15px rgba(0, 210, 106, 0.2); }
+        .chip.active[data-prog="cv"] { background: rgba(139, 92, 246, 0.1); border-color: var(--brand-cv); color: var(--brand-cv); box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
+
+        /* --- GRID & CARDS --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
             padding-bottom: 50px;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s;
             position: relative;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
-        /* Efeito Hover "Pop" */
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            z-index: 2;
+            transform: translateY(-5px);
+            border-color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .thumb {
@@ -152,77 +171,61 @@
             aspect-ratio: 16/9;
             overflow: hidden;
             position: relative;
+            background: #000;
         }
 
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: 0.5s;
-        }
-
-        .card:hover .thumb img { opacity: 1; transform: scale(1.1); }
-
-        /* Tags Flutuantes (Gradient) */
-        .tag-float {
-            position: absolute;
-            top: 15px; left: 15px;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
-        }
-
-        /* Cores Dinâmicas das Tags */
-        .card.soft .tag-float { background: var(--gradient-blue); }
-        .card.mkt .tag-float { background: var(--gradient-hot); }
-        .card.inspo .tag-float { background: var(--gradient-green); }
-        .card.cv .tag-float { background: var(--gradient-purple); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+        .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
         .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; }
-        .card p { font-size: 0.9rem; color: #777; margin-bottom: 20px; flex-grow: 1; line-height: 1.6; }
-
-        /* Botão Brilhante */
-        .action-btn {
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 12px;
+        /* TAGS NAS CATEGORIAS (Cor Forte) */
+        .category-tag {
+            font-size: 0.7rem;
             font-weight: 700;
-            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .tag-blue { color: #00C6FF; background: rgba(0, 198, 255, 0.1); border: 1px solid rgba(0, 198, 255, 0.2); }
+        .tag-pink { color: #FF00CC; background: rgba(255, 0, 204, 0.1); border: 1px solid rgba(255, 0, 204, 0.2); }
+        .tag-yellow { color: #F2C94C; background: rgba(242, 201, 76, 0.1); border: 1px solid rgba(242, 201, 76, 0.2); }
+        
+        h3 { font-family: 'Outfit', sans-serif; font-size: 1.15rem; margin-bottom: 10px; line-height: 1.4; color: #eee; }
+        p { font-size: 0.9rem; color: #666; margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
+
+        .action-link {
+            text-decoration: none;
             font-size: 0.9rem;
-            transition: 0.3s;
-            background: rgba(255,255,255,0.05);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.1);
+            font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+            transition: 0.2s;
         }
+        
+        .action-link i { font-size: 0.8rem; }
+        
+        .card.soft .action-link { color: #00C6FF; }
+        .card.mkt .action-link { color: #FF00CC; }
+        .card.inspo .action-link { color: #F2C94C; }
+        
+        .card:hover .action-link { gap: 12px; filter: brightness(1.2); }
 
-        .card:hover .action-btn {
-            background: white;
-            color: black;
-            box-shadow: 0 0 20px rgba(255,255,255,0.4);
-        }
+        /* View Control */
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Animações de Entrada */
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: slideIn 0.5s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Aviso Erro */
-        #debug { display: none; background: #ff0044; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; }
+        #debug { display: none; color: red; padding: 20px; text-align: center; border: 1px solid red; margin-bottom: 20px; }
 
         @media (max-width: 900px) {
             body { flex-direction: column; overflow: auto; }
-            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #333; padding: 20px; }
+            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #222; }
             .main-content { padding: 20px; overflow: visible; }
-            .chips-container { overflow-x: auto; padding-bottom: 10px; }
+            .chips-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 5px; }
             .chip { white-space: nowrap; }
         }
     </style>
@@ -230,7 +233,7 @@
 <body>
 
 <aside class="sidebar">
-    <div class="brand">DESIGN<span style="font-weight:300; opacity:0.5">HUB</span></div>
+    <div class="brand">CREATIVE <span>HUB.</span></div>
     
     <nav>
         <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">
@@ -247,20 +250,18 @@
 
 <section class="main-content">
     
-    <div id="debug">⚠️ ERRO: videos.js não encontrado.</div>
+    <div id="debug">⚠️ ERRO: videos.js não carregou.</div>
 
     <div id="SOFTWARE" class="view-section active">
         <div class="section-header">
-            <div>
-                <div class="section-title">Software Lab</div>
-                <div class="section-desc">Domina as ferramentas essenciais.</div>
-            </div>
+            <div class="section-title">Software Lab</div>
+            <div class="section-desc">Domina as ferramentas profissionais.</div>
         </div>
 
         <div class="chips-container">
-            <div class="chip active" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
-            <div class="chip" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
-            <div class="chip" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
+            <div class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
+            <div class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
+            <div class="chip" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
         </div>
 
         <div class="grid" id="grid-software"></div>
@@ -268,20 +269,16 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <div>
-                <div class="section-title" style="background: var(--gradient-hot); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Marketing Toolkit</div>
-                <div class="section-desc">Recursos para criar impacto.</div>
-            </div>
+            <div class="section-title" style="color:#FF00CC">Marketing Toolkit</div>
+            <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
     </div>
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <div>
-                <div class="section-title" style="background: var(--gradient-green); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Mindset & Cultura</div>
-                <div class="section-desc">Expande a tua visão.</div>
-            </div>
+            <div class="section-title" style="color:#F2C94C">Mindset & Cultura</div>
+            <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
     </div>
@@ -290,7 +287,6 @@
 
 <script src="videos.js"></script>
 <script>
-    // 1. Check de Segurança
     let safeData = [];
     if (typeof tutorialData === 'undefined') {
         document.getElementById('debug').style.display = 'block';
@@ -300,50 +296,47 @@
     }
 
     function initApp() {
-        render('ps'); // Inicia com Photoshop
+        render('ps'); 
     }
 
-    // 2. Renderizador Mágico
     function render(filter) {
-        // Limpar Grids
         document.getElementById('grid-software').innerHTML = '';
         document.getElementById('grid-marketing').innerHTML = '';
         document.getElementById('grid-inspiration').innerHTML = '';
 
         safeData.forEach(item => {
-            // Filtro apenas para software
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
-            // Variáveis Visuais
-            let thumb = item.thumb || "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&q=80"; // Imagem abstrata dark
-            let actionText = "Aceder";
             let link = item.id;
-            
-            if(item.type === 'video') {
+            let thumb = item.thumb || "https://images.unsplash.com/photo-1614850523060-8da1d56ae167?w=500&q=80";
+            let icon = "fas fa-file-alt";
+            let btnText = "Abrir";
+
+            if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                actionText = "Assistir Aula";
-            } else {
-                if(!item.thumb) thumb = "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80"; // Imagem Doc
+                icon = "fas fa-play";
+                btnText = "Assistir";
             }
 
-            // Classes para cor (Gradient Tags)
-            let cardClass = "soft"; // Default blue
-            if(item.section === 'MARKETING') cardClass = "mkt";
-            if(item.section === 'INSPIRATION') cardClass = "inspo";
-            if(item.program === 'cv') cardClass = "cv"; // Canva roxo
+            // Cores das Tags
+            let tagClass = "tag-blue";
+            let cardClass = "soft";
+            
+            if (item.section === 'MARKETING') { tagClass = "tag-pink"; cardClass = "mkt"; }
+            if (item.section === 'INSPIRATION') { tagClass = "tag-yellow"; cardClass = "inspo"; }
 
             const html = `
                 <article class="card ${cardClass}">
-                    <div class="tag-float">${item.tag}</div>
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/mqdefault.jpg'">
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
                     </a>
                     <div class="content">
+                        <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="action-btn">
-                            ${actionText}
+                        <a href="${link}" target="_blank" class="action-link">
+                            ${btnText} <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
@@ -355,7 +348,6 @@
         });
     }
 
-    // 3. Navegação
     window.switchMain = function(id, btn) {
         document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
