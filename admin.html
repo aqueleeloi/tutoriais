@@ -18,9 +18,7 @@
         .cancel { background: #64748b; color: white; grid-column: span 2; display: none; }
         .dl { background: #38bdf8; color: #0f172a; font-size: 1.1rem; margin-top: 30px; }
         .item { background: #0f172a; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #334155; }
-        .item.SOFTWARE { border-left-color: #38bdf8; }
-        .item.MARKETING { border-left-color: #f472b6; }
-        .item.INSPIRATION { border-left-color: #facc15; }
+        .item.SOFTWARE { border-left-color: #38bdf8; } .item.MARKETING { border-left-color: #f472b6; } .item.INSPIRATION { border-left-color: #facc15; }
         .actions button { width: 30px; height: 30px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; }
         .edit { background: #f59e0b; } .del { background: #ef4444; } .up, .down { background: #475569; color:white; }
     </style>
@@ -42,8 +40,8 @@
         </div>
         <div>
             <label>2. Programa (Opcional)</label>
-            <input type="text" id="program" list="progList" placeholder="Ex: ps, pp, cv">
-            <datalist id="progList"><option value="ps"><option value="pp"><option value="cv"></datalist>
+            <input type="text" id="program" list="progList" placeholder="Ex: ps, pp, cv, mk, in">
+            <datalist id="progList"><option value="ps"><option value="pp"><option value="cv"><option value="mk"><option value="in"></datalist>
         </div>
         <div>
             <label>3. Tipo</label>
@@ -53,10 +51,7 @@
             <label>4. Categoria (Tag)</label>
             <input type="text" id="tag" placeholder="Ex: Iniciante, Recursos...">
         </div>
-        <div class="full">
-            <label>Link do Conteúdo</label>
-            <input type="text" id="url" placeholder="URL Completo...">
-        </div>
+        <div class="full"><label>Link do Conteúdo</label><input type="text" id="url" placeholder="URL Completo..."></div>
         <div class="full"><label>Título</label><input type="text" id="title"></div>
         <div class="full"><label>Descrição</label><input type="text" id="desc"></div>
         <div class="full"><label>Link da Capa (Opcional)</label><input type="text" id="thumb"></div>
@@ -80,7 +75,6 @@
         const list = document.getElementById('list');
         list.innerHTML = '';
         document.getElementById('count').innerText = data.length;
-
         data.forEach((item, i) => {
             list.innerHTML += `
                 <div class="item ${item.section}">
