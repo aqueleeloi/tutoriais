@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de Estudo: Photoshop & Photopea</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Hub de Aprendizagem: PS & Photopea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --ps-color: #31A8FF;
-            --ps-dark: #001E36;
-            --pp-color: #00D084;
-            --pp-dark: #003622;
-            --bg-color: #f4f6f8;
-            --text-color: #333;
-            --card-bg: #ffffff;
+            /* Cores do Tema */
+            --bg-main: #121212;
+            --bg-card: #1E1E1E;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            
+            /* Cores das Marcas */
+            --ps-blue: #00a8ff;
+            --ps-gradient: linear-gradient(135deg, #00a8ff 0%, #0077b6 100%);
+            --pp-green: #00d26a;
+            --pp-gradient: linear-gradient(135deg, #00d26a 0%, #008f4c 100%);
+
+            /* Cores de Destaque (Tags) */
+            --accent-cut: #ff4757; /* Vermelho para recorte */
+            --accent-brush: #ffa502; /* Laranja para pincéis */
+            --accent-setup: #7bed9f; /* Verde claro para configuração */
         }
 
         * {
@@ -25,235 +34,324 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             line-height: 1.6;
+            padding-bottom: 50px;
         }
 
+        /* Header Estilizado */
         header {
-            background: #1a1a1a;
-            color: white;
-            padding: 2rem 1rem;
+            background: linear-gradient(to right, #1E1E1E, #2a2a2a);
+            padding: 3rem 2rem;
             text-align: center;
+            border-bottom: 3px solid #333;
+            margin-bottom: 3rem;
         }
 
         header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
+        header h1 span.ps { color: var(--ps-blue); }
+        header h1 span.pp { color: var(--pp-green); }
+
         header p {
-            opacity: 0.8;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-top: 10px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 20px;
         }
 
-        .section-header {
+        /* Separadores de Secção */
+        .section-title {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 1.5rem;
-            margin-top: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
         }
 
-        .section-header i {
-            font-size: 1.5rem;
-        }
+        .section-title h2 { font-size: 1.8rem; }
+        .section-logo { font-size: 2rem; }
+        .ps-section .section-logo { color: var(--ps-blue); }
+        .pp-section .section-logo { color: var(--pp-green); }
 
-        .section-header.ps { color: var(--ps-color); border-color: var(--ps-color); }
-        .section-header.pp { color: var(--pp-dark); border-color: var(--pp-color); }
-
+        /* Grid de Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
         }
 
+        /* ESTILO DOS CARDS */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
-        .tag {
-            font-size: 0.75rem;
+        /* Área da Thumbnail */
+        .thumb-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Garante formato de vídeo */
+            overflow: hidden;
+        }
+
+        .thumb-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .thumb-wrapper img {
+            transform: scale(1.05);
+            opacity: 0.7;
+        }
+
+        /* Overlay do Botão Play */
+        .play-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .play-icon {
+            font-size: 3rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+        }
+
+        .card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        /* Conteúdo do Card */
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Tags Coloridas com Ícones */
+        .tag-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
             font-weight: 700;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            padding: 4px 8px;
-            border-radius: 4px;
-            width: fit-content;
-            margin-bottom: 10px;
         }
 
-        .tag.intro { background: #e0f2fe; color: #0369a1; }
-        .tag.tools { background: #fef3c7; color: #b45309; }
-        .tag.mask { background: #dcfce7; color: #15803d; }
-        .tag.brush { background: #fce7f3; color: #be185d; }
+        .tag-icon { font-size: 1.2rem; }
+        .accent-setup { color: var(--accent-setup); }
+        .accent-cut { color: var(--accent-cut); }
+        .accent-brush { color: var(--accent-brush); }
+        .accent-intro { color: var(--ps-blue); }
 
         .card h3 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
-            color: #111;
+            line-height: 1.4;
         }
 
         .card p {
-            font-size: 0.9rem;
-            color: #666;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             margin-bottom: 20px;
+            flex-grow: 1;
         }
 
+        /* Botões */
         .btn {
-            display: inline-block;
             text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
             font-weight: 600;
-            transition: background 0.3s;
+            letter-spacing: 0.5px;
+            transition: filter 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: white;
         }
 
-        .btn-ps { background: var(--ps-color); color: white; }
-        .btn-ps:hover { background: #228be6; }
+        .btn-ps { background: var(--ps-gradient); }
+        .btn-pp { background: var(--pp-gradient); }
+        
+        .btn:hover { filter: brightness(1.1); }
 
-        .btn-pp { background: var(--pp-dark); color: white; }
-        .btn-pp:hover { background: #005c3a; }
-
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.5rem; }
-            .container { padding: 1rem; }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><i class="fas fa-layer-group"></i> Tutoriais de Design</h1>
-    <p>Guia prático para Photoshop e Photopea</p>
+    <h1>Tutoriais: <span class="ps">Photoshop</span> & <span class="pp">Photopea</span></h1>
+    <p>🎬 Playlist de aulas essenciais para os teus projetos.</p>
 </header>
 
 <div class="container">
 
-    <div class="section-header ps">
-        <i class="fas fa-image"></i>
+    <div class="section-title ps-section">
+        <i class="fab fa-adobe section-logo"></i>
         <h2>Adobe Photoshop</h2>
     </div>
 
     <div class="grid">
-        <div class="card">
-            <div>
-                <span class="tag intro">Introdução</span>
-                <h3>Visão Geral e Primeiros Passos</h3>
-                <p>Entenda a interface, painéis e como navegar no software.</p>
-            </div>
-            <a href="https://www.youtube.com/watch?v=kB0P7nXc1Lg" target="_blank" class="btn btn-ps">
-                <i class="fab fa-youtube"></i> Assistir Aula (Brainstorm)
+        <article class="card">
+            <a href="https://www.youtube.com/watch?v=kB0P7nXc1Lg" target="_blank" class="thumb-wrapper">
+                <img src="https://img.youtube.com/vi/kB0P7nXc1Lg/maxresdefault.jpg" alt="Thumbnail Photoshop Iniciantes">
+                <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
             </a>
-        </div>
+            <div class="card-content">
+                <div class="tag-header accent-intro">
+                    <i class="fas fa-rocket tag-icon"></i> INÍCIO RÁPIDO
+                </div>
+                <h3>Photoshop para Iniciantes (Visão Geral)</h3>
+                <p>Entende a interface, as camadas e as ferramentas principais em poucos minutos.</p>
+                <a href="https://www.youtube.com/watch?v=kB0P7nXc1Lg" target="_blank" class="btn btn-ps">
+                    <i class="fab fa-youtube"></i> Ver Aula
+                </a>
+            </div>
+        </article>
 
-        <div class="card">
-            <div>
-                <span class="tag tools">Criação</span>
-                <h3>Criar Documento: Tamanho & Cor</h3>
-                <p>Aprenda sobre DPI, RGB vs CMYK e formatos de arquivo.</p>
-            </div>
-            <a href="https://lucascharnyai.com/como-criar-um-novo-documento-no-photoshop/" target="_blank" class="btn btn-ps">
-                <i class="fas fa-link"></i> Ver Tutorial (Lucas Charnyai)
+        <article class="card">
+            <a href="https://www.youtube.com/watch?v=jmsjrohHMVg" target="_blank" class="thumb-wrapper">
+                <img src="https://img.youtube.com/vi/jmsjrohHMVg/maxresdefault.jpg" alt="Thumbnail Recorte Perfeito">
+                <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
             </a>
-        </div>
+            <div class="card-content">
+                <div class="tag-header accent-cut">
+                    <i class="fas fa-scissors tag-icon"></i> RECORTE & MÁSCARAS
+                </div>
+                <h3>Como fazer Recortes Perfeitos</h3>
+                <p>A técnica profissional para remover fundos, mesmo com cabelos difíceis.</p>
+                <a href="https://www.youtube.com/watch?v=jmsjrohHMVg" target="_blank" class="btn btn-ps">
+                    <i class="fab fa-youtube"></i> Ver Aula
+                </a>
+            </div>
+        </article>
 
-        <div class="card">
-            <div>
-                <span class="tag mask">Recorte</span>
-                <h3>Recorte Perfeito e Máscaras</h3>
-                <p>Técnicas essenciais para remover o fundo de imagens complexas.</p>
-            </div>
-            <a href="https://www.youtube.com/watch?v=jmsjrohHMVg" target="_blank" class="btn btn-ps">
-                <i class="fab fa-youtube"></i> Assistir Aula (Carlos Alberto)
+        <article class="card">
+            <a href="https://www.youtube.com/watch?v=vhArnD6TRps" target="_blank" class="thumb-wrapper">
+                <img src="https://img.youtube.com/vi/vhArnD6TRps/maxresdefault.jpg" alt="Thumbnail Pincéis">
+                <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
             </a>
-        </div>
+            <div class="card-content">
+                <div class="tag-header accent-brush">
+                    <i class="fas fa-paint-brush tag-icon"></i> FERRAMENTA PINCEL
+                </div>
+                <h3>Dominar os Pincéis (Brushes)</h3>
+                <p>Aprende a configurar tamanho, dureza, opacidade e fluxo para pintura e retoque.</p>
+                <a href="https://www.youtube.com/watch?v=vhArnD6TRps" target="_blank" class="btn btn-ps">
+                    <i class="fab fa-youtube"></i> Ver Aula
+                </a>
+            </div>
+        </article>
 
-        <div class="card">
-            <div>
-                <span class="tag brush">Pincéis</span>
-                <h3>Ferramenta Pincel (Brush)</h3>
-                <p>Como configurar tamanhos, dureza e criar efeitos artísticos.</p>
-            </div>
-            <a href="https://www.youtube.com/watch?v=vhArnD6TRps" target="_blank" class="btn btn-ps">
-                <i class="fab fa-youtube"></i> Assistir Aula (Coisas de Designer)
+         <article class="card">
+            <a href="https://lucascharnyai.com/como-criar-um-novo-documento-no-photoshop/" target="_blank" class="thumb-wrapper">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thumbnail Configuração">
+                <div class="play-overlay"><div class="play-icon" style="border-radius: 12px;"><i class="fas fa-external-link-alt"></i></div></div>
             </a>
-        </div>
+            <div class="card-content">
+                <div class="tag-header accent-setup">
+                    <i class="fas fa-cog tag-icon"></i> CONFIGURAÇÃO
+                </div>
+                <h3>Criar Novo Documento (Guia Escrito)</h3>
+                <p>Tamanhos, resolução (DPI) e modos de cor (RGB vs CMYK) explicados.</p>
+                <a href="https://lucascharnyai.com/como-criar-um-novo-documento-no-photoshop/" target="_blank" class="btn btn-ps">
+                    <i class="fas fa-book-open"></i> Ler Guia
+                </a>
+            </div>
+        </article>
     </div>
 
-    <div class="section-header pp">
-        <i class="fas fa-leaf"></i>
-        <h2>Photopea (Online)</h2>
+    <div class="section-title pp-section" style="margin-top: 60px;">
+        <i class="fas fa-leaf section-logo"></i>
+        <h2>Photopea (Online Gratuito)</h2>
     </div>
 
     <div class="grid">
-        <div class="card">
-            <div>
-                <span class="tag intro">Básico</span>
-                <h3>Curso Completo Grátis</h3>
-                <p>Uma visão geral da alternativa gratuita ao Photoshop.</p>
-            </div>
-            <a href="https://www.youtube.com/results?search_query=curso+photopea" target="_blank" class="btn btn-pp">
-                <i class="fab fa-youtube"></i> Pesquisar Playlist
+        <article class="card">
+            <a href="https://www.youtube.com/results?search_query=photopea+iniciantes" target="_blank" class="thumb-wrapper">
+                 <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thumbnail Photopea">
+                <div class="play-overlay"><div class="play-icon"><i class="fas fa-search"></i></div></div>
             </a>
-        </div>
-
-        <div class="card">
-            <div>
-                <span class="tag tools">Interface</span>
-                <h3>Como usar o Photopea</h3>
-                <p>Tutorial rápido para quem está a migrar ou começar do zero.</p>
+            <div class="card-content">
+                <div class="tag-header" style="color: var(--pp-green);">
+                    <i class="fas fa-graduation-cap tag-icon"></i> CURSO BÁSICO
+                </div>
+                <h3>Começar no Photopea do Zero</h3>
+                <p>Encontra aqui uma lista de vídeos para quem não pode usar o Photoshop.</p>
+                <a href="https://www.youtube.com/results?search_query=photopea+iniciantes" target="_blank" class="btn btn-pp">
+                    <i class="fab fa-youtube"></i> Pesquisar Aulas
+                </a>
             </div>
-            <a href="https://www.youtube.com/watch?v=q6q6q6q" target="_blank" class="btn btn-pp">
-                <i class="fab fa-youtube"></i> Assistir (Diolinux)
+        </article>
+       
+        <article class="card">
+            <a href="https://www.youtube.com/results?search_query=photopea+mascaras+recorte" target="_blank" class="thumb-wrapper">
+                <img src="https://images.unsplash.com/photo-1598300042247-d084f479737d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thumbnail Photopea Máscaras">
+                <div class="play-overlay"><div class="play-icon"><i class="fas fa-search"></i></div></div>
             </a>
-        </div>
-
-        <div class="card">
-            <div>
-                <span class="tag mask">Avançado</span>
-                <h3>Máscaras de Camada</h3>
-                <p>Aprenda a fazer edições não destrutivas no navegador.</p>
+            <div class="card-content">
+                <div class="tag-header accent-cut">
+                    <i class="fas fa-mask tag-icon"></i> MÁSCARAS NO BROWSER
+                </div>
+                <h3>Recorte e Máscaras no Photopea</h3>
+                <p>Vê como aplicar as mesmas técnicas de recorte do Photoshop na versão online.</p>
+                <a href="https://www.youtube.com/results?search_query=photopea+mascaras+recorte" target="_blank" class="btn btn-pp">
+                    <i class="fab fa-youtube"></i> Pesquisar Exemplos
+                </a>
             </div>
-            <a href="https://www.youtube.com/results?search_query=photopea+mascaras" target="_blank" class="btn btn-pp">
-                <i class="fab fa-youtube"></i> Ver Exemplos
-            </a>
-        </div>
+        </article>
     </div>
 
 </div>
 
-<footer>
-    <p>Bons estudos! ✨</p>
+<footer style="text-align: center; padding: 30px; color: var(--text-secondary); margin-top: 40px; border-top: 2px solid #333;">
+    <p>Criado para os alunos de Design. 🎨 Bons estudos!</p>
 </footer>
 
 </body>
