@@ -2,55 +2,46 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin creativeHUB</title>
+    <title>Admin creativeHUB - Gerador de Código</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #050505; color: white; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; background: #111; padding: 30px; border-radius: 16px; border: 1px solid #333; }
+        .container { max-width: 1000px; margin: 0 auto; background: #111; padding: 30px; border-radius: 16px; border: 1px solid #333; }
         
-        /* AVISO IMPORTANTE */
-        .step-box { background: #001a33; border: 2px solid #00C6FF; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
+        .step-box { background: rgba(0, 198, 255, 0.05); border: 2px solid #00C6FF; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
         .step-box h3 { color: #00C6FF; margin-bottom: 10px; font-size: 1rem; }
-        .step-box p { font-size: 0.85rem; color: #ccc; }
-
-        h2 { text-align: center; color: #00C6FF; font-weight: 800; margin-bottom: 30px; }
         
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #161616; padding: 20px; border-radius: 12px; border: 1px solid #222; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #161616; padding: 20px; border-radius: 12px; }
         .full { grid-column: span 2; }
         
-        label { font-size: 0.75rem; color: #888; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        label { font-size: 0.75rem; color: #888; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 5px; }
         input, select, textarea { width: 100%; padding: 12px; background: #050505; border: 1px solid #333; color: white; border-radius: 8px; outline: none; }
-        input:focus { border-color: #00C6FF; }
-
-        .btn { padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 8px; border: none; transition: 0.3s; margin-top: 10px; }
-        .save-item { background: #00C6FF; color: #000; font-size: 1rem; }
-        .download-btn { background: #22c55e; color: white; font-size: 1.2rem; margin-top: 40px; border: 2px solid #22c55e; }
-        .download-btn:hover { background: transparent; color: #22c55e; }
         
-        .list-header { margin-top: 40px; padding-bottom: 10px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; }
-        .item { background: #161616; padding: 15px; border-radius: 10px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .actions { display: flex; gap: 8px; }
-        .actions button { width: 35px; height: 35px; border: none; border-radius: 6px; cursor: pointer; color: white; }
-        .edit { background: #eab308; } .del { background: #ef4444; } .move { background: #333; }
+        .btn { padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 8px; border: none; transition: 0.3s; margin-top: 10px; }
+        .save-item { background: #00C6FF; color: #000; }
+        
+        /* ÁREA DE CÓDIGO */
+        .code-output { margin-top: 30px; background: #000; padding: 20px; border-radius: 12px; border: 1px solid #444; }
+        #codeArea { width: 100%; height: 200px; background: transparent; color: #00FF00; font-family: monospace; border: none; resize: none; margin-top: 10px; }
+        .copy-btn { background: #22c55e; color: white; }
 
-        #toast { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; background: #00C6FF; color: black; font-weight: 800; transform: translateX(400px); transition: 0.5s; z-index: 1000; }
-        #toast.show { transform: translateX(0); }
+        .item { background: #161616; padding: 12px; border-radius: 10px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .actions button { width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer; color: white; margin-left: 5px; }
+        .edit { background: #eab308; } .del { background: #ef4444; }
     </style>
 </head>
 <body>
 
-<div id="toast">LISTA ATUALIZADA!</div>
-
 <div class="container">
     <div class="step-box">
-        <h3><i class="fas fa-exclamation-triangle"></i> ATENÇÃO: PARA GRAVAR OS VÍDEOS</h3>
-        <p>1. Adiciona ou edita os vídeos abaixo.<br>
-           2. Clica no botão verde <b>"DESCARREGAR VIDEOS.JS"</b> no fundo da página.<br>
-           3. <b>MUITO IMPORTANTE:</b> Pega no ficheiro que baixou e coloca-o na pasta do teu site, substituindo o que lá está.</p>
+        <h3><i class="fas fa-magic"></i> COMO ATUALIZAR O SITE:</h3>
+        <p style="font-size: 0.9rem;">1. Adiciona ou edita os vídeos abaixo.<br>
+           2. Clica no botão verde <b>"GERAR CÓDIGO PARA VIDEOS.JS"</b>.<br>
+           3. <b>Copia o código</b> que aparecer e substitui TODO o texto dentro do teu ficheiro <b>videos.js</b>.</p>
     </div>
 
-    <h2><i class="fas fa-user-shield"></i> creativeHUB Admin</h2>
+    <h2>Admin Panel</h2>
     
     <input type="hidden" id="editIndex" value="">
 
@@ -65,75 +56,46 @@
         </div>
         <div>
             <label>Sub-Categoria (ps, pp, cv)</label>
-            <input type="text" id="program" placeholder="Ex: ps">
-        </div>
-        <div>
-            <label>Tipo</label>
-            <select id="type">
-                <option value="video">Vídeo (YouTube)</option>
-                <option value="doc">Documento / Link</option>
-            </select>
-        </div>
-        <div>
-            <label>Etiqueta (Tag)</label>
-            <input type="text" id="tag" placeholder="Ex: Iniciante">
+            <input type="text" id="program" placeholder="ps">
         </div>
         <div class="full">
-            <label>Link Completo ou ID Youtube</label>
-            <input type="text" id="id" placeholder="Ex: https://www.youtube.com/watch?v=XXXXX">
+            <label>ID Youtube ou Link</label>
+            <input type="text" id="id" placeholder="Ex: I5k5Qj_VaaE">
         </div>
         <div class="full">
             <label>Título</label>
             <input type="text" id="title">
         </div>
         <div class="full">
-            <label>Descrição Curta</label>
+            <label>Descrição</label>
             <input type="text" id="desc">
         </div>
         <div class="full">
-            <label>URL da Imagem (Thumbnail)</label>
-            <input type="text" id="thumb" placeholder="https://images.unsplash.com/...">
+            <label>URL da Thumbnail</label>
+            <input type="text" id="thumb">
         </div>
-        
-        <button class="btn save-item" id="mainBtn" onclick="addItem()">
-            <i class="fas fa-plus-circle"></i> ATUALIZAR LISTA TEMPORÁRIA
-        </button>
+        <button class="btn save-item" onclick="addItem()">ATUALIZAR LISTA</button>
     </div>
 
-    <div class="list-header">
-        <h3>Conteúdos na Lista (<span id="count">0</span>)</h3>
-    </div>
-    <div id="list"></div>
+    <div id="list" style="margin-top: 20px;"></div>
 
-    <button class="btn download-btn" onclick="generateFile()">
-        <i class="fas fa-save"></i> DESCARREGAR VIDEOS.JS (PARA GRAVAR)
-    </button>
+    <div class="code-output">
+        <label style="color: #22c55e;">Código Gerado (Copia isto):</label>
+        <textarea id="codeArea" readonly placeholder="O código aparecerá aqui..."></textarea>
+        <button class="btn copy-btn" onclick="generateAndCopy()">1. GERAR CÓDIGO PARA VIDEOS.JS</button>
+    </div>
 </div>
 
 <script src="videos.js"></script>
 <script>
-    // Inicia com os dados existentes no videos.js
     let data = (typeof tutorialData !== 'undefined') ? tutorialData : [];
 
-    function notify(msg) {
-        const t = document.getElementById('toast');
-        t.innerText = msg;
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3000);
-    }
-
     function render() {
-        document.getElementById('count').innerText = data.length;
         const listEl = document.getElementById('list');
         listEl.innerHTML = data.map((item, i) => `
             <div class="item">
-                <div>
-                    <b>${item.title}</b><br>
-                    <small style="color:#555">${item.section} | ${item.program}</small>
-                </div>
+                <span><b>${item.title}</b> (${item.program})</span>
                 <div class="actions">
-                    <button class="move" onclick="move(${i},-1)">↑</button>
-                    <button class="move" onclick="move(${i},1)">↓</button>
                     <button class="edit" onclick="editItem(${i})"><i class="fas fa-pen"></i></button>
                     <button class="del" onclick="deleteItem(${i})"><i class="fas fa-trash"></i></button>
                 </div>
@@ -143,68 +105,40 @@
 
     function addItem() {
         const idx = document.getElementById('editIndex').value;
-        let idVal = document.getElementById('id').value;
-
-        // Limpar Link do Youtube para ID
-        if(idVal.includes('v=')) idVal = idVal.split('v=')[1].split('&')[0];
-        else if(idVal.includes('youtu.be/')) idVal = idVal.split('youtu.be/')[1].split('?')[0];
-
         const obj = {
             section: document.getElementById('section').value,
             program: document.getElementById('program').value,
-            type: document.getElementById('type').value,
-            tag: document.getElementById('tag').value,
+            type: "video", // Por padrão vídeo
+            tag: "Tutorial",
             title: document.getElementById('title').value,
             desc: document.getElementById('desc').value,
-            id: idVal,
+            id: document.getElementById('id').value,
             thumb: document.getElementById('thumb').value
         };
-
         if(idx === "") data.push(obj); else data[idx] = obj;
-
         document.getElementById('editIndex').value = "";
-        document.getElementById('mainBtn').innerHTML = '<i class="fas fa-plus-circle"></i> ATUALIZAR LISTA TEMPORÁRIA';
-        
-        // Limpar campos
-        ['id','title','desc','thumb'].forEach(id => document.getElementById(id).value = "");
-        
         render();
-        notify("LISTA ATUALIZADA!");
     }
 
     function editItem(i) {
         const item = data[i];
         document.getElementById('editIndex').value = i;
-        document.getElementById('section').value = item.section;
-        document.getElementById('program').value = item.program;
-        document.getElementById('type').value = item.type;
-        document.getElementById('tag').value = item.tag;
-        document.getElementById('id').value = item.id;
         document.getElementById('title').value = item.title;
+        document.getElementById('id').value = item.id;
         document.getElementById('desc').value = item.desc;
         document.getElementById('thumb').value = item.thumb;
-        document.getElementById('mainBtn').innerHTML = '<i class="fas fa-check"></i> CONFIRMAR ALTERAÇÃO';
+        document.getElementById('program').value = item.program;
         window.scrollTo(0,0);
     }
 
-    function deleteItem(i) { if(confirm("Remover?")) { data.splice(i,1); render(); } }
-    
-    function move(i, dir) {
-        let n = i + dir;
-        if(n >= 0 && n < data.length) {
-            [data[i], data[n]] = [data[n], data[i]];
-            render();
-        }
-    }
+    function deleteItem(i) { data.splice(i,1); render(); }
 
-    function generateFile() {
-        const blob = new Blob([`const tutorialData = ${JSON.stringify(data, null, 2)};`], {type: 'text/javascript'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'videos.js';
-        a.click();
-        alert("FICHEIRO GERADO!\n\nAgora vai à pasta de Downloads, copia o 'videos.js' e cola-o na pasta do teu site para substituir o antigo.");
+    function generateAndCopy() {
+        const finalCode = `const tutorialData = ${JSON.stringify(data, null, 2)};`;
+        document.getElementById('codeArea').value = finalCode;
+        document.getElementById('codeArea').select();
+        document.execCommand('copy');
+        alert("Código gerado e copiado! Agora abre o ficheiro videos.js, apaga tudo e cola este código novo.");
     }
 
     render();
