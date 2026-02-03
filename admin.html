@@ -26,13 +26,13 @@
         .del { background: #ff4757; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 4px; }
         .del:hover { background: #e84118; }
         
-        .tag-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; background: #666; margin-left: 5px; }
+        .tag-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; background: #666; margin-left: 5px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2><i class="fas fa-edit"></i> Adicionar Vídeo</h2>
+    <h2><i class="fas fa-edit"></i> Painel de Controlo</h2>
     
     <label>Plataforma</label>
     <select id="platform">
@@ -51,11 +51,11 @@
 
     <label>Categoria (Tag)</label>
     <select id="tag">
-        <option value="CRIACAO">Criação / Docs / Config</option>
-        <option value="FERRAMENTAS">Ferramentas Básicas</option>
-        <option value="RECORTE">Recorte Simples</option>
-        <option value="MASCARAS">Máscaras (Avançado)</option>
-        <option value="EXTRA">Extras / Teoria / Exportar</option>
+        <option value="CRIACAO">1. Criação / Configuração</option>
+        <option value="FERRAMENTAS">2. Ferramentas Básicas</option>
+        <option value="RECORTE">3. Recorte Simples</option>
+        <option value="MASCARAS">4. Máscaras / Avançado</option>
+        <option value="EXTRA">5. Extras / Super Importante</option>
     </select>
 
     <button class="btn save" onclick="addVideo()"><i class="fas fa-plus-circle"></i> Adicionar à Lista</button>
@@ -69,9 +69,8 @@
         <i class="fas fa-file-download"></i> SALVAR MUDANÇAS (Baixar videos.js)
     </button>
     <p style="text-align:center; color:#888; margin-top:10px; font-size:0.85rem;">
-        1. Adiciona os vídeos.<br>
-        2. Clica no botão AZUL para baixar o ficheiro.<br>
-        3. Substitui o 'videos.js' na pasta.
+        Ao clicar, será baixado um novo ficheiro 'videos.js'.<br>
+        Substitui o antigo na tua pasta.
     </p>
 </div>
 
@@ -140,7 +139,7 @@
         link.download = "videos.js"; 
         link.click();
         
-        alert("Ficheiro 'videos.js' baixado! Agora move-o para a tua pasta e substitui o antigo.");
+        alert("Ficheiro 'videos.js' criado! Agora arrasta-o para a tua pasta e substitui o antigo.");
     }
 
     // Iniciar
