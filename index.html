@@ -9,9 +9,7 @@
     
     <style>
         :root {
-            --bg-body: #050505;
-            --sidebar-bg: #090909;
-            --card-bg: #121212;
+            --bg-body: #050505; --sidebar-bg: #090909; --card-bg: #121212;
             --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
             --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
             --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
@@ -39,9 +37,7 @@
             width: 100%; background: transparent; border: 2px solid transparent; color: var(--text-dim);
             text-align: left; padding: 16px 22px; font-size: 0.95rem; font-weight: 600; border-radius: 12px;
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-            background-clip: padding-box;
         }
-        .nav-btn i { width: 24px; text-align: center; }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
         .nav-btn.active { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; font-weight: 700; transform: translateX(5px); }
@@ -51,12 +47,10 @@
 
         /* --- MAIN AREA --- */
         .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 60px; min-height: 100vh; }
-        .section-header { margin-bottom: 40px; }
-        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; }
-        .section-desc { color: var(--text-dim); margin-top: 5px; }
+        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 40px; }
 
         /* --- CHIPS --- */
-        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; }
         .chip {
             background: transparent; border: 1px solid #333; color: #777; padding: 12px 24px; border-radius: 12px;
             cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 10px;
@@ -67,31 +61,26 @@
         .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
 
         /* --- GRID & CARDS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; transition: 0.3s; }
-        .card:hover { transform: translateY(-7px); border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .thumb { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; position: relative; }
+        .card:hover { transform: translateY(-7px); border-color: #444; }
+        .thumb { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; }
         .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+        .card:hover .thumb img { opacity: 1; }
         .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; }
         
-        .t-ps { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
-        .t-pp { color: var(--c-green); background: rgba(0, 176, 155, 0.1); }
-        .t-cv { color: var(--c-purple); background: rgba(157, 80, 187, 0.1); }
+        /* Tag Colors */
+        .t-soft { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
         .t-mkt { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
         .t-inspo { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
 
         .card-btn {
             text-decoration: none; width: 100%; padding: 12px 0; border-radius: 12px; font-size: 0.9rem; font-weight: 700;
             margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: transparent; border: 2px solid transparent; color: var(--text-dim); background-clip: padding-box; transition: 0.3s;
+            background: transparent; border: 1px solid transparent; color: var(--text-dim); transition: 0.3s;
         }
-        .card-btn:hover { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; }
-        .card.ps:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-blue); }
-        .card.pp:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-green); }
-        .card.cv:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-purple); }
-        .card.mkt:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-pink); }
-        .card.inspo:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-yellow); }
+        .card:hover .card-btn { border-color: #444; color: white; background: rgba(255,255,255,0.05); }
 
         .view-section { display: none; }
         .view-section.active { display: block; animation: fadeIn 0.4s ease; }
@@ -99,7 +88,7 @@
 
         @media (max-width: 900px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #222; padding: 20px; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; padding: 20px; }
             .main-content { margin-left: 0; width: 100%; padding: 30px 20px; }
         }
     </style>
@@ -120,10 +109,7 @@
 
 <main class="main-content">
     <div id="SOFTWARE" class="view-section active">
-        <div class="section-header">
-            <h1 class="section-title">Software Lab</h1>
-            <p class="section-desc">Domina as ferramentas profissionais.</p>
-        </div>
+        <h1 class="section-title">Software Lab</h1>
         <div class="chips-container">
             <button class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
             <button class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
@@ -133,62 +119,50 @@
     </div>
 
     <div id="MARKETING" class="view-section">
-        <div class="section-header">
-            <h1 class="section-title" style="color:var(--c-pink)">Marketing Toolkit</h1>
-            <p class="section-desc">Recursos para criar impacto.</p>
-        </div>
+        <h1 class="section-title">Marketing Toolkit</h1>
         <div class="grid" id="grid-marketing"></div>
     </div>
 
     <div id="INSPIRATION" class="view-section">
-        <div class="section-header">
-            <h1 class="section-title" style="color:var(--c-yellow)">Mindset & Cultura</h1>
-            <p class="section-desc">Expande a tua visão criativa.</p>
-        </div>
+        <h1 class="section-title">Mindset & Cultura</h1>
         <div class="grid" id="grid-inspiration"></div>
     </div>
 </main>
 
 <script src="videos.js"></script>
 <script>
-    const fallbackImg = "https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800";
-
     function render(filter) {
         const grids = {
             'SOFTWARE': document.getElementById('grid-software'),
             'MARKETING': document.getElementById('grid-marketing'),
             'INSPIRATION': document.getElementById('grid-inspiration')
         };
-        
-        Object.values(grids).forEach(g => { if(g) g.innerHTML = ''; });
+        Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let thumb = item.thumb || `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
             let link = item.type === 'video' ? `https://www.youtube.com/watch?v=${item.id}` : item.id;
-            let icon = item.type === 'video' ? 'fa-play' : 'fa-external-link-alt';
-            let label = item.type === 'video' ? 'Assistir Aula' : 'Aceder';
-            
-            let typeClass = item.program || item.section.toLowerCase();
-            let tagClass = `t-${typeClass}`;
+            let tagClass = item.section === 'SOFTWARE' ? 't-soft' : (item.section === 'MARKETING' ? 't-mkt' : 't-inspo');
 
             const html = `
-                <article class="card ${typeClass}">
+                <article class="card">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.onerror=null;this.src='${fallbackImg}';">
+                        <img src="${thumb}" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800';">
                     </a>
                     <div class="content">
                         <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
-                        <p style="font-size:0.9rem; color:#888; margin-bottom:20px;">${item.desc}</p>
+                        <p style="font-size:0.85rem; color:#666; margin: 10px 0 20px;">${item.desc}</p>
                         <a href="${link}" target="_blank" class="card-btn">
-                            <i class="fas ${icon}"></i> ${label}
+                            <i class="fas ${item.type === 'video' ? 'fa-play' : 'fa-external-link-alt'}"></i> 
+                            ${item.type === 'video' ? 'Assistir' : 'Aceder'}
                         </a>
                     </div>
                 </article>
             `;
-            if(grids[item.section]) grids[item.section].innerHTML += html;
+            grids[item.section].innerHTML += html;
         });
     }
 
@@ -205,7 +179,6 @@
         render(prog);
     }
 
-    // Inicialização
     window.onload = () => render('ps');
 </script>
 </body>
