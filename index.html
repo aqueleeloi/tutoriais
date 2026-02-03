@@ -3,354 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>DESIGN HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* BASE COLORS */
-            --bg-body: #080808;
-            --bg-card: #141414;
-            --border: #262626;
-            --text-main: #FFFFFF;
-            --text-dim: #9ca3af;
-
-            /* NEON ACCENTS */
-            --neon-blue: #06b6d4;   /* Software */
-            --neon-pink: #ec4899;   /* Marketing */
-            --neon-yellow: #eab308; /* Inspiration */
-            --neon-purple: #8b5cf6; /* Canva/Extra */
-            --neon-green: #22c55e;  /* Photopea */
+            /* Cores de Fundo Deep Space */
+            --bg-body: #050505;
+            --sidebar-bg: rgba(20, 20, 20, 0.6);
+            --card-bg: #121212;
+            
+            /* NEON GRADIENTS (A Vida do Site) */
+            --gradient-blue: linear-gradient(135deg, #00C6FF, #0072FF);
+            --gradient-purple: linear-gradient(135deg, #a855f7, #6366f1);
+            --gradient-hot: linear-gradient(135deg, #FF416C, #FF4B2B);
+            --gradient-green: linear-gradient(135deg, #00b09b, #96c93d);
+            
+            /* Textos */
+            --text-main: #ffffff;
+            --text-muted: #888888;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
+            /* Grid subtil no fundo para dar textura técnica */
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             color: var(--text-main);
-            min-height: 100vh;
-            padding: 30px;
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* App feel */
         }
 
-        .wrapper { max-width: 1300px; margin: 0 auto; }
-
-        /* --- MODERN HEADER --- */
-        header {
+        /* --- SIDEBAR (Hub Navigation) --- */
+        .sidebar {
+            width: 280px;
+            height: 100%;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255,255,255,0.05);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            flex-direction: column;
+            padding: 30px;
+            flex-shrink: 0;
         }
 
         .brand {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 50px;
             letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, #999);
+            background: linear-gradient(to right, #fff, #999);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        /* --- NAVIGATION CAPSULE --- */
-        .nav-capsule {
-            background: #1a1a1a;
-            padding: 5px;
-            border-radius: 50px;
-            display: flex;
-            gap: 5px;
-            border: 1px solid var(--border);
         }
 
         .nav-btn {
             background: transparent;
             border: none;
-            color: var(--text-dim);
-            padding: 10px 25px;
-            border-radius: 30px;
+            color: var(--text-muted);
+            text-align: left;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; align-items: center; gap: 15px;
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .nav-btn i { width: 20px; text-align: center; font-size: 1.1rem; }
+
+        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+
+        /* Estados Ativos com Brilho Neon */
+        .nav-btn.active.soft { background: var(--gradient-blue); color: white; box-shadow: 0 5px 20px rgba(0, 114, 255, 0.4); }
+        .nav-btn.active.mkt { background: var(--gradient-hot); color: white; box-shadow: 0 5px 20px rgba(255, 75, 43, 0.4); }
+        .nav-btn.active.inspo { background: var(--gradient-green); color: white; box-shadow: 0 5px 20px rgba(150, 201, 61, 0.4); }
+
+        /* --- MAIN AREA --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto; /* Scroll só aqui */
+            position: relative;
+        }
+
+        /* Sub-Header */
+        .section-header { margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; }
+        .section-title { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: white; }
+        .section-desc { color: var(--text-muted); margin-top: 5px; }
+
+        /* Sub-Tabs (Chips) */
+        .chips-container { display: flex; gap: 10px; margin-bottom: 30px; }
+        .chip {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #888;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .nav-btn:hover { color: white; }
-
-        /* Cores Ativas das Abas */
-        .nav-btn.active.soft { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
-        .nav-btn.active.mkt { background: var(--neon-pink); color: white; box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
-        .nav-btn.active.inspo { background: var(--neon-yellow); color: #000; box-shadow: 0 0 15px rgba(234, 179, 8, 0.4); }
-
-        /* --- SUB-TABS (SOFTWARE) --- */
-        .sub-nav { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-        
-        .sub-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex; align-items: center; gap: 8px;
             transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
         }
+        .chip:hover { border-color: #666; color: white; }
+        .chip.active { background: white; color: black; border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        .sub-btn:hover { border-color: #555; color: white; }
-        
-        .sub-btn.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(6, 182, 212, 0.1); }
-        .sub-btn.active[data-prog="pp"] { border-color: var(--neon-green); color: var(--neon-green); background: rgba(34, 197, 94, 0.1); }
-        .sub-btn.active[data-prog="cv"] { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(139, 92, 246, 0.1); }
-
-        /* --- GRID --- */
+        /* --- GRID DE CARTÕES (A Alma do Hub) --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
+            padding-bottom: 50px;
         }
 
-        /* --- CARTÃO MODERNO --- */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            background: var(--card-bg);
+            border-radius: 20px;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s, border-color 0.3s;
-            position: relative;
         }
 
+        /* Efeito Hover "Pop" */
         .card:hover {
-            transform: translateY(-5px);
-            border-color: #444;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            z-index: 2;
         }
 
-        /* Imagem */
         .thumb {
-            position: relative;
             width: 100%;
             aspect-ratio: 16/9;
             overflow: hidden;
-            background: #000;
+            position: relative;
         }
-        
+
         .thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             opacity: 0.8;
-            transition: 0.4s;
+            transition: 0.5s;
         }
-        
-        .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
-        /* Play Button (Glass) */
-        .play-icon {
+        .card:hover .thumb img { opacity: 1; transform: scale(1.1); }
+
+        /* Tags Flutuantes (Gradient) */
+        .tag-float {
             position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px; height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Conteúdo */
-        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-
-        /* TAGS CATEGORIA (AQUI ESTÁ A COR QUE PEDISTE!) */
-        .category-tag {
+            top: 15px; left: 15px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            width: fit-content;
-            display: inline-block;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
         }
 
-        /* Estilos de Cor das Tags */
-        .tag-cyan { background: rgba(6, 182, 212, 0.15); color: var(--neon-blue); border: 1px solid rgba(6, 182, 212, 0.3); }
-        .tag-pink { background: rgba(236, 72, 153, 0.15); color: var(--neon-pink); border: 1px solid rgba(236, 72, 153, 0.3); }
-        .tag-yellow { background: rgba(234, 179, 8, 0.15); color: var(--neon-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
-        .tag-green { background: rgba(34, 197, 94, 0.15); color: var(--neon-green); border: 1px solid rgba(34, 197, 94, 0.3); }
-        .tag-purple { background: rgba(139, 92, 246, 0.15); color: var(--neon-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
+        /* Cores Dinâmicas das Tags */
+        .card.soft .tag-float { background: var(--gradient-blue); }
+        .card.mkt .tag-float { background: var(--gradient-hot); }
+        .card.inspo .tag-float { background: var(--gradient-green); }
+        .card.cv .tag-float { background: var(--gradient-purple); }
 
-        h3 { font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; color: white; }
-        p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
+        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        /* Link "Botão" */
-        .card-link {
-            font-size: 0.9rem;
-            font-weight: 700;
+        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; }
+        .card p { font-size: 0.9rem; color: #777; margin-bottom: 20px; flex-grow: 1; line-height: 1.6; }
+
+        /* Botão Brilhante */
+        .action-btn {
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .link-cyan { color: var(--neon-blue); }
-        .link-pink { color: var(--neon-pink); }
-        .link-yellow { color: var(--neon-yellow); }
-        
-        .card:hover .card-link { gap: 12px; } /* Animação setinha */
 
-        /* Secções */
-        .view-section { display: none; animation: fadeInUp 0.4s ease; }
-        .view-section.active { display: block; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card:hover .action-btn {
+            background: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
 
-        /* Mobile */
-        @media(max-width: 768px) {
-            header { flex-direction: column; gap: 20px; }
-            .nav-capsule { width: 100%; justify-content: center; }
-            .sub-nav { overflow-x: auto; padding-bottom: 5px; flex-wrap: nowrap; }
-            .sub-btn { white-space: nowrap; }
+        /* Animações de Entrada */
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Aviso Erro */
+        #debug { display: none; background: #ff0044; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; }
+
+        @media (max-width: 900px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #333; padding: 20px; }
+            .main-content { padding: 20px; overflow: visible; }
+            .chips-container { overflow-x: auto; padding-bottom: 10px; }
+            .chip { white-space: nowrap; }
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<aside class="sidebar">
+    <div class="brand">DESIGN<span style="font-weight:300; opacity:0.5">HUB</span></div>
     
-    <header>
-        <div class="brand">CREATIVE <span style="font-weight:400; color:#666">HUB.</span></div>
-        
-        <nav class="nav-capsule">
-            <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">Software</button>
-            <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)">Marketing</button>
-            <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)">Inspiration</button>
-        </nav>
-    </header>
+    <nav>
+        <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">
+            <i class="fas fa-layer-group"></i> Software Lab
+        </button>
+        <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)">
+            <i class="fas fa-rocket"></i> Marketing Toolkit
+        </button>
+        <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)">
+            <i class="fas fa-lightbulb"></i> Mindset & Cultura
+        </button>
+    </nav>
+</aside>
 
-    <main>
-        <div id="debug-error" style="display:none; color:red; text-align:center; padding:20px;">⚠️ Erro: videos.js não carregou.</div>
+<section class="main-content">
+    
+    <div id="debug">⚠️ ERRO: videos.js não encontrado.</div>
 
-        <div id="SOFTWARE" class="view-section active">
-            <div class="sub-nav">
-                <button class="sub-btn active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
-                <button class="sub-btn" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
-                <button class="sub-btn" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
+    <div id="SOFTWARE" class="view-section active">
+        <div class="section-header">
+            <div>
+                <div class="section-title">Software Lab</div>
+                <div class="section-desc">Domina as ferramentas essenciais.</div>
             </div>
-            <div class="grid" id="grid-software"></div>
         </div>
 
-        <div id="MARKETING" class="view-section">
-            <div class="grid" id="grid-marketing"></div>
+        <div class="chips-container">
+            <div class="chip active" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
+            <div class="chip" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
+            <div class="chip" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
         </div>
 
-        <div id="INSPIRATION" class="view-section">
-            <div class="grid" id="grid-inspiration"></div>
-        </div>
-    </main>
+        <div class="grid" id="grid-software"></div>
+    </div>
 
-</div>
+    <div id="MARKETING" class="view-section">
+        <div class="section-header">
+            <div>
+                <div class="section-title" style="background: var(--gradient-hot); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Marketing Toolkit</div>
+                <div class="section-desc">Recursos para criar impacto.</div>
+            </div>
+        </div>
+        <div class="grid" id="grid-marketing"></div>
+    </div>
+
+    <div id="INSPIRATION" class="view-section">
+        <div class="section-header">
+            <div>
+                <div class="section-title" style="background: var(--gradient-green); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Mindset & Cultura</div>
+                <div class="section-desc">Expande a tua visão.</div>
+            </div>
+        </div>
+        <div class="grid" id="grid-inspiration"></div>
+    </div>
+
+</section>
 
 <script src="videos.js"></script>
 <script>
-    // 1. Check
+    // 1. Check de Segurança
     let safeData = [];
     if (typeof tutorialData === 'undefined') {
-        document.getElementById('debug-error').style.display = 'block';
+        document.getElementById('debug').style.display = 'block';
     } else {
         safeData = tutorialData;
         initApp();
     }
 
-    // 2. Init
     function initApp() {
-        const grids = {
-            'SOFTWARE': document.getElementById('grid-software'),
-            'MARKETING': document.getElementById('grid-marketing'),
-            'INSPIRATION': document.getElementById('grid-inspiration')
-        };
-        render('ps', grids);
+        render('ps'); // Inicia com Photoshop
     }
 
-    // 3. Render com Lógica de Cores NEON
-    function render(filter, grids) {
-        Object.values(grids).forEach(g => g.innerHTML = '');
+    // 2. Renderizador Mágico
+    function render(filter) {
+        // Limpar Grids
+        document.getElementById('grid-software').innerHTML = '';
+        document.getElementById('grid-marketing').innerHTML = '';
+        document.getElementById('grid-inspiration').innerHTML = '';
 
         safeData.forEach(item => {
+            // Filtro apenas para software
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
+            // Variáveis Visuais
+            let thumb = item.thumb || "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500&q=80"; // Imagem abstrata dark
+            let actionText = "Aceder";
             let link = item.id;
-            let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
-            let icon = "fas fa-file-alt";
-            let actionText = "Abrir Recurso";
-
-            if (item.type === 'video') {
+            
+            if(item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                icon = "fas fa-play";
-                actionText = "Ver Aula";
+                actionText = "Assistir Aula";
+            } else {
+                if(!item.thumb) thumb = "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80"; // Imagem Doc
             }
 
-            // --- Lógica de Cores das TAGS ---
-            let tagStyle = 'tag-cyan';
-            let linkStyle = 'link-cyan';
-
-            // Cores por Secção
-            if (item.section === 'MARKETING') { tagStyle = 'tag-pink'; linkStyle = 'link-pink'; }
-            if (item.section === 'INSPIRATION') { tagStyle = 'tag-yellow'; linkStyle = 'link-yellow'; }
-            
-            // Cores Específicas por Programa
-            if (item.program === 'pp') { tagStyle = 'tag-green'; linkStyle = 'link-cyan'; } // Photopea Verde
-            if (item.program === 'cv') { tagStyle = 'tag-purple'; linkStyle = 'link-cyan'; } // Canva Roxo
+            // Classes para cor (Gradient Tags)
+            let cardClass = "soft"; // Default blue
+            if(item.section === 'MARKETING') cardClass = "mkt";
+            if(item.section === 'INSPIRATION') cardClass = "inspo";
+            if(item.program === 'cv') cardClass = "cv"; // Canva roxo
 
             const html = `
-                <article class="card">
+                <article class="card ${cardClass}">
+                    <div class="tag-float">${item.tag}</div>
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
-                        <div class="play-icon"><i class="${icon}"></i></div>
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/mqdefault.jpg'">
                     </a>
                     <div class="content">
-                        <div class="category-tag ${tagStyle}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="card-link ${linkStyle}">
-                            ${actionText} <i class="fas fa-arrow-right"></i>
+                        <a href="${link}" target="_blank" class="action-btn">
+                            ${actionText}
                         </a>
                     </div>
                 </article>
             `;
 
-            if(grids[item.section]) grids[item.section].innerHTML += html;
+            if(item.section === 'SOFTWARE') document.getElementById('grid-software').innerHTML += html;
+            else if(item.section === 'MARKETING') document.getElementById('grid-marketing').innerHTML += html;
+            else document.getElementById('grid-inspiration').innerHTML += html;
         });
     }
 
-    // 4. Funções Navegação
-    window.switchMain = function(secId, btn) {
+    // 3. Navegação
+    window.switchMain = function(id, btn) {
         document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
-        
-        document.getElementById(secId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         btn.classList.add('active');
     }
 
     window.filterSoftware = function(prog, btn) {
-        document.querySelectorAll('.sub-btn').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
         btn.classList.add('active');
-        
-        const grids = {
-            'SOFTWARE': document.getElementById('grid-software'),
-            'MARKETING': document.getElementById('grid-marketing'),
-            'INSPIRATION': document.getElementById('grid-inspiration')
-        };
-        render(prog, grids);
+        render(prog);
     }
 </script>
 </body>
