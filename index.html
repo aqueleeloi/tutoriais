@@ -174,9 +174,8 @@
 
         .thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
         
-        .thumb img { 
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.4s; 
-        }
+        /* Imagem com correção de object-fit */
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.4s; }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
         /* CONTEÚDO CENTRADO */
@@ -322,22 +321,20 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
+            // 1. Usa a imagem do JSON
             let thumb = item.thumb;
             
-            // LÓGICA DE IMAGEM BLINDADA
+            // 2. Se não houver no JSON, usa a do Youtube (HQ pq MaxRes falha mt)
             if (!thumb || thumb === "") {
                 if(item.type === 'video') {
-                    // USA HQDEFAULT (Sempre existe, MaxResDefault pode não existir)
                     thumb = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
                 } else {
-                    // Fallback geral
                     thumb = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
                 }
             }
 
-            // FUNÇÃO PARA TRATAR ERRO DE IMAGEM
-            // Se falhar (ex: link quebrado), mete uma imagem fixa bonita
-            const fallbackImg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
+            // 3. Fallback de Segurança (Imagem genérica escura se tudo falhar)
+            const fallbackImg = "https://images.unsplash.com/photo-1626785774573-4b79931256ce?w=800&q=80";
             const imgTag = `<img src="${thumb}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${item.title}">`;
 
             let btnText = "Aceder";
