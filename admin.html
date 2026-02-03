@@ -18,19 +18,37 @@
         input, select { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; outline: none; }
         input:focus { border-color: #38bdf8; }
 
-        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.2s; }
         .add { background: #22c55e; color: white; grid-column: span 2; }
+        .add:hover { background: #16a34a; }
+        .cancel { background: #555; color: white; grid-column: span 2; display: none; }
+        
         .dl { background: #38bdf8; color: #0f172a; font-size: 1.1rem; margin-top: 30px; }
 
+        /* Lista de Itens */
         .item { background: #0f172a; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #334155; }
-        .actions button { width: 30px; height: 30px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; }
-        .del { background: #ef4444; color: white; }
+        
+        .item.SOFTWARE { border-left-color: #38bdf8; }
+        .item.MARKETING { border-left-color: #f472b6; }
+        .item.INSPIRATION { border-left-color: #facc15; }
+
+        .info strong { display: block; font-size: 1rem; }
+        .info small { color: #94a3b8; font-size: 0.85rem; }
+
+        .actions button { width: 32px; height: 32px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; color: white; display: inline-flex; align-items: center; justify-content: center; }
+        .up, .down { background: #475569; }
+        .edit { background: #f59e0b; }
+        .del { background: #ef4444; }
+        .actions button:hover { filter: brightness(1.1); }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2><i class="fas fa-database"></i> Admin Panel</h2>
+    
+    <input type="hidden" id="editIndex">
 
     <div class="form-grid">
         <div>
@@ -83,11 +101,12 @@
             <input type="text" id="thumb" placeholder="https://images.unsplash.com/...">
         </div>
 
-        <button class="btn add" onclick="addItem()">Adicionar Conteúdo</button>
+        <button class="btn add" id="saveBtn" onclick="saveItem()">Adicionar Conteúdo</button>
+        <button class="btn cancel" id="cancelBtn" onclick="resetForm()">Cancelar Edição</button>
     </div>
 
     <div style="margin-top: 40px; border-top: 1px solid #334155; padding-top: 20px;">
-        <h3>Lista (<span id="count">0</span>)</h3>
+        <h3>Lista Atual (<span id="count">0</span>)</h3>
         <div id="list"></div>
     </div>
 
@@ -105,19 +124,22 @@
 
         data.forEach((item, i) => {
             list.innerHTML += `
-                <div class="item">
-                    <div>
+                <div class="item ${item.section}">
+                    <div class="info">
                         <strong>${item.title}</strong>
-                        <small style="color:#94a3b8; margin-left:10px">${item.section} > ${item.program || 'Geral'}</small>
+                        <small>${item.section} > ${item.program || 'Geral'} (${item.tag})</small>
                     </div>
                     <div class="actions">
+                        <button class="up" onclick="move(${i}, -1)"><i class="fas fa-arrow-up"></i></button>
+                        <button class="down" onclick="move(${i}, 1)"><i class="fas fa-arrow-down"></i></button>
+                        <button class="edit" onclick="edit(${i})"><i class="fas fa-pen"></i></button>
                         <button class="del" onclick="del(${i})"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>`;
         });
     }
 
-    function addItem() {
+    function saveItem() {
         const url = document.getElementById('url').value;
         const title = document.getElementById('title').value;
         const type = document.getElementById('type').value;
@@ -125,12 +147,13 @@
         if(!url || !title) { alert("Link e Título obrigatórios!"); return; }
 
         let finalId = url;
+        // Se for vídeo, tenta sacar o ID. Se não conseguir, usa o link todo.
         if(type === 'video') {
             const match = url.match(/(?:v=|\/)([\w-]{11})/);
             if(match) finalId = match[1];
         }
 
-        data.push({
+        const newItem = {
             section: document.getElementById('section').value,
             program: document.getElementById('program').value,
             type: type,
@@ -138,16 +161,73 @@
             title: title,
             desc: document.getElementById('desc').value,
             id: finalId,
-            thumb: document.getElementById('thumb').value // Salva a imagem custom
-        });
+            thumb: document.getElementById('thumb').value
+        };
 
+        const idx = document.getElementById('editIndex').value;
+        
+        if (idx === "") {
+            // ADICIONAR NOVO
+            data.push(newItem);
+        } else {
+            // ATUALIZAR EXISTENTE
+            data[idx] = newItem;
+        }
+
+        resetForm();
         render();
-        // Limpar campos simples
-        document.getElementById('title').value = '';
-        document.getElementById('url').value = '';
     }
 
-    function del(i) { if(confirm("Apagar?")) { data.splice(i, 1); render(); } }
+    function edit(i) {
+        const item = data[i];
+        document.getElementById('editIndex').value = i;
+        document.getElementById('section').value = item.section;
+        document.getElementById('program').value = item.program || '';
+        document.getElementById('type').value = item.type;
+        document.getElementById('tag').value = item.tag;
+        document.getElementById('title').value = item.title;
+        document.getElementById('desc').value = item.desc;
+        document.getElementById('thumb').value = item.thumb || '';
+
+        // Restaurar URL completo para o user ver
+        let showUrl = item.id;
+        if(item.type === 'video' && item.id.length === 11) showUrl = `https://www.youtube.com/watch?v=${item.id}`;
+        document.getElementById('url').value = showUrl;
+
+        // Mudar botões
+        document.getElementById('saveBtn').innerText = "Guardar Alterações";
+        document.getElementById('saveBtn').style.background = "#f59e0b";
+        document.getElementById('cancelBtn').style.display = "block";
+        
+        window.scrollTo(0,0);
+    }
+
+    function resetForm() {
+        document.getElementById('editIndex').value = "";
+        document.getElementById('title').value = '';
+        document.getElementById('url').value = '';
+        document.getElementById('desc').value = '';
+        document.getElementById('thumb').value = '';
+        
+        document.getElementById('saveBtn').innerText = "Adicionar Conteúdo";
+        document.getElementById('saveBtn').style.background = "#22c55e";
+        document.getElementById('cancelBtn').style.display = "none";
+    }
+
+    function del(i) {
+        if(confirm("Tens a certeza que queres apagar?")) {
+            data.splice(i, 1);
+            render();
+        }
+    }
+
+    function move(i, dir) {
+        const newPos = i + dir;
+        if (newPos >= 0 && newPos < data.length) {
+            [data[i], data[newPos]] = [data[newPos], data[i]];
+            render();
+        }
+    }
 
     function downloadFile() {
         const content = "const tutorialData = " + JSON.stringify(data, null, 2) + ";";
