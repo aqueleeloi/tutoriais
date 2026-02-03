@@ -1,4 +1,3 @@
-// Base de dados de Conteúdos
 const tutorialData = [
   // --- SOFTWARE LAB: PHOTOSHOP ---
   { "section": "SOFTWARE", "program": "ps", "type": "video", "tag": "Iniciante", "title": "Curso Básico (Aula 1)", "desc": "A introdução essencial ao software.", "id": "U6qC0w5k3ec", "thumb": "" },
