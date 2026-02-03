@@ -7,52 +7,72 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Poppins', sans-serif; background: #222; color: white; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: #333; padding: 20px; border-radius: 10px; }
-        input, select { width: 100%; padding: 10px; margin: 5px 0 15px; background: #444; border: 1px solid #555; color: white; border-radius: 5px; }
-        .btn { padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem; margin-bottom: 10px; }
-        .save { background: #00d26a; color: white; }
-        .download { background: #00a8ff; color: white; margin-top: 20px; padding: 20px; font-size: 1.2rem; }
-        .item { background: #444; padding: 10px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px; }
-        .del { background: #ff4757; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+        .container { max-width: 800px; margin: 0 auto; background: #333; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        h2 { text-align: center; color: #00d26a; margin-bottom: 20px; }
+        label { color: #ccc; font-size: 0.9rem; margin-top: 10px; display: block; }
+        input, select { width: 100%; padding: 12px; margin: 5px 0 15px; background: #444; border: 1px solid #555; color: white; border-radius: 5px; outline: none; }
+        input:focus { border-color: #00d26a; }
+
+        .btn { padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem; margin-bottom: 10px; transition: 0.2s; }
+        .save { background: #00d26a; color: #fff; }
+        .save:hover { background: #00b85c; }
+        
+        .download { background: #31A8FF; color: white; margin-top: 20px; padding: 20px; font-size: 1.2rem; }
+        .download:hover { background: #2290e0; }
+
+        .list-container { margin-top: 30px; border-top: 2px solid #555; padding-top: 20px; }
+        .item { background: #444; padding: 15px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-radius: 6px; }
+        .del { background: #ff4757; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 4px; }
+        .del:hover { background: #e84118; }
+        
+        .tag-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; background: #666; margin-left: 5px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align:center">Adicionar Novo Vídeo</h2>
+    <h2><i class="fas fa-edit"></i> Adicionar Vídeo</h2>
     
     <label>Plataforma</label>
     <select id="platform">
-        <option value="ps">Photoshop</option>
-        <option value="pp">Photopea</option>
+        <option value="ps">Adobe Photoshop (Azul)</option>
+        <option value="pp">Photopea (Verde)</option>
     </select>
 
-    <label>Link YouTube</label>
-    <input type="text" id="url" placeholder="Cola o link aqui...">
+    <label>Link do YouTube</label>
+    <input type="text" id="url" placeholder="Cola o link aqui (ex: https://youtube.com/watch?v=...)">
 
-    <label>Título</label>
-    <input type="text" id="title" placeholder="Título da aula...">
+    <label>Título da Aula</label>
+    <input type="text" id="title" placeholder="Ex: Como recortar cabelo">
 
-    <label>Descrição</label>
-    <input type="text" id="desc" placeholder="Pequena descrição...">
+    <label>Descrição Curta</label>
+    <input type="text" id="desc" placeholder="Ex: Técnica usando canais e máscaras...">
 
-    <label>Etiqueta</label>
+    <label>Categoria (Tag)</label>
     <select id="tag">
-        <option value="INTRO">Intro</option>
-        <option value="RECORTE">Recorte</option>
-        <option value="PINCEL">Pincel</option>
-        <option value="CONFIG">Config</option>
+        <option value="CRIACAO">Criação / Docs / Config</option>
+        <option value="FERRAMENTAS">Ferramentas Básicas</option>
+        <option value="RECORTE">Recorte Simples</option>
+        <option value="MASCARAS">Máscaras (Avançado)</option>
+        <option value="EXTRA">Extras / Teoria / Exportar</option>
     </select>
 
-    <button class="btn save" onclick="addVideo()">Adicionar à Lista</button>
+    <button class="btn save" onclick="addVideo()"><i class="fas fa-plus-circle"></i> Adicionar à Lista</button>
 
-    <h3 style="margin-top:30px; border-top:1px solid #555; padding-top:20px;">Lista Atual de Vídeos</h3>
-    <div id="list"></div>
+    <div class="list-container">
+        <h3 style="margin-bottom:15px">Vídeos na Lista: <span id="count">0</span></h3>
+        <div id="list"></div>
+    </div>
 
     <button class="btn download" onclick="downloadFile()">
-        <i class="fas fa-save"></i> SALVAR ALTERAÇÕES (Baixar videos.js)
+        <i class="fas fa-file-download"></i> SALVAR MUDANÇAS (Baixar videos.js)
     </button>
-    <p style="text-align:center; color:#bbb; font-size:0.9rem;">Ao clicar, substitui o ficheiro 'videos.js' na pasta.</p>
+    <p style="text-align:center; color:#888; margin-top:10px; font-size:0.85rem;">
+        1. Adiciona os vídeos.<br>
+        2. Clica no botão AZUL para baixar o ficheiro.<br>
+        3. Substitui o 'videos.js' na pasta.
+    </p>
 </div>
 
 <script src="videos.js"></script>
@@ -63,13 +83,18 @@
 
     function render() {
         const list = document.getElementById('list');
+        const count = document.getElementById('count');
         list.innerHTML = '';
+        count.innerText = videos.length;
+
         videos.forEach((v, i) => {
+            const color = v.platform === 'ps' ? '#31A8FF' : '#00D26A';
             list.innerHTML += `
-                <div class="item">
+                <div class="item" style="border-left: 5px solid ${color}">
                     <div>
-                        <strong style="color:${v.platform === 'ps' ? '#00a8ff' : '#00d26a'}">[${v.platform.toUpperCase()}]</strong> 
-                        ${v.title}
+                        <strong>${v.title}</strong>
+                        <span class="tag-badge">${v.tag}</span>
+                        <div style="font-size:0.8rem; color:#aaa; margin-top:2px;">${v.desc}</div>
                     </div>
                     <button class="del" onclick="remove(${i})"><i class="fas fa-trash"></i></button>
                 </div>`;
@@ -79,15 +104,14 @@
     function addVideo() {
         const url = document.getElementById('url').value;
         const idMatch = url.match(/(?:v=|\/)([\w-]{11})/);
+        const title = document.getElementById('title').value;
         
-        if (!idMatch || !document.getElementById('title').value) {
-            alert("Preenche o título e um link válido do YouTube!");
-            return;
-        }
+        if (!idMatch) { alert("Link do YouTube inválido!"); return; }
+        if (!title) { alert("Escreve um título!"); return; }
 
         videos.push({
             id: idMatch[1],
-            title: document.getElementById('title').value,
+            title: title,
             desc: document.getElementById('desc').value,
             platform: document.getElementById('platform').value,
             tag: document.getElementById('tag').value
@@ -101,25 +125,25 @@
     }
 
     function remove(index) {
-        if(confirm("Apagar este vídeo?")) {
+        if(confirm("Tens a certeza que queres apagar este vídeo?")) {
             videos.splice(index, 1);
             render();
         }
     }
 
     function downloadFile() {
-        // A MAGIA: Cria o ficheiro JS dinamicamente
         const content = "const tutorialData = " + JSON.stringify(videos, null, 2) + ";";
         const blob = new Blob([content], {type: "text/javascript"});
         const link = document.createElement("a");
         
         link.href = URL.createObjectURL(blob);
-        link.download = "videos.js"; // Nome do ficheiro a baixar
+        link.download = "videos.js"; 
         link.click();
         
-        alert("Ficheiro baixado! Agora arrasta-o para a pasta onde está o index.html e substitui o antigo.");
+        alert("Ficheiro 'videos.js' baixado! Agora move-o para a tua pasta e substitui o antigo.");
     }
 
+    // Iniciar
     render();
 </script>
 
