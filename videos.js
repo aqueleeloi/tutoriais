@@ -55,13 +55,6 @@ const tutorialData = [
     "desc": "Técnicas rápidas com Varinha e Laço.",
     "id": "J2gA3zO6cTQ", "thumb": ""
   },
-  {
-    "section": "SOFTWARE", "program": "pp", "type": "doc", "tag": "Manual",
-    "title": "Documentação Oficial",
-    "desc": "O manual escrito de todas as ferramentas.",
-    "id": "https://www.photopea.com/learn/",
-    "thumb": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80"
-  },
 
   // =================================================================
   // 1. SOFTWARE LAB - CANVA (CV)
@@ -78,12 +71,6 @@ const tutorialData = [
     "desc": "Atalhos e efeitos que ninguém conhece.",
     "id": "tDq7qHhC_n4", "thumb": ""
   },
-  {
-    "section": "SOFTWARE", "program": "cv", "type": "video", "tag": "Design",
-    "title": "Princípios de Design no Canva",
-    "desc": "Como não parecer amador usando templates.",
-    "id": "7X8XJ6_Xj_k", "thumb": ""
-  },
 
   // =================================================================
   // 2. MARKETING TOOLKIT (Docs & Tools)
@@ -97,9 +84,9 @@ const tutorialData = [
   },
   {
     "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Cores",
-    "title": "Coolors: Gerador de Paletas",
-    "desc": "Cria harmonias de cores perfeitas em segundos.",
-    "id": "https://coolors.co/",
+    "title": "Adobe Color (Círculo Cromático)",
+    "desc": "A ferramenta profissional para criar paletas.",
+    "id": "https://color.adobe.com/pt/create/color-wheel",
     "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&q=80"
   },
   {
@@ -131,18 +118,25 @@ const tutorialData = [
     "thumb": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
   },
   {
-    "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Remover Fundo",
-    "title": "Remove.bg",
-    "desc": "Remove o fundo de qualquer foto automaticamente com IA.",
-    "id": "https://www.remove.bg/pt-br",
-    "thumb": "https://images.unsplash.com/photo-1633535803264-b52664720619?w=600&q=80"
+    "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Inspiração",
+    "title": "Behance (Portfólios)",
+    "desc": "Veja o que os melhores profissionais do mundo estão a criar.",
+    "id": "https://www.behance.net/",
+    "thumb": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&q=80"
   },
   {
-    "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Apresentações",
-    "title": "Slidesgo",
-    "desc": "Templates criativos para PowerPoint e Google Slides.",
-    "id": "https://slidesgo.com/",
-    "thumb": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80"
+    "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Moodboard",
+    "title": "Pinterest",
+    "desc": "O melhor local para criar moodboards e buscar referências.",
+    "id": "https://www.pinterest.pt/",
+    "thumb": "https://images.unsplash.com/photo-1610465299993-e6675c9f9efa?w=600&q=80"
+  },
+  {
+    "section": "MARKETING", "program": "mk", "type": "doc", "tag": "Organização",
+    "title": "Trello: Gestão de Projetos",
+    "desc": "A ferramenta visual para organizar as tuas tarefas.",
+    "id": "https://trello.com/",
+    "thumb": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80"
   },
 
   // =================================================================
@@ -171,11 +165,5 @@ const tutorialData = [
     "title": "Erros de Tipografia a Evitar",
     "desc": "Não faças design amador: aprende as regras.",
     "id": "sByzHoiYFX0", "thumb": ""
-  },
-  {
-    "section": "INSPIRATION", "program": "in", "type": "video", "tag": "Futuro",
-    "title": "Como a IA muda o Design",
-    "desc": "O que precisas de saber para não ficar para trás.",
-    "id": "R9M4c_h_M0o", "thumb": ""
   }
 ];
