@@ -3,30 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESIGN HUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>CreativeHUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            /* FUNDOS */
             --bg-body: #050505;
             --sidebar-bg: #0a0a0a;
-            --card-bg: #111111;
+            --card-bg: #121212;
             
-            /* NEON GRADIENTS (Para as bordas) */
-            --border-blue: linear-gradient(90deg, #00C6FF, #0072FF);
-            --border-pink: linear-gradient(90deg, #FF00CC, #333399);
-            --border-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
+            /* NEON GRADIENTS (Vibrantes) */
+            --gradient-blue: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
+            --gradient-hot: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            --gradient-green: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
             
-            /* CORES DAS MARCAS */
-            --brand-ps: #31A8FF;
-            --brand-pp: #00D26A;
-            --brand-cv: #8B5CF6;
-
-            /* TEXTOS */
             --text-main: #ffffff;
-            --text-dim: #666666;
+            --text-muted: #888888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,6 +28,10 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
             color: var(--text-main);
             display: flex;
             height: 100vh;
@@ -42,107 +40,124 @@
 
         /* --- SIDEBAR --- */
         .sidebar {
-            width: 300px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid #1a1a1a;
+            width: 280px;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255,255,255,0.05);
             display: flex;
             flex-direction: column;
-            padding: 40px 30px;
+            padding: 30px;
             flex-shrink: 0;
         }
 
-        .brand {
-            font-family: 'Outfit', sans-serif;
+        /* NOVO LOGÓTIPO */
+        .logo-container { margin-bottom: 50px; }
+        
+        .brand-main {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 60px;
+            letter-spacing: -1px;
             color: white;
-            letter-spacing: -0.5px;
+            line-height: 1;
         }
-        .brand span { color: var(--brand-ps); }
+        
+        .brand-main span {
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* Botões de Navegação (Iguais em tamanho) */
+        .brand-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #666;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .brand-sub span { color: #00C6FF; font-weight: 600; }
+
+        /* Botões de Navegação */
         .nav-btn {
-            width: 100%;
             background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-dim);
+            border: none;
+            color: var(--text-muted);
             text-align: left;
-            padding: 18px 25px;
+            padding: 15px 20px;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
             display: flex; align-items: center; gap: 15px;
-            margin-bottom: 12px;
-            position: relative;
-            background-clip: padding-box; /* Importante para a borda */
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .nav-btn i { width: 24px; text-align: center; font-size: 1.2rem; }
+        .nav-btn i { width: 24px; text-align: center; }
+        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        .nav-btn:hover { color: white; background: #111; }
+        /* Ativos */
+        .nav-btn.active.soft { background: var(--gradient-blue); color: white; box-shadow: 0 5px 20px rgba(0, 114, 255, 0.3); }
+        .nav-btn.active.mkt { background: var(--gradient-hot); color: white; box-shadow: 0 5px 20px rgba(255, 75, 43, 0.3); }
+        .nav-btn.active.inspo { background: var(--gradient-green); color: white; box-shadow: 0 5px 20px rgba(150, 201, 61, 0.3); }
 
-        /* ESTADO ATIVO (Borda Neon, Fundo Escuro) */
-        .nav-btn.active {
-            background: #0f0f0f;
-            color: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        }
-
-        /* Borda Gradiente via Pseudo-elemento */
-        .nav-btn.active::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 12px; 
-            padding: 2px; /* Espessura da borda */
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .nav-btn.active.soft::before { background: var(--border-blue); }
-        .nav-btn.active.mkt::before { background: var(--border-pink); }
-        .nav-btn.active.inspo::before { background: var(--border-yellow); }
-
-        /* --- MAIN AREA --- */
+        /* --- MAIN CONTENT --- */
         .main-content {
             flex-grow: 1;
-            padding: 50px;
+            padding: 40px;
             overflow-y: auto;
+            position: relative;
         }
 
-        .section-header { margin-bottom: 40px; }
-        .section-title { font-size: 2.2rem; font-family: 'Outfit', sans-serif; font-weight: 700; color: white; }
-        .section-desc { color: var(--text-dim); margin-top: 5px; }
+        /* Títulos com Gradiente (CORRIGIDO) */
+        .section-header { margin-bottom: 30px; }
+        
+        .section-title { 
+            font-size: 2.5rem; 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 700; 
+            /* O segredo para o texto gradiente funcionar */
+            background-color: white; /* Fallback */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: fit-content;
+        }
 
-        /* SUB-TABS (SOFTWARE) - CORES DAS MARCAS */
-        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .section-desc { color: var(--text-muted); margin-top: 5px; font-size: 1.1rem; }
+
+        /* Cores dos Títulos */
+        .soft-title { background: var(--gradient-blue); }
+        .mkt-title { background: var(--gradient-hot); }
+        .inspo-title { background: var(--gradient-green); }
+
+        /* Sub-Abas (Chips) */
+        .chips-container { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
         
         .chip {
-            background: #111;
-            border: 1px solid #222;
+            background: #1a1a1a;
+            border: 1px solid #333;
             color: #888;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: 0.3s;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
         }
+        
+        .chip i { font-size: 1.1rem; }
+        .chip:hover { border-color: #666; color: white; }
+        
+        .chip.active { background: white; color: black; border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        .chip:hover { transform: translateY(-2px); color: white; }
-
-        /* Cores Ativas Específicas */
-        .chip.active[data-prog="ps"] { background: rgba(49, 168, 255, 0.1); border-color: var(--brand-ps); color: var(--brand-ps); box-shadow: 0 0 15px rgba(49, 168, 255, 0.2); }
-        .chip.active[data-prog="pp"] { background: rgba(0, 210, 106, 0.1); border-color: var(--brand-pp); color: var(--brand-pp); box-shadow: 0 0 15px rgba(0, 210, 106, 0.2); }
-        .chip.active[data-prog="cv"] { background: rgba(139, 92, 246, 0.1); border-color: var(--brand-cv); color: var(--brand-cv); box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
-
-        /* --- GRID & CARDS --- */
+        /* --- GRID DE CARTÕES --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -152,18 +167,19 @@
 
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid #1a1a1a;
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .thumb {
@@ -171,61 +187,69 @@
             aspect-ratio: 16/9;
             overflow: hidden;
             position: relative;
-            background: #000;
         }
 
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
+
+        /* Tags Flutuantes */
+        .tag-float {
+            position: absolute;
+            top: 15px; left: 15px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: white;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .card.soft .tag-float { background: var(--gradient-blue); }
+        .card.mkt .tag-float { background: var(--gradient-hot); }
+        .card.inspo .tag-float { background: var(--gradient-green); }
+        .card.cv .tag-float { background: var(--gradient-purple); }
 
         .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        /* TAGS NAS CATEGORIAS (Cor Forte) */
-        .category-tag {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            padding: 5px 10px;
-            border-radius: 4px;
-            width: fit-content;
-        }
+        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; }
+        .card p { font-size: 0.9rem; color: #777; margin-bottom: 20px; flex-grow: 1; }
 
-        .tag-blue { color: #00C6FF; background: rgba(0, 198, 255, 0.1); border: 1px solid rgba(0, 198, 255, 0.2); }
-        .tag-pink { color: #FF00CC; background: rgba(255, 0, 204, 0.1); border: 1px solid rgba(255, 0, 204, 0.2); }
-        .tag-yellow { color: #F2C94C; background: rgba(242, 201, 76, 0.1); border: 1px solid rgba(242, 201, 76, 0.2); }
-        
-        h3 { font-family: 'Outfit', sans-serif; font-size: 1.15rem; margin-bottom: 10px; line-height: 1.4; color: #eee; }
-        p { font-size: 0.9rem; color: #666; margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
-
+        /* Botão Ação */
         .action-link {
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 700;
             display: flex; align-items: center; gap: 8px;
-            transition: 0.2s;
+            font-size: 0.9rem; font-weight: 700;
+            transition: 0.2s; margin-top: auto;
         }
         
-        .action-link i { font-size: 0.8rem; }
-        
         .card.soft .action-link { color: #00C6FF; }
-        .card.mkt .action-link { color: #FF00CC; }
-        .card.inspo .action-link { color: #F2C94C; }
-        
+        .card.mkt .action-link { color: #FF416C; }
+        .card.inspo .action-link { color: #96c93d; }
+        .card.cv .action-link { color: #a855f7; }
+
         .card:hover .action-link { gap: 12px; filter: brightness(1.2); }
 
-        /* View Control */
         .view-section { display: none; animation: fadeIn 0.4s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        #debug { display: none; color: red; padding: 20px; text-align: center; border: 1px solid red; margin-bottom: 20px; }
+        #debug { display: none; background: #991b1b; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
 
         @media (max-width: 900px) {
             body { flex-direction: column; overflow: auto; }
-            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #222; }
+            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #333; }
+            .logo-container { margin-bottom: 20px; }
             .main-content { padding: 20px; overflow: visible; }
-            .chips-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 5px; }
+            .chips-container { overflow-x: auto; padding-bottom: 10px; }
             .chip { white-space: nowrap; }
         }
     </style>
@@ -233,7 +257,10 @@
 <body>
 
 <aside class="sidebar">
-    <div class="brand">CREATIVE <span>HUB.</span></div>
+    <div class="logo-container">
+        <div class="brand-main">CREATIVE<span>HUB</span>.</div>
+        <div class="brand-sub">POWERED BY <span>AQUELE.ELOI</span></div>
+    </div>
     
     <nav>
         <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">
@@ -254,14 +281,14 @@
 
     <div id="SOFTWARE" class="view-section active">
         <div class="section-header">
-            <div class="section-title">Software Lab</div>
+            <div class="section-title soft-title">Software Lab</div>
             <div class="section-desc">Domina as ferramentas profissionais.</div>
         </div>
 
         <div class="chips-container">
-            <div class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
-            <div class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
-            <div class="chip" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
+            <div class="chip active" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
+            <div class="chip" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
+            <div class="chip" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
         </div>
 
         <div class="grid" id="grid-software"></div>
@@ -269,7 +296,7 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:#FF00CC">Marketing Toolkit</div>
+            <div class="section-title mkt-title">Marketing Toolkit</div>
             <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
@@ -277,7 +304,7 @@
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:#F2C94C">Mindset & Cultura</div>
+            <div class="section-title inspo-title">Mindset & Cultura</div>
             <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
@@ -308,31 +335,31 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
-            let thumb = item.thumb || "https://images.unsplash.com/photo-1614850523060-8da1d56ae167?w=500&q=80";
-            let icon = "fas fa-file-alt";
-            let btnText = "Abrir";
+            let thumb = item.thumb || "https://images.unsplash.com/photo-1635326444826-06c8f8d2e67d?w=500&q=80"; // Imagem Dark Abstrata
+            let btnText = "Aceder";
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                icon = "fas fa-play";
-                btnText = "Assistir";
+                btnText = "Assistir Aula";
+            } else {
+                // Se for documento e tiver imagem definida no JS, usa-a
+                if(item.thumb) thumb = item.thumb;
             }
 
-            // Cores das Tags
-            let tagClass = "tag-blue";
-            let cardClass = "soft";
-            
-            if (item.section === 'MARKETING') { tagClass = "tag-pink"; cardClass = "mkt"; }
-            if (item.section === 'INSPIRATION') { tagClass = "tag-yellow"; cardClass = "inspo"; }
+            // Classes Visuais
+            let cardClass = "soft"; 
+            if(item.section === 'MARKETING') cardClass = "mkt";
+            if(item.section === 'INSPIRATION') cardClass = "inspo";
+            if(item.program === 'cv') cardClass = "cv"; 
 
             const html = `
                 <article class="card ${cardClass}">
+                    <div class="tag-float">${item.tag}</div>
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/mqdefault.jpg'">
                     </a>
                     <div class="content">
-                        <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
                         <a href="${link}" target="_blank" class="action-link">
