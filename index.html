@@ -9,12 +9,11 @@
     
     <style>
         :root {
-            /* FUNDOS */
             --bg-body: #050505;
             --sidebar-bg: #090909;
             --card-bg: #121212;
             
-            /* NEON GRADIENTS (Para as bordas) */
+            /* NEON GRADIENTS */
             --grad-blue: linear-gradient(90deg, #00C6FF 0%, #0072FF 100%);
             --grad-pink: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
             --grad-yellow: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);
@@ -87,7 +86,6 @@
         .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        /* ATIVOS (Borda Gradiente, Fundo Transparente) */
         .nav-btn.active {
             background-clip: padding-box, border-box;
             background-origin: padding-box, border-box;
@@ -125,7 +123,7 @@
             border: 1px solid #333;
             color: #777;
             padding: 12px 24px;
-            border-radius: 12px; /* MESMO Raio da Sidebar */
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
@@ -138,7 +136,6 @@
         .chip i { font-size: 1.1rem; }
         .chip:hover { border-color: #666; color: white; }
 
-        /* ATIVOS FILTROS (Borda Gradiente) */
         .chip.active {
             border: 1px solid transparent;
             background-clip: padding-box, border-box;
@@ -177,17 +174,18 @@
         .card:hover { transform: translateY(-7px); border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
         .thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; }
+        
+        /* Imagem com correção de object-fit */
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
-        /* CONTEÚDO CENTRADO */
         .content {
             padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* CENTRA TUDO */
-            text-align: center;  /* CENTRA TEXTO */
+            align-items: center;
+            text-align: center;
         }
 
         .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; width: fit-content; }
@@ -201,30 +199,24 @@
         h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; margin-bottom: 8px; line-height: 1.3; color: #fff; }
         p { font-size: 0.9rem; color: #888; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; }
 
-        /* BOTÃO CARD COM BORDA GRADIENTE (IGUAL SIDEBAR) */
         .card-btn {
             text-decoration: none;
             width: 100%;
             padding: 12px 0;
-            border-radius: 12px; /* Squircle */
+            border-radius: 12px;
             font-size: 0.9rem;
             font-weight: 700;
             margin-top: auto;
             transition: all 0.3s ease;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             background: transparent;
-            border: 2px solid transparent; /* Borda transparente inicial */
+            border: 2px solid transparent;
             color: var(--text-dim);
             position: relative;
             background-clip: padding-box;
         }
 
-        /* Hover do Botão (Borda Gradiente) */
-        .card-btn:hover {
-            background-clip: padding-box, border-box;
-            background-origin: padding-box, border-box;
-            color: white;
-        }
+        .card-btn:hover { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; }
 
         .card.soft:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-blue); box-shadow: 0 0 15px rgba(0, 198, 255, 0.2); }
         .card.mkt:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-pink); box-shadow: 0 0 15px rgba(255, 65, 108, 0.2); }
@@ -232,14 +224,12 @@
         .card.soft.pp:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-green); box-shadow: 0 0 15px rgba(0, 210, 106, 0.2); }
         .card.soft.cv:hover .card-btn { background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--grad-purple); box-shadow: 0 0 15px rgba(157, 80, 187, 0.2); }
 
-
         .view-section { display: none; animation: fadeIn 0.4s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         #debug { display: none; color: red; text-align: center; padding: 20px; }
 
-        /* --- RESPONSIVIDADE (MOBILE) --- */
         @media (max-width: 900px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #222; padding: 20px; }
@@ -276,7 +266,6 @@
 </aside>
 
 <section class="main-content">
-    
     <div id="debug">⚠️ ERRO: videos.js não carregou.</div>
 
     <div id="SOFTWARE" class="view-section active">
@@ -284,13 +273,11 @@
             <div class="section-title">Software Lab</div>
             <div class="section-desc">Domina as ferramentas profissionais.</div>
         </div>
-
         <div class="chips-container">
             <div class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
             <div class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
             <div class="chip" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
         </div>
-
         <div class="grid" id="grid-software"></div>
     </div>
 
@@ -309,7 +296,6 @@
         </div>
         <div class="grid" id="grid-inspiration"></div>
     </div>
-
 </section>
 
 <script src="videos.js"></script>
@@ -335,19 +321,26 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
-            // Lógica para imagem High-Res
             let thumb = item.thumb;
+            
+            // Lógica de Imagem
+            if (!thumb || thumb === "") {
+                if(item.type === 'video') {
+                    // Tenta obter a imagem HD do youtube
+                    thumb = `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`;
+                } else {
+                    // Fallback se não houver nenhuma
+                    thumb = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
+                }
+            }
+
             let btnText = "Aceder";
             let btnIcon = "fa-external-link-alt";
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
-                // Tenta usar a maxresdefault
-                thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`;
                 btnText = "Assistir Aula";
                 btnIcon = "fa-play";
-            } else {
-                if(!item.thumb) thumb = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80"; // Fallback docs
             }
 
             let tagClass = "t-blue";
@@ -358,10 +351,11 @@
             if (item.program === 'pp') { tagClass = "t-green"; cardClass = "soft pp"; }
             if (item.program === 'cv') { tagClass = "t-purple"; cardClass = "soft cv"; }
 
+            // Adicionei um onError para garantir que NUNCA apareça imagem quebrada
             const html = `
                 <article class="card ${cardClass}">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'" alt="${item.title}">
+                        <img src="${thumb}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80';" alt="${item.title}">
                     </a>
                     <div class="content">
                         <div class="category-tag ${tagClass}">${item.tag}</div>
