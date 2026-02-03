@@ -21,6 +21,16 @@
         .actions button:hover { filter: brightness(1.2); }
         .edit { background: #eab308 !important; }
         .del { background: #ef4444 !important; }
+
+        @media(max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full { grid-column: span 1; }
+            .save { grid-column: span 1; }
+            .item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .actions { width: 100%; display: flex; justify-content: flex-end; }
+        }
     </style>
 </head>
 <body>
