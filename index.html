@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* FUNDOS */
             --bg-body: #050505;
             --sidebar-bg: #090909;
             --card-bg: #121212;
@@ -64,6 +63,7 @@
         .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; font-weight: 500; margin-top: 6px; letter-spacing: 0.5px; }
         .brand-power span { color: #fff; font-weight: 600; }
 
+        /* NAVEGAÇÃO */
         .nav-btn {
             width: 100%;
             background: transparent;
@@ -321,10 +321,10 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
-            // 1. Usa a imagem do JSON
+            // 1. TENTA USAR A IMAGEM DO JSON
             let thumb = item.thumb;
             
-            // 2. Se não houver no JSON, usa a do Youtube (HQ pq MaxRes falha mt)
+            // 2. SE NÃO HOUVER NO JSON, USA YOUTUBE (FALLBACK PARA HQ SE MAXRES FALHAR)
             if (!thumb || thumb === "") {
                 if(item.type === 'video') {
                     thumb = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
@@ -333,7 +333,7 @@
                 }
             }
 
-            // 3. Fallback de Segurança (Imagem genérica escura se tudo falhar)
+            // 3. CÓDIGO DE SEGURANÇA: Se mesmo assim falhar, mete a imagem genérica
             const fallbackImg = "https://images.unsplash.com/photo-1626785774573-4b79931256ce?w=800&q=80";
             const imgTag = `<img src="${thumb}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${item.title}">`;
 
