@@ -9,6 +9,7 @@
     
     <style>
         :root {
+            /* FUNDOS */
             --bg-body: #050505;
             --sidebar-bg: #090909;
             --card-bg: #121212;
@@ -57,14 +58,12 @@
             z-index: 100;
         }
 
-        /* LOGO */
         .logo-container { margin-bottom: 60px; padding-left: 5px; }
         .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1; color: white; }
         .brand-name span { color: var(--c-blue); } 
         .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; font-weight: 500; margin-top: 6px; letter-spacing: 0.5px; }
         .brand-power span { color: #fff; font-weight: 600; }
 
-        /* NAVEGAÇÃO */
         .nav-btn {
             width: 100%;
             background: transparent;
@@ -175,10 +174,12 @@
 
         .thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
         
-        /* Imagem com correção de object-fit */
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+        .thumb img { 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.4s; 
+        }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
+        /* CONTEÚDO CENTRADO */
         .content {
             padding: 25px;
             flex-grow: 1;
@@ -323,16 +324,21 @@
             let link = item.id;
             let thumb = item.thumb;
             
-            // Lógica de Imagem
+            // LÓGICA DE IMAGEM BLINDADA
             if (!thumb || thumb === "") {
                 if(item.type === 'video') {
-                    // Tenta obter a imagem HD do youtube
-                    thumb = `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`;
+                    // USA HQDEFAULT (Sempre existe, MaxResDefault pode não existir)
+                    thumb = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
                 } else {
-                    // Fallback se não houver nenhuma
+                    // Fallback geral
                     thumb = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
                 }
             }
+
+            // FUNÇÃO PARA TRATAR ERRO DE IMAGEM
+            // Se falhar (ex: link quebrado), mete uma imagem fixa bonita
+            const fallbackImg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
+            const imgTag = `<img src="${thumb}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${item.title}">`;
 
             let btnText = "Aceder";
             let btnIcon = "fa-external-link-alt";
@@ -351,11 +357,10 @@
             if (item.program === 'pp') { tagClass = "t-green"; cardClass = "soft pp"; }
             if (item.program === 'cv') { tagClass = "t-purple"; cardClass = "soft cv"; }
 
-            // Adicionei um onError para garantir que NUNCA apareça imagem quebrada
             const html = `
                 <article class="card ${cardClass}">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80';" alt="${item.title}">
+                        ${imgTag}
                     </a>
                     <div class="content">
                         <div class="category-tag ${tagClass}">${item.tag}</div>
