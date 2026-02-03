@@ -1,119 +1,260 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portefólio GROWTH CORP | Casos de Sucesso em SEO e PPC | Resultados Brutais</title>
-    <meta name="description" content="Veja os nossos casos de sucesso mais recentes. Analisamos os dados de performance de SEO e PPC que geraram domínio no mercado.">
-    <meta name="robots" content="index, follow">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Guia de Estudo: Photoshop & Photopea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* CSS INICIAL (REPETIDO EM TODAS AS PÁGINAS) */
         :root {
-            --primary-color: #00FFFF;
-            --secondary-color: #FF00FF;
-            --background-dark: #111111;
-            --text-light: #FFFFFF;
-            --font-stack: 'Roboto Mono', monospace;
+            --ps-color: #31A8FF;
+            --ps-dark: #001E36;
+            --pp-color: #00D084;
+            --pp-dark: #003622;
+            --bg-color: #f4f6f8;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: var(--font-stack);
-            margin: 0; padding: 0; line-height: 1.6;
-            background-color: var(--background-dark);
-            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background-color: var(--background-dark); border-bottom: 2px solid var(--primary-color); padding: 20px 0; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: var(--primary-color); font-size: 2em; font-weight: 700; text-shadow: 0 0 5px var(--primary-color); text-decoration: none; }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-        nav ul li a { color: var(--text-light); text-decoration: none; font-weight: 600; margin-left: 30px; border: 1px solid var(--text-light); padding: 5px 10px; transition: color 0.3s, border-color 0.3s, box-shadow 0.3s; }
-        nav ul li a:hover { color: var(--secondary-color); border-color: var(--secondary-color); box-shadow: 0 0 10px var(--secondary-color); }
-        .hero-mini { background-color: var(--background-dark); padding: 100px 0; text-align: center; border-bottom: 5px solid var(--secondary-color); }
-        .hero-mini h1 { font-size: 4em; color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); margin-bottom: 10px; }
-        .section-padding { padding: 100px 0; }
-        .section-title { text-align: center; font-size: 3.5em; color: var(--text-light); margin-bottom: 70px; text-transform: uppercase; border-bottom: 3px dashed var(--secondary-color); padding-bottom: 10px; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; }
-        .case-study-card { background-color: #222222; padding: 40px; border: 3px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); transition: transform 0.3s, box-shadow 0.3s; }
-        .case-study-card:hover { transform: translateY(-10px); box-shadow: 0 0 30px var(--secondary-color); border-color: var(--secondary-color); }
-        .case-study-card h3 { color: var(--secondary-color); font-size: 2em; margin-top: 0; text-decoration: underline; text-decoration-color: var(--primary-color); }
-        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .metric { background-color: #000000; padding: 15px; border-left: 5px solid var(--primary-color); }
-        .metric strong { display: block; font-size: 2em; color: var(--primary-color); text-shadow: 0 0 5px var(--primary-color); }
-        .metric span { color: var(--text-light); font-size: 0.9em; }
-        .btn-primary { background-color: var(--primary-color); color: var(--background-dark); padding: 20px 45px; text-decoration: none; border-radius: 0; font-weight: 700; letter-spacing: 2px; box-shadow: 0 0 20px var(--primary-color); transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-        .btn-primary:hover { background-color: var(--secondary-color); box-shadow: 0 0 25px var(--secondary-color); transform: skewX(-5deg) scale(1.05); }
-        footer { background-color: var(--background-dark); border-top: 2px solid var(--primary-color); color: var(--text-light); text-align: center; padding: 30px 0; }
-        /* FIM DO CSS REPETIDO */
+
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .section-header i {
+            font-size: 1.5rem;
+        }
+
+        .section-header.ps { color: var(--ps-color); border-color: var(--ps-color); }
+        .section-header.pp { color: var(--pp-dark); border-color: var(--pp-color); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+
+        .tag.intro { background: #e0f2fe; color: #0369a1; }
+        .tag.tools { background: #fef3c7; color: #b45309; }
+        .tag.mask { background: #dcfce7; color: #15803d; }
+        .tag.brush { background: #fce7f3; color: #be185d; }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-ps { background: var(--ps-color); color: white; }
+        .btn-ps:hover { background: #228be6; }
+
+        .btn-pp { background: var(--pp-dark); color: white; }
+        .btn-pp:hover { background: #005c3a; }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+        }
     </style>
 </head>
+<body>
 
-<body itemscope itemtype="http://schema.org/CollectionPage">
-    <header>
-        <div class="container navbar">
-            <a href="index.html" class="logo">Tiago Vieira | Marketing DIGITAL</a> 
-            <nav>
-                <ul>
-                    <li><a href="index.html">INÍCIO</a></li>
-                    <li><a href="servicos.html">SERVIÇOS</a></li>
-                    <li><a href="portfolio.html">PORTEFÓLIO</a></li>
-                    <li><a href="contacto.html">CONTACTO</a></li>
-                </ul>
-            </nav>
+<header>
+    <h1><i class="fas fa-layer-group"></i> Tutoriais de Design</h1>
+    <p>Guia prático para Photoshop e Photopea</p>
+</header>
+
+<div class="container">
+
+    <div class="section-header ps">
+        <i class="fas fa-image"></i>
+        <h2>Adobe Photoshop</h2>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div>
+                <span class="tag intro">Introdução</span>
+                <h3>Visão Geral e Primeiros Passos</h3>
+                <p>Entenda a interface, painéis e como navegar no software.</p>
+            </div>
+            <a href="https://www.youtube.com/watch?v=kB0P7nXc1Lg" target="_blank" class="btn btn-ps">
+                <i class="fab fa-youtube"></i> Assistir Aula (Brainstorm)
+            </a>
         </div>
-    </header>
 
-    <main>
-        <section class="hero-mini">
-            <div class="container">
-                <h1>PORTFÓLIO: DADOS DE SUCESSO</h1>
-                <p style="font-size: 1.2em; color: var(--secondary-color);">Não fazemos promessas. Fornecemos resultados validados e auditados.</p>
+        <div class="card">
+            <div>
+                <span class="tag tools">Criação</span>
+                <h3>Criar Documento: Tamanho & Cor</h3>
+                <p>Aprenda sobre DPI, RGB vs CMYK e formatos de arquivo.</p>
             </div>
-        </section>
-
-        <section class="section-padding">
-            <div class="container">
-                <h2 class="section-title">CASOS DE DOMÍNIO RECENTES</h2> 
-                <div class="portfolio-grid">
-
-                    <div class="case-study-card">
-                        <h3>CASE 001: INDÚSTRIA LOGÍSTICA</h3>
-                        <p>Otimização de SEO Crítico e Automação de Cotações.</p>
-                        <div class="metrics-grid">
-                            <div class="metric"><strong>+320%</strong><span>Tráfego Orgânico</span></div>
-                            <div class="metric"><strong>5.1x</strong><span>ROI da Campanha PPC</span></div>
-                        </div>
-                        <p style="margin-top: 20px;">*Cliente atingiu a primeira posição para 15 palavras-chave críticas em 6 meses.</p>
-                    </div>
-
-                    <div class="case-study-card">
-                        <h3>CASE 002: E-COMMERCE DE LUXO</h3>
-                        <p>Estratégia avançada de Remarketing e Funil de E-mail.</p>
-                        <div class="metrics-grid">
-                            <div class="metric"><strong>+85%</strong><span>Taxa de Conversão</span></div>
-                            <div class="metric"><strong>-40%</strong><span>Custo por Aquisição (CPA)</span></div>
-                        </div>
-                        <p style="margin-top: 20px;">*Reestruturação total do funil de e-commerce resultou num aumento de 3 dígitos nas vendas.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="section-padding" style="text-align: center;">
-            <div class="container">
-                 <h2 class="section-title" style="color: var(--secondary-color); border-bottom-color: var(--primary-color);">O SEU SUCESSO SERÁ O PRÓXIMO CASO.</h2>
-                 <p style="font-size: 1.5em; max-width: 900px; margin: 0 auto 30px; color: var(--text-light);">Não se limite a observar os nossos resultados. Torne-se um deles.</p>
-                 <a href="contacto.html" class="btn-primary" style="background-color: var(--secondary-color); box-shadow: 0 0 20px var(--secondary-color);">COMECE A SUA AUDITORIA &rarr;</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Tiago Vieira | MARKETING DIGITAL.</p>
+            <a href="https://lucascharnyai.com/como-criar-um-novo-documento-no-photoshop/" target="_blank" class="btn btn-ps">
+                <i class="fas fa-link"></i> Ver Tutorial (Lucas Charnyai)
+            </a>
         </div>
-    </footer>
+
+        <div class="card">
+            <div>
+                <span class="tag mask">Recorte</span>
+                <h3>Recorte Perfeito e Máscaras</h3>
+                <p>Técnicas essenciais para remover o fundo de imagens complexas.</p>
+            </div>
+            <a href="https://www.youtube.com/watch?v=jmsjrohHMVg" target="_blank" class="btn btn-ps">
+                <i class="fab fa-youtube"></i> Assistir Aula (Carlos Alberto)
+            </a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag brush">Pincéis</span>
+                <h3>Ferramenta Pincel (Brush)</h3>
+                <p>Como configurar tamanhos, dureza e criar efeitos artísticos.</p>
+            </div>
+            <a href="https://www.youtube.com/watch?v=vhArnD6TRps" target="_blank" class="btn btn-ps">
+                <i class="fab fa-youtube"></i> Assistir Aula (Coisas de Designer)
+            </a>
+        </div>
+    </div>
+
+    <div class="section-header pp">
+        <i class="fas fa-leaf"></i>
+        <h2>Photopea (Online)</h2>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div>
+                <span class="tag intro">Básico</span>
+                <h3>Curso Completo Grátis</h3>
+                <p>Uma visão geral da alternativa gratuita ao Photoshop.</p>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=curso+photopea" target="_blank" class="btn btn-pp">
+                <i class="fab fa-youtube"></i> Pesquisar Playlist
+            </a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag tools">Interface</span>
+                <h3>Como usar o Photopea</h3>
+                <p>Tutorial rápido para quem está a migrar ou começar do zero.</p>
+            </div>
+            <a href="https://www.youtube.com/watch?v=q6q6q6q" target="_blank" class="btn btn-pp">
+                <i class="fab fa-youtube"></i> Assistir (Diolinux)
+            </a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="tag mask">Avançado</span>
+                <h3>Máscaras de Camada</h3>
+                <p>Aprenda a fazer edições não destrutivas no navegador.</p>
+            </div>
+            <a href="https://www.youtube.com/results?search_query=photopea+mascaras" target="_blank" class="btn btn-pp">
+                <i class="fab fa-youtube"></i> Ver Exemplos
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>Bons estudos! ✨</p>
+</footer>
+
 </body>
-
 </html>
