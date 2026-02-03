@@ -1,13 +1,13 @@
 const tutorialData = [
   // =================================================================
-  // PHOTOSHOP (PS)
+  // PHOTOSHOP (PS) - TEMAS PEDIDOS
   // =================================================================
   
-  // 1. CRIAR DOCUMENTO (Tamanhos e Cor)
+  // 1. CRIAR DOCUMENTO
   {
     "id": "O33uLdOpfhk", 
-    "title": "Criar Novo Documento (Guia)",
-    "desc": "Resolução (DPI), modo de cor (CMYK vs RGB) e tamanhos de impressão.",
+    "title": "Criar Novo Documento (Essencial)",
+    "desc": "Tudo sobre Resolução (DPI), Cores (CMYK vs RGB) e Tamanhos.",
     "platform": "ps",
     "tag": "CRIACAO"
   },
@@ -16,61 +16,63 @@ const tutorialData = [
   {
     "id": "kB0P7nXc1Lg", 
     "title": "Tour: Interface e Ferramentas",
-    "desc": "Aprende a navegar, dar zoom e onde ficam as ferramentas principais.",
+    "desc": "Onde está cada ferramenta, como dar zoom e navegar na imagem.",
     "platform": "ps",
     "tag": "FERRAMENTAS"
   },
 
-  // 3. RECORTE BÁSICO (Varinha/Lasso)
+  // 3. RECORTE BÁSICO
   {
     "id": "H4fttqYjCgA", 
-    "title": "Recorte Simples (Iniciante)",
-    "desc": "Usar a Varinha Mágica e Lasso para fundos simples.",
+    "title": "Recorte Simples (Varinha & Laço)",
+    "desc": "Ideal para remover fundos de cores sólidas ou formas simples.",
     "platform": "ps",
     "tag": "RECORTE"
   },
 
-  // 4. RECORTE COM MÁSCARAS (Avançado)
+  // 4. RECORTE COM MÁSCARAS
   {
     "id": "jmsjrohHMVg", 
     "title": "Recorte Perfeito com Máscaras",
-    "desc": "Como recortar cabelos e usar a função 'Select Subject'.",
+    "desc": "A técnica profissional para recortar cabelos e detalhes difíceis.",
     "platform": "ps",
     "tag": "MASCARAS"
   },
 
-  // --- EXTRAS OBRIGATÓRIOS ---
-  {
-    "id": "vhArnD6TRps", 
-    "title": "Dominar os Pincéis (Brush)",
-    "desc": "Tamanho, dureza, opacidade e fluxo.",
-    "platform": "ps",
-    "tag": "FERRAMENTAS"
-  },
+  // =================================================================
+  // PHOTOSHOP (PS) - EXTRAS SUPER NECESSÁRIOS
+  // =================================================================
   {
     "id": "LgS8T7qG9wE", 
-    "title": "O Segredo das CAMADAS",
-    "desc": "Entende como funcionam as Layers (indispensável!).",
+    "title": "Como funcionam as CAMADAS",
+    "desc": "O conceito mais importante do Photoshop explicado fácil.",
     "platform": "ps",
     "tag": "EXTRA"
   },
   {
+    "id": "vhArnD6TRps", 
+    "title": "Dominar os Pincéis (Brush)",
+    "desc": "Mudar tamanho, dureza e opacidade para pintar melhor.",
+    "platform": "ps",
+    "tag": "FERRAMENTAS"
+  },
+  {
     "id": "M7Jb5Jm_uF4", 
     "title": "Como Salvar e Exportar",
-    "desc": "Salvar editável (PSD) vs imagem final (JPG/PNG).",
+    "desc": "Não perca o trabalho! Diferença entre PSD, JPG e PNG.",
     "platform": "ps",
     "tag": "EXTRA"
   },
 
   // =================================================================
-  // PHOTOPEA (PP)
+  // PHOTOPEA (PP) - TEMAS PEDIDOS
   // =================================================================
 
   // 1. CRIAR DOCUMENTO
   {
     "id": "EOuiYhvAY7U", 
     "title": "Novo Projeto no Photopea",
-    "desc": "Configurar a área de trabalho e formatos no navegador.",
+    "desc": "Configurar tamanho da folha e formatos no navegador.",
     "platform": "pp",
     "tag": "CRIACAO"
   },
@@ -88,7 +90,7 @@ const tutorialData = [
   {
     "id": "J2gA3zO6cTQ", 
     "title": "Varinha Mágica no Photopea",
-    "desc": "Remover fundo branco ou cores sólidas rapidamente.",
+    "desc": "Remover fundos brancos rapidamente.",
     "platform": "pp",
     "tag": "RECORTE"
   },
@@ -97,24 +99,26 @@ const tutorialData = [
   {
     "id": "dfP5CnCgkO0", 
     "title": "Máscaras de Camada (Masks)",
-    "desc": "Edição não destrutiva: apagar e recuperar partes da imagem.",
+    "desc": "Edição não-destrutiva: apagar e recuperar partes da imagem.",
     "platform": "pp",
     "tag": "MASCARAS"
   },
 
-  // --- EXTRAS OBRIGATÓRIOS ---
-  {
-    "id": "zvr3DgRXL5Q", 
-    "title": "Pincéis no Photopea",
-    "desc": "Como configurar e instalar novos brushes.",
-    "platform": "pp",
-    "tag": "FERRAMENTAS"
-  },
+  // =================================================================
+  // PHOTOPEA (PP) - EXTRAS SUPER NECESSÁRIOS
+  // =================================================================
   {
     "id": "2yK2K_6yBvM", 
     "title": "Entender Camadas (Layers)",
-    "desc": "Organização fundamental para qualquer montagem.",
+    "desc": "Organização fundamental para qualquer montagem no Photopea.",
     "platform": "pp",
     "tag": "EXTRA"
+  },
+  {
+    "id": "zvr3DgRXL5Q", 
+    "title": "Pincéis no Photopea",
+    "desc": "Configurar brushes e pintar no navegador.",
+    "platform": "pp",
+    "tag": "FERRAMENTAS"
   }
 ];
