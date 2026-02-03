@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Space Grotesk', sans-serif; background: #050505; color: white; padding: 40px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #050505; color: white; padding: 40px; }
         .container { max-width: 900px; margin: 0 auto; background: #111; padding: 40px; border-radius: 16px; border: 1px solid #333; }
-        h2 { text-align: center; margin-bottom: 30px; color: #00C6FF; }
+        h2 { text-align: center; margin-bottom: 30px; color: #31A8FF; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .full { grid-column: span 2; }
-        input, select { width: 100%; padding: 12px; background: #050505; border: 1px solid #333; color: white; border-radius: 6px; }
+        input, select { width: 100%; padding: 12px; background: #050505; border: 1px solid #333; color: white; border-radius: 6px; outline: none; }
+        input:focus { border-color: #31A8FF; }
         .btn { padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 6px; margin-top: 10px; border: none; }
         .save { background: #22c55e; color: white; grid-column: span 2; }
-        .dl { background: #00C6FF; color: black; margin-top: 30px; }
-        .item { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; }
-        .actions button { margin-left: 5px; cursor: pointer; padding: 5px 10px; }
+        .dl { background: #31A8FF; color: white; margin-top: 30px; }
+        .item { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .actions button { width: 35px; height: 35px; border: none; border-radius: 5px; margin-left: 5px; cursor: pointer; color: white; background:#333; }
+        .actions button:hover { filter: brightness(1.2); }
+        .edit { background: #eab308 !important; }
+        .del { background: #ef4444 !important; }
     </style>
 </head>
 <body>
@@ -43,10 +47,10 @@
     function render() {
         document.getElementById('list').innerHTML = data.map((item, i) => `
             <div class="item">
-                <div><b>${item.title}</b> (${item.section})</div>
+                <div><b>${item.title}</b> <small>(${item.section})</small></div>
                 <div class="actions">
                     <button onclick="move(${i},-1)">↑</button><button onclick="move(${i},1)">↓</button>
-                    <button onclick="edit(${i})">✎</button><button onclick="del(${i})">✖</button>
+                    <button class="edit" onclick="edit(${i})">✎</button><button class="del" onclick="del(${i})">✖</button>
                 </div>
             </div>`).join('');
     }
@@ -58,18 +62,15 @@
             tag: document.getElementById('tag').value,
             title: document.getElementById('title').value,
             desc: document.getElementById('desc').value,
-            id: document.getElementById('url').value, // Simplificado
+            id: document.getElementById('url').value, 
             thumb: document.getElementById('thumb').value
         };
-        // Lógica de ID youtube
         if(obj.type === 'video') {
             let m = obj.id.match(/(?:v=|\/)([\w-]{11})/);
             if(m) obj.id = m[1];
         }
-        
         let idx = document.getElementById('editIndex').value;
         if(idx === "") data.push(obj); else data[idx] = obj;
-        
         document.getElementById('editIndex').value = "";
         render();
     }
@@ -77,14 +78,19 @@
         let item = data[i];
         document.getElementById('editIndex').value = i;
         document.getElementById('title').value = item.title;
-        // ... preencher outros ...
-        // Simplificado para brevidade, mas funciona igual ao anterior
+        document.getElementById('section').value = item.section;
+        document.getElementById('program').value = item.program || '';
+        document.getElementById('type').value = item.type;
+        document.getElementById('tag').value = item.tag;
+        document.getElementById('desc').value = item.desc;
+        let url = item.id;
+        if(item.type === 'video') url = 'https://youtu.be/'+item.id;
+        document.getElementById('url').value = url;
+        document.getElementById('thumb').value = item.thumb || '';
+        window.scrollTo(0,0);
     }
     function del(i) { if(confirm('Apagar?')) { data.splice(i,1); render(); } }
-    function move(i,d) { 
-        let n = i+d; 
-        if(n>=0 && n<data.length) { [data[i],data[n]] = [data[n],data[i]]; render(); } 
-    }
+    function move(i,d) { let n = i+d; if(n>=0 && n<data.length) { [data[i],data[n]] = [data[n],data[i]]; render(); } }
     function download() {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(new Blob(["const tutorialData = " + JSON.stringify(data, null, 2) + ";"], {type: "text/javascript"}));
