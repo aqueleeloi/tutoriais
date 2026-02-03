@@ -2,129 +2,197 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Gestor</title>
+    <title>Admin - Gestor Total</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Poppins', sans-serif; background: #222; color: white; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: #333; padding: 30px; border-radius: 10px; }
-        input, select { width: 100%; padding: 12px; margin: 5px 0 15px; background: #444; border: 1px solid #555; color: white; border-radius: 5px; outline:none;}
-        .btn { padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
-        .save { background: #00d26a; color: #fff; }
-        .download { background: #31A8FF; color: white; margin-top: 20px; }
-        .item { background: #444; padding: 12px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; border-radius: 4px; }
-        .del { background: #ff4757; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .container { max-width: 900px; margin: 0 auto; background: #333; padding: 25px; border-radius: 10px; }
+        
+        h2 { text-align: center; color: #00d26a; margin-bottom: 20px; }
+        
+        /* Form Styles */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        label { font-size: 0.85rem; color: #ccc; display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 10px; background: #444; border: 1px solid #555; color: white; border-radius: 5px; outline: none; }
+        input:focus { border-color: #00d26a; }
+        
+        .btn { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
+        .save-btn { background: #00d26a; color: white; grid-column: span 2; font-size: 1.1rem; }
+        .save-btn:hover { background: #00b85c; }
+        .cancel-btn { background: #555; color: white; display: none; margin-bottom: 10px; }
+
+        /* List Styles */
+        .list-header { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-bottom: 1px solid #555; padding-bottom: 10px; }
+        .item { background: #2a2a2a; padding: 10px 15px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; border-radius: 6px; border-left: 5px solid #555; }
+        
+        .item.ps { border-left-color: #31A8FF; }
+        .item.pp { border-left-color: #00D26A; }
+
+        .item-info strong { display: block; font-size: 1rem; }
+        .item-info span { font-size: 0.8rem; color: #aaa; background: #444; padding: 2px 6px; border-radius: 4px; }
+        .item-info small { color: #888; margin-left: 10px; }
+        
+        /* Action Buttons */
+        .actions { display: flex; gap: 5px; }
+        .act-btn { width: 32px; height: 32px; border: none; border-radius: 4px; cursor: pointer; color: white; display: flex; align-items: center; justify-content: center; }
+        .up, .down { background: #444; }
+        .edit { background: #ffa502; }
+        .del { background: #ff4757; }
+        .act-btn:hover { filter: brightness(1.1); }
+
+        .download-btn { background: #31A8FF; color: white; margin-top: 20px; font-size: 1.2rem; }
+        .download-btn:hover { background: #2290e0; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align:center; color:#00d26a">Adicionar Conteúdo</h2>
-    
-    <label>Plataforma</label>
-    <select id="platform">
-        <option value="ps">Photoshop</option>
-        <option value="pp">Photopea</option>
-    </select>
+    <h2><i class="fas fa-tools"></i> Gestor de Conteúdos</h2>
 
-    <label>Link (YouTube OU Site de Artigo/PDF)</label>
-    <input type="text" id="url" placeholder="Cola o URL aqui...">
+    <input type="hidden" id="editIndex"> <div class="form-grid">
+        <div>
+            <label>Plataforma</label>
+            <select id="platform">
+                <option value="ps">Photoshop</option>
+                <option value="pp">Photopea</option>
+            </select>
+        </div>
+        <div>
+            <label>Tipo</label>
+            <select id="type">
+                <option value="video">Vídeo (YouTube)</option>
+                <option value="doc">Documento / Link</option>
+            </select>
+        </div>
 
-    <label>Título</label>
-    <input type="text" id="title" placeholder="Título...">
+        <div class="full-width">
+            <label>Link / URL</label>
+            <input type="text" id="url" placeholder="Cola aqui o link do YouTube ou do Site...">
+        </div>
 
-    <label>Descrição</label>
-    <input type="text" id="desc" placeholder="Breve descrição...">
+        <div class="full-width">
+            <label>Título</label>
+            <input type="text" id="title" placeholder="Ex: Guia de Recorte">
+        </div>
 
-    <label>Categoria</label>
-    <select id="tag">
-        <option value="CRIACAO">1. Criação / Config</option>
-        <option value="FERRAMENTAS">2. Ferramentas</option>
-        <option value="RECORTE">3. Recorte Básico</option>
-        <option value="MASCARAS">4. Máscaras / Avançado</option>
-        <option value="EXTRA">5. Extra / Documentos</option>
-    </select>
+        <div class="full-width">
+            <label>Descrição</label>
+            <input type="text" id="desc" placeholder="Ex: Técnica rápida para cabelos...">
+        </div>
 
-    <button class="btn save" onclick="addVideo()">Adicionar</button>
+        <div class="full-width">
+            <label>Categoria (Tag)</label>
+            <select id="tag">
+                <option value="CRIACAO">Criação / Config</option>
+                <option value="FERRAMENTAS">Ferramentas</option>
+                <option value="RECORTE">Recorte</option>
+                <option value="MASCARAS">Máscaras</option>
+                <option value="EXTRA">Essenciais / Extras</option>
+            </select>
+        </div>
 
-    <div style="margin-top:30px; border-top:1px solid #555; padding-top:10px;">
-        <h3>Lista Atual (<span id="count">0</span>)</h3>
-        <div id="list"></div>
+        <button class="btn cancel-btn" id="cancelBtn" onclick="resetForm()">Cancelar Edição</button>
+        <button class="btn save-btn" id="saveBtn" onclick="saveData()"><i class="fas fa-plus"></i> Adicionar à Lista</button>
     </div>
 
-    <button class="btn download" onclick="downloadFile()">SALVAR MUDANÇAS (Baixar videos.js)</button>
+    <div class="list-header">
+        <h3>Conteúdo Existente (<span id="count">0</span>)</h3>
+    </div>
+    <div id="list"></div>
+
+    <button class="btn download-btn" onclick="downloadFile()">
+        <i class="fas fa-save"></i> SALVAR MUDANÇAS (Baixar videos.js)
+    </button>
 </div>
 
 <script src="videos.js"></script>
 <script>
-    let videos = (typeof tutorialData !== 'undefined') ? tutorialData : [];
+    let data = (typeof tutorialData !== 'undefined') ? tutorialData : [];
 
     function render() {
         const list = document.getElementById('list');
-        document.getElementById('count').innerText = videos.length;
         list.innerHTML = '';
+        document.getElementById('count').innerText = data.length;
 
-        videos.forEach((v, i) => {
-            // Visual simples para diferenciar Vídeo de Doc no admin
-            let typeIcon = v.id.startsWith('http') ? '<i class="fas fa-book"></i>' : '<i class="fab fa-youtube"></i>';
+        data.forEach((item, i) => {
+            let icon = item.type === 'video' ? '<i class="fab fa-youtube"></i>' : '<i class="fas fa-book"></i>';
             
             list.innerHTML += `
-                <div class="item">
-                    <div>
-                        <span style="color:#bbb; margin-right:5px;">${typeIcon}</span>
-                        <strong>${v.title}</strong>
-                        <span style="font-size:0.8rem; background:#666; padding:2px 5px; border-radius:3px; margin-left:5px;">${v.tag}</span>
+                <div class="item ${item.platform}">
+                    <div class="item-info">
+                        <strong>${icon} ${item.title}</strong>
+                        <span>${item.tag}</span> <small>${item.platform.toUpperCase()}</small>
                     </div>
-                    <button class="del" onclick="remove(${i})"><i class="fas fa-trash"></i></button>
-                </div>`;
+                    <div class="actions">
+                        <button class="act-btn up" onclick="moveItem(${i}, -1)" title="Mover Cima"><i class="fas fa-arrow-up"></i></button>
+                        <button class="act-btn down" onclick="moveItem(${i}, 1)" title="Mover Baixo"><i class="fas fa-arrow-down"></i></button>
+                        <button class="act-btn edit" onclick="editItem(${i})" title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="act-btn del" onclick="deleteItem(${i})" title="Apagar"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
         });
     }
 
-    function addVideo() {
-        const url = document.getElementById('url').value;
-        const title = document.getElementById('title').value;
-        
-        if (!url || !title) { alert("Link e Título são obrigatórios!"); return; }
+    function saveData() {
+        const idInput = document.getElementById('url').value;
+        const type = document.getElementById('type').value;
+        const editIndex = document.getElementById('editIndex').value;
 
-        let finalId;
-        // Lógica: Se for Youtube, extrai ID. Se não, guarda o link todo (Doc).
-        if (url.includes('youtube.com') || url.includes('youtu.be')) {
-            const idMatch = url.match(/(?:v=|\/)([\w-]{11})/);
-            if(idMatch) finalId = idMatch[1];
-            else { alert("Link Youtube inválido"); return; }
-        } else {
-            // É um documento/site
-            finalId = url;
+        if(!idInput || !document.getElementById('title').value) {
+            alert("Preenche o Link e o Título!"); return;
         }
 
-        videos.push({
+        let finalId = idInput;
+        // Se for vídeo, tenta extrair ID do Youtube
+        if(type === 'video') {
+            const match = idInput.match(/(?:v=|\/)([\w-]{11})/);
+            if(match) finalId = match[1];
+            // Se não encontrar ID mas o user escolheu video, usamos o link todo na mesma (fallback)
+        }
+
+        const newItem = {
             id: finalId,
-            title: title,
+            title: document.getElementById('title').value,
             desc: document.getElementById('desc').value,
             platform: document.getElementById('platform').value,
-            tag: document.getElementById('tag').value
-        });
+            tag: document.getElementById('tag').value,
+            type: type
+        };
 
-        // Limpar
-        document.getElementById('url').value = '';
-        document.getElementById('title').value = '';
-        document.getElementById('desc').value = '';
+        if(editIndex === "") {
+            // Criar Novo
+            data.push(newItem);
+        } else {
+            // Editar Existente
+            data[editIndex] = newItem;
+        }
+
+        resetForm();
         render();
     }
 
-    function remove(index) {
-        if(confirm("Apagar?")) { videos.splice(index, 1); render(); }
-    }
+    function editItem(index) {
+        const item = data[index];
+        // Preencher formulário
+        document.getElementById('editIndex').value = index;
+        document.getElementById('platform').value = item.platform;
+        document.getElementById('type').value = item.type || 'video';
+        
+        // Reconstruir URL se for Youtube ID
+        let urlShow = item.id;
+        if(item.type === 'video' && item.id.length === 11) {
+            urlShow = `https://www.youtube.com/watch?v=${item.id}`;
+        }
+        document.getElementById('url').value = urlShow;
+        
+        document.getElementById('title').value = item.title;
+        document.getElementById('desc').value = item.desc;
+        document.getElementById('tag').value = item.tag;
 
-    function downloadFile() {
-        const content = "const tutorialData = " + JSON.stringify(videos, null, 2) + ";";
-        const blob = new Blob([content], {type: "text/javascript"});
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "videos.js"; 
-        link.click();
-    }
-    render();
-</script>
-</body>
-</html>
+        // Mudar estado dos botões
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Atualizar Item';
+        document.getElementById('saveBtn').style.background = '#ffa50
