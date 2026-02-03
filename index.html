@@ -3,262 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Creative Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>creativeHUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            /* Cores Dark Mode Premium */
-            --bg-body: #0f172a;
-            --bg-sidebar: #1e293b;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg-body: #050505;
+            --sidebar-bg: #090909;
+            --card-bg: #121212;
             
-            /* Cores de Destaque */
-            --accent-ps: #38bdf8; /* Photoshop Azul */
-            --accent-pp: #4ade80; /* Photopea Verde */
-            --accent-cv: #c084fc; /* Canva Roxo */
-            --accent-mkt: #f472b6; /* Marketing Rosa */
-            --accent-mind: #facc15; /* Inspiração Amarelo */
+            /* NEON GRADIENTS */
+            --grad-blue: linear-gradient(90deg, #00C6FF 0%, #0072FF 100%);
+            --grad-pink: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
+            --grad-yellow: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);
+            --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
+            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
+            
+            /* Solid Colors for Text/Details */
+            --c-blue: #00C6FF;
+            --c-green: #00b09b;
+            --c-purple: #9D50BB;
+            --c-pink: #FF416C;
+            --c-yellow: #F2994A;
+
+            --text-main: #fff;
+            --text-dim: #777;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: var(--bg-body); 
-            color: var(--text-main); 
-            display: flex; 
-            min-height: 100vh;
-            overflow-x: hidden;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* --- SIDEBAR --- */
         .sidebar {
             width: 280px;
-            background: var(--bg-sidebar);
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            padding: 40px 25px;
-            border-right: 1px solid #334155;
+            background: var(--sidebar-bg);
+            border-right: 1px solid #1a1a1a;
             display: flex;
             flex-direction: column;
-            z-index: 100;
+            padding: 40px 25px;
+            flex-shrink: 0;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo span { color: var(--accent-ps); }
+        /* LOGO */
+        .logo-container { margin-bottom: 60px; padding-left: 5px; }
+        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1; color: white; }
+        .brand-name span { color: var(--c-blue); } 
+        .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; font-weight: 500; margin-top: 6px; letter-spacing: 0.5px; }
+        .brand-power span { color: #fff; font-weight: 600; }
 
+        /* NAVEGAÇÃO SIDEBAR */
         .nav-btn {
+            width: 100%;
             background: transparent;
             border: none;
-            color: var(--text-muted);
-            padding: 16px 20px;
+            color: var(--text-dim);
             text-align: left;
-            font-size: 1rem;
+            padding: 16px 22px;
+            font-size: 0.95rem;
             font-weight: 600;
-            cursor: pointer;
             border-radius: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            cursor: pointer;
             transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 10px;
         }
 
-        .nav-btn i { width: 24px; text-align: center; font-size: 1.2rem; }
+        .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
+        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        .nav-btn:hover { background: rgba(255,255,255,0.05); color: white; transform: translateX(5px); }
+        /* ATIVOS (Cheios com Gradiente) */
+        .nav-btn.active { color: white; font-weight: 700; transform: translateX(5px); }
+        .nav-btn.active.soft { background: var(--grad-blue); box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4); }
+        .nav-btn.active.mkt { background: var(--grad-pink); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
+        .nav-btn.active.inspo { background: var(--grad-yellow); color: #000; box-shadow: 0 4px 15px rgba(242, 153, 74, 0.4); }
 
-        .nav-btn.active {
-            background: #334155;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .nav-btn.active.soft { border-left: 4px solid var(--accent-ps); }
-        .nav-btn.active.mkt { border-left: 4px solid var(--accent-mkt); }
-        .nav-btn.active.inspo { border-left-color: var(--accent-mind); border-left: 4px solid var(--accent-mind); }
-
-
-        /* --- MAIN CONTENT --- */
-        .main-content {
-            margin-left: 280px;
-            padding: 50px 60px;
-            width: 100%;
-        }
+        /* --- MAIN AREA --- */
+        .main-content { flex-grow: 1; padding: 50px 60px; overflow-y: auto; }
 
         .section-header { margin-bottom: 40px; }
-        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
-        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; letter-spacing: -1px; }
+        .section-desc { color: var(--text-dim); margin-top: 5px; font-size: 1.1rem; }
 
-        /* --- TABS SOFTWARE --- */
-        .software-tabs { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        /* --- FILTROS (CHIPS) - AGORA IGUAIS À SIDEBAR --- */
+        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         
-        .sub-tab {
-            background: #0f172a;
-            border: 1px solid #334155;
-            color: var(--text-muted);
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 600;
+        .chip {
+            background: transparent;
+            border: 1px solid #333; /* Borda subtil quando inativo */
+            color: #777;
+            padding: 12px 24px;
+            border-radius: 12px; /* MESMO Raio da Sidebar */
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .sub-tab:hover { border-color: white; color: white; }
+        .chip i { font-size: 1.1rem; }
+        .chip:hover { border-color: #666; color: white; }
 
-        /* Cores Ativas das Tabs */
-        .sub-tab.active[data-prog="ps"] { background: rgba(56, 189, 248, 0.1); border-color: var(--accent-ps); color: var(--accent-ps); box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
-        .sub-tab.active[data-prog="pp"] { background: rgba(74, 222, 128, 0.1); border-color: var(--accent-pp); color: var(--accent-pp); box-shadow: 0 0 15px rgba(74, 222, 128, 0.2); }
-        .sub-tab.active[data-prog="cv"] { background: rgba(192, 132, 252, 0.1); border-color: var(--accent-cv); color: var(--accent-cv); box-shadow: 0 0 15px rgba(192, 132, 252, 0.2); }
+        /* ATIVOS FILTROS (Fundo Cheio e Gradiente - Igual à Sidebar) */
+        .chip.active { color: white; border: none; font-weight: 700; transform: translateY(-2px); }
+        
+        .chip.active[data-prog="ps"] { background: var(--grad-blue); box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4); }
+        .chip.active[data-prog="pp"] { background: var(--grad-green); box-shadow: 0 4px 15px rgba(0, 210, 106, 0.4); }
+        .chip.active[data-prog="cv"] { background: var(--grad-purple); box-shadow: 0 4px 15px rgba(157, 80, 187, 0.4); }
 
 
-        /* --- GRID DE CARDS --- */
-        .view-section { display: none; animation: fadeUp 0.5s ease; }
-        .view-section.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
+        /* --- GRID DE CARTÕES --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 50px; }
 
         .card {
-            background: var(--bg-card);
+            background: var(--card-bg);
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid #334155;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            border: 1px solid #222;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column;
         }
+        .card:hover { transform: translateY(-7px); border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-color: var(--text-muted);
-        }
-
-        .thumb {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: 0.5s;
-        }
-
+        .thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
-        .icon-overlay {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: white;
-            opacity: 0.9;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
-
-        .content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-
-        .tag {
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            width: fit-content;
-            letter-spacing: 0.5px;
-        }
-
-        h3 { font-size: 1.25rem; margin-bottom: 10px; line-height: 1.4; color: white; }
-        p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
-
-        .btn {
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 700;
-            color: white;
-            margin-top: auto;
+        /* --- CONTEÚDO CENTRADO E BOTÃO MODERNO --- */
+        .content {
+            padding: 25px;
+            flex-grow: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #334155;
-            transition: 0.2s;
+            flex-direction: column;
+            align-items: center; /* CENTRA TUDO */
+            text-align: center;  /* CENTRA TEXTO */
         }
-        .btn:hover { filter: brightness(1.15); }
 
-        /* Aviso de Erro */
-        #debug-message { display: none; background: #ef4444; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; font-weight: bold; }
+        /* Tags Pequenas */
+        .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; width: fit-content; }
+        /* Cores sólidas translúcidas */
+        .t-blue { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
+        .t-green { color: var(--c-green); background: rgba(0, 176, 155, 0.1); }
+        .t-purple { color: var(--c-purple); background: rgba(157, 80, 187, 0.1); }
+        .t-pink { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
+        .t-yellow { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
 
-        /* Responsividade */
+        h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; margin-bottom: 8px; line-height: 1.3; color: #fff; }
+        p { font-size: 0.9rem; color: #888; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; }
+
+        /* --- BOTÃO CARD (NOVO) --- */
+        .card-btn {
+            text-decoration: none;
+            width: 100%;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: auto;
+            transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: #1a1a1a; /* Default Dark */
+            color: white;
+        }
+
+        /* Cores do Botão Baseadas na Secção */
+        .card.soft .card-btn { background: rgba(0, 198, 255, 0.15); color: var(--c-blue); }
+        .card.soft:hover .card-btn { background: var(--c-blue); color: #000; box-shadow: 0 0 20px rgba(0, 198, 255, 0.4); }
+
+        .card.mkt .card-btn { background: rgba(255, 65, 108, 0.15); color: var(--c-pink); }
+        .card.mkt:hover .card-btn { background: var(--c-pink); color: white; box-shadow: 0 0 20px rgba(255, 65, 108, 0.4); }
+
+        .card.inspo .card-btn { background: rgba(242, 153, 74, 0.15); color: var(--c-yellow); }
+        .card.inspo:hover .card-btn { background: var(--c-yellow); color: #000; box-shadow: 0 0 20px rgba(242, 153, 74, 0.4); }
+
+        /* Cores Específicas de Programa */
+        .card.soft.pp .card-btn { background: rgba(0, 176, 155, 0.15); color: var(--c-green); }
+        .card.soft.pp:hover .card-btn { background: var(--c-green); color: #000; box-shadow: 0 0 20px rgba(0, 176, 155, 0.4); }
+
+        .card.soft.cv .card-btn { background: rgba(157, 80, 187, 0.15); color: var(--c-purple); }
+        .card.soft.cv:hover .card-btn { background: var(--c-purple); color: white; box-shadow: 0 0 20px rgba(157, 80, 187, 0.4); }
+
+
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #debug { display: none; color: red; text-align: center; padding: 20px; }
+
         @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; padding: 20px; }
-            .main-content { margin-left: 0; padding: 30px 20px; }
-            .logo { justify-content: center; margin-bottom: 20px; }
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #222; }
+            .main-content { padding: 30px 20px; overflow: visible; }
+            .chips-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 5px; }
+            .chip { white-space: nowrap; }
         }
     </style>
 </head>
 <body>
 
-<nav class="sidebar">
-    <div class="logo"><i class="fas fa-layer-group"></i> THE <span>HUB</span>.</div>
+<aside class="sidebar">
+    <div class="logo-container">
+        <div class="brand-name">creative<span>HUB.</span></div>
+        <div class="brand-power">powered by <span>aquele.eloi</span></div>
+    </div>
     
-    <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">
-        <i class="fas fa-laptop-code"></i> Software Lab
-    </button>
-    <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)">
-        <i class="fas fa-bullhorn"></i> Marketing Toolkit
-    </button>
-    <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)">
-        <i class="fas fa-lightbulb"></i> Mindset & Cultura
-    </button>
-</nav>
+    <nav>
+        <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">
+            <i class="fas fa-layer-group"></i> Software Lab
+        </button>
+        <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)">
+            <i class="fas fa-rocket"></i> Marketing Toolkit
+        </button>
+        <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)">
+            <i class="fas fa-lightbulb"></i> Mindset & Cultura
+        </button>
+    </nav>
+</aside>
 
-<main class="main-content">
+<section class="main-content">
     
-    <div id="debug-message"></div>
+    <div id="debug">⚠️ ERRO: videos.js não carregou.</div>
 
     <div id="SOFTWARE" class="view-section active">
         <div class="section-header">
-            <h2>Software Lab</h2>
-            <p>Tutoriais técnicos e práticos para dominar as ferramentas.</p>
+            <div class="section-title">Software Lab</div>
+            <div class="section-desc">Domina as ferramentas profissionais.</div>
         </div>
-        
-        <div class="software-tabs">
-            <button class="sub-tab active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
-            <button class="sub-tab" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
-            <button class="sub-tab" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
+
+        <div class="chips-container">
+            <div class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</div>
+            <div class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</div>
+            <div class="chip" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</div>
         </div>
 
         <div class="grid" id="grid-software"></div>
@@ -266,112 +251,100 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <h2 style="color: var(--accent-mkt)">Marketing Toolkit</h2>
-            <p>Recursos, templates e bancos de imagem gratuitos.</p>
+            <div class="section-title" style="color:var(--c-pink)">Marketing Toolkit</div>
+            <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
     </div>
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <h2 style="color: var(--accent-mind)">Mindset & Cultura</h2>
-            <p>Expandir a tua visão criativa.</p>
+            <div class="section-title" style="color:var(--c-yellow)">Mindset & Cultura</div>
+            <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
     </div>
-</main>
+
+</section>
 
 <script src="videos.js"></script>
 <script>
-    // 1. VERIFICAR ERROS
     let safeData = [];
     if (typeof tutorialData === 'undefined') {
-        const msg = document.getElementById('debug-message');
-        msg.style.display = 'block';
-        msg.innerHTML = "⚠️ ERRO: O ficheiro 'videos.js' não foi encontrado. Verifica se está na mesma pasta.";
+        document.getElementById('debug').style.display = 'block';
     } else {
         safeData = tutorialData;
         initApp();
     }
 
-    // 2. INICIALIZAR
     function initApp() {
-        renderContent('ps'); // Começa com Photoshop
+        render('ps'); 
     }
 
-    // 3. RENDERIZAR CONTEÚDO
-    function renderContent(filterProg) {
-        // Limpar todos os grids
+    function render(filter) {
         document.getElementById('grid-software').innerHTML = '';
         document.getElementById('grid-marketing').innerHTML = '';
         document.getElementById('grid-inspiration').innerHTML = '';
 
         safeData.forEach(item => {
-            // Filtro específico para Software
-            if (item.section === 'SOFTWARE' && item.program !== filterProg) return;
+            if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
-            let thumb, link, icon, btnText, btnColor, tagBg, tagColor;
+            let link = item.id;
+            let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
+            let btnText = "Aceder";
+            let btnIcon = "fa-external-link-alt";
 
-            // Configurar Video vs Documento
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                icon = "fas fa-play";
                 btnText = "Assistir Aula";
+                btnIcon = "fa-play";
             } else {
-                link = item.id;
-                thumb = item.thumb ? item.thumb : "https://images.unsplash.com/photo-1557683316-973673baf926?w=500&q=60";
-                icon = "fas fa-file-alt";
-                btnText = "Abrir Recurso";
+                if(item.thumb) thumb = item.thumb;
             }
 
-            // Lógica de Cores por Secção
-            if (item.section === 'SOFTWARE') {
-                if (item.program === 'ps') { btnColor = 'var(--accent-ps)'; tagBg = 'rgba(56, 189, 248, 0.1)'; tagColor = 'var(--accent-ps)'; }
-                else if (item.program === 'pp') { btnColor = 'var(--accent-pp)'; tagBg = 'rgba(74, 222, 128, 0.1)'; tagColor = 'var(--accent-pp)'; }
-                else if (item.program === 'cv') { btnColor = 'var(--accent-cv)'; tagBg = 'rgba(192, 132, 252, 0.1)'; tagColor = 'var(--accent-cv)'; }
-            } else if (item.section === 'MARKETING') {
-                btnColor = 'var(--accent-mkt)'; tagBg = 'rgba(244, 114, 182, 0.1)'; tagColor = 'var(--accent-mkt)';
-            } else {
-                btnColor = 'var(--accent-mind)'; tagBg = 'rgba(250, 204, 21, 0.1)'; tagColor = 'var(--accent-mind)';
-            }
+            // Cores das Tags
+            let tagClass = "t-blue";
+            let cardClass = "soft"; // Default
+            
+            if (item.section === 'MARKETING') { tagClass = "t-pink"; cardClass = "mkt"; }
+            if (item.section === 'INSPIRATION') { tagClass = "t-yellow"; cardClass = "inspo"; }
+            if (item.program === 'pp') { tagClass = "t-green"; cardClass = "soft pp"; }
+            if (item.program === 'cv') { tagClass = "t-purple"; cardClass = "soft cv"; }
 
-            // Criar HTML do Card
             const html = `
-                <article class="card">
+                <article class="card ${cardClass}">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'" alt="${item.title}">
-                        <i class="${icon} icon-overlay"></i>
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
                     </a>
                     <div class="content">
-                        <div class="tag" style="background:${tagBg}; color:${tagColor}">${item.tag}</div>
+                        <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="btn" style="background:${btnColor}">${btnText}</a>
+                        <a href="${link}" target="_blank" class="card-btn">
+                            <i class="fas ${btnIcon}"></i> ${btnText}
+                        </a>
                     </div>
-                </article>`;
+                </article>
+            `;
 
-            // Injetar no grid correto
             if(item.section === 'SOFTWARE') document.getElementById('grid-software').innerHTML += html;
             else if(item.section === 'MARKETING') document.getElementById('grid-marketing').innerHTML += html;
             else document.getElementById('grid-inspiration').innerHTML += html;
         });
     }
 
-    // 4. MUDAR SECÇÃO PRINCIPAL
-    function switchMain(sectionId, btn) {
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-        
-        document.getElementById(sectionId).classList.add('active');
+    window.switchMain = function(id, btn) {
+        document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
         btn.classList.add('active');
     }
 
-    // 5. FILTRAR SOFTWARE
-    function filterSoftware(progCode, btn) {
-        document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
+    window.filterSoftware = function(prog, btn) {
+        document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
         btn.classList.add('active');
-        renderContent(progCode);
+        render(prog);
     }
 </script>
 </body>
