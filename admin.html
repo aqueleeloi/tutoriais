@@ -1,148 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Vídeos 📺</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --primary: #764ba2; --secondary: #667eea; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h1 { color: var(--primary); text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+async function carregarDados() {
+    try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`, {
+            headers: { 'Authorization': `token ${TOKEN}` }
+        });
+        const data = await res.json();
+        fileSha = data.sha;
         
-        .form-group { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
-        input { width: 80%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        // Decodifica o Base64 do GitHub
+        let content = decodeURIComponent(escape(atob(data.content)));
         
-        .btn { cursor: pointer; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: 0.3s; }
-        .btn-add { background: var(--primary); color: white; }
-        .btn-save { background: #2ea44f; color: white; width: 100%; font-size: 1.1rem; margin-top: 20px; }
-        .btn-del { background: #d73a49; color: white; padding: 5px 10px; }
-
-        .video-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-        .loading { color: orange; font-weight: bold; text-align: center; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1><i class="fas fa-video"></i> Gestor de Tutoriais</h1>
-    
-    <div class="form-group">
-        <h3>Adicionar Novo Vídeo</h3>
-        <input type="text" id="newTitle" placeholder="Título do Vídeo">
-        <input type="text" id="newUrl" placeholder="URL do Vídeo (ex: youtube.com/...)">
-        <button class="btn btn-add" onclick="addVideo()">➕ Adicionar</button>
-    </div>
-
-    <div id="listaVideos">
-        <p class="loading">A carregar vídeos do GitHub...</p>
-    </div>
-
-    <button id="btnSalvarGeral" class="btn btn-save" onclick="salvarNoGithub()" disabled>
-        <i class="fas fa-cloud-upload-alt"></i> Gravar Alterações no GitHub
-    </button>
-    <p id="status" style="text-align:center; margin-top:10px;"></p>
-</div>
-
-<script>
-    // --- CONFIGURAÇÃO (OBRIGATÓRIO) ---
-    const TOKEN = 'O_TEU_TOKEN_AQUI'; 
-    const REPO = 'aqueleeloi/tutoriais';
-    const PATH = 'videos.js';
-    
-    let dbVideos = [];
-    let fileSha = "";
-
-    // 1. Carregar dados ao abrir a página
-    async function carregarDados() {
-        try {
-            const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`);
-            const data = await res.json();
-            fileSha = data.sha;
-            
-            // Decifrar o conteúdo do videos.js
-            // Nota: O ficheiro deve estar no formato: const videos = [...];
-            let content = atob(data.content);
-            let jsonString = content.replace('const videos = ', '').replace(';', '').trim();
-            dbVideos = JSON.parse(jsonString);
-            
+        // Esta parte isola apenas o que está entre os parênteses [ ]
+        const regex = /\[[\s\S]*\]/;
+        const match = content.match(regex);
+        
+        if (match) {
+            dbVideos = JSON.parse(match[0]);
             renderLista();
             document.getElementById('btnSalvarGeral').disabled = false;
-        } catch (e) {
-            document.getElementById('status').innerText = "Erro ao carregar ficheiro! Verifica o Token e o caminho.";
+            document.getElementById('status').innerText = "✅ Vídeos carregados!";
+        } else {
+            throw new Error("Formato de array não encontrado.");
         }
+    } catch (e) {
+        console.error(e);
+        document.getElementById('status').innerText = "❌ Erro: Garante que o videos.js tem o formato correto!";
+        document.getElementById('status').style.color = "red";
     }
-
-    // 2. Desenhar a lista no ecrã
-    function renderLista() {
-        const lista = document.getElementById('listaVideos');
-        lista.innerHTML = "<h3>Vídeos Atuais:</h3>";
-        
-        dbVideos.forEach((v, index) => {
-            lista.innerHTML += `
-                <div class="video-item">
-                    <div>
-                        <strong>${v.titulo}</strong><br>
-                        <small>${v.url}</small>
-                    </div>
-                    <button class="btn btn-del" onclick="removerVideo(${index})"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
-        });
-    }
-
-    // 3. Funções de Gestão (Local)
-    function addVideo() {
-        const t = document.getElementById('newTitle').value;
-        const u = document.getElementById('newUrl').value;
-        if(!t || !u) return alert("Preenche tudo!");
-        
-        dbVideos.push({ titulo: t, url: u });
-        document.getElementById('newTitle').value = "";
-        document.getElementById('newUrl').value = "";
-        renderLista();
-    }
-
-    function removerVideo(index) {
-        dbVideos.splice(index, 1);
-        renderLista();
-    }
-
-    // 4. GRAVAR TUDO NO GITHUB
-    async function salvarNoGithub() {
-        const status = document.getElementById('status');
-        status.innerText = "🚀 A gravar... aguarda...";
-        
-        const novoConteudo = `const videos = ${JSON.stringify(dbVideos, null, 2)};`;
-        
-        try {
-            const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${TOKEN}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: "Atualização via Admin UI 📱",
-                    content: btoa(unescape(encodeURIComponent(novoConteudo))),
-                    sha: fileSha
-                })
-            });
-
-            if(res.ok) {
-                const data = await res.json();
-                fileSha = data.content.sha; // Atualiza o SHA para a próxima gravação
-                status.innerHTML = "<b style='color:green'>✅ Atualizado! O site vai refletir as mudanças em breve.</b>";
-            } else {
-                status.innerText = "❌ Erro ao gravar. Verifica permissões.";
-            }
-        } catch (e) {
-            status.innerText = "❌ Erro de conexão.";
-        }
-    }
-
-    carregarDados();
-</script>
-</body>
-</html>
+}
