@@ -53,16 +53,6 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
-    "tag": "Produtividade",
-    "title": "10 Segredos do Canva",
-    "desc": "Atalhos e funções que poupam horas de trabalho.",
-    "id": "tDq7qHhC_n4",
-    "thumb": "https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
     "tag": "Design",
     "title": "Design Profissional no Canva",
     "desc": "Como fugir do aspeto 'template' e criar artes únicas.",
@@ -107,7 +97,7 @@ const tutorialData = [
     "title": "Google Fonts Pro",
     "desc": "Biblioteca oficial de tipografias modernas para web.",
     "id": "https://fonts.google.com/",
-    "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800"
+    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
   },
   {
     "section": "MARKETING",
@@ -218,5 +208,15 @@ const tutorialData = [
     "desc": "Tutorial rápido de design profissional.",
     "id": "53goSxCP7QU",
     "thumb": "https://img.youtube.com/vi/53goSxCP7QU/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "TRUQUES NO CANVAS",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "Th8h8REjOzA",
+    "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
   }
 ];
