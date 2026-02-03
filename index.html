@@ -103,7 +103,6 @@
         }
         .btn:hover { filter: brightness(1.1); }
 
-        /* Responsividade */
         @media (max-width: 900px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #334155; }
@@ -155,7 +154,7 @@
     <div id="MARKETING" class="view-section">
         <div class="section-header">
             <h2 style="color: var(--mkt)">Marketing Toolkit</h2>
-            <p>Documentos, templates e estratégias para criadores.</p>
+            <p>Documentos, templates, bancos de imagem e ferramentas essenciais.</p>
         </div>
         <div class="grid" id="grid-marketing"></div>
     </div>
@@ -172,46 +171,45 @@
 
 <script src="videos.js"></script>
 <script>
-    // VERIFICAÇÃO DE DADOS
     if (typeof tutorialData === 'undefined') {
-        document.querySelector('.main-content').innerHTML = "<h1 style='color:#ef4444; padding:50px'>ERRO: O ficheiro videos.js não foi encontrado.</h1>";
+        document.querySelector('.main-content').innerHTML = "<h1 style='color:#ef4444; padding:50px'>ERRO: videos.js em falta!</h1>";
     } else {
-        // Inicializa
-        renderContent('ps'); // Começa com Photoshop selecionado
+        const grids = {
+            'SOFTWARE': document.getElementById('grid-software'),
+            'MARKETING': document.getElementById('grid-marketing'),
+            'INSPIRATION': document.getElementById('grid-inspiration')
+        };
+
+        // Renderiza tudo inicialmente com Photoshop ativo
+        renderContent('ps');
     }
 
-    function renderContent(softwareFilter) {
-        // Limpar todas as grids
-        document.getElementById('grid-software').innerHTML = '';
-        document.getElementById('grid-marketing').innerHTML = '';
-        document.getElementById('grid-inspiration').innerHTML = '';
+    function renderContent(filterProg) {
+        // Limpar grids
+        Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
-            // Lógica de Filtro Importante:
-            // 1. Se for SOFTWARE, só mostra o programa ativo (ps, pp ou cv)
-            if (item.section === 'SOFTWARE' && item.program !== softwareFilter) {
-                return; 
-            }
-            // 2. Se for MARKETING ou INSPIRATION, mostra sempre (ignora o filtro de software)
+            // LÓGICA DE FILTRO:
+            // Só filtra se for SOFTWARE. Marketing e Inspo mostram tudo o que têm.
+            if (item.section === 'SOFTWARE' && item.program !== filterProg) return;
 
             // Configurar Thumbnails e Links
             let thumb, link, icon, btnText, btnColor, tagBg, tagColor;
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
-                // Se tiver thumb manual usa, senão gera do youtube
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
                 icon = "fas fa-play";
                 btnText = "Assistir Aula";
             } else {
                 link = item.id;
-                // Se tiver thumb manual usa, senão usa placeholder
+                // Usa thumb do JSON, senão placeholder
                 thumb = item.thumb ? item.thumb : "https://images.unsplash.com/photo-1557683316-973673baf926?w=500&q=60";
                 icon = "fas fa-file-alt";
-                btnText = "Abrir Documento";
+                btnText = "Abrir Recurso";
             }
 
-            // Cores e Estilos
+            // Estilos
             if (item.section === 'SOFTWARE') {
                 if (item.program === 'ps') { btnColor = 'var(--ps)'; tagBg = 'rgba(56, 189, 248, 0.1)'; tagColor = 'var(--ps)'; }
                 else if (item.program === 'pp') { btnColor = 'var(--pp)'; tagBg = 'rgba(74, 222, 128, 0.1)'; tagColor = 'var(--pp)'; }
@@ -239,27 +237,20 @@
                 </article>
             `;
 
-            // Injetar no sítio certo
-            if (item.section === 'SOFTWARE') document.getElementById('grid-software').innerHTML += html;
-            else if (item.section === 'MARKETING') document.getElementById('grid-marketing').innerHTML += html;
-            else if (item.section === 'INSPIRATION') document.getElementById('grid-inspiration').innerHTML += html;
+            if(grids[item.section]) grids[item.section].innerHTML += html;
         });
     }
 
-    // Navegação Principal (Menu Lateral)
     function switchMain(sectionId, btn) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        
         document.getElementById(sectionId).classList.add('active');
         btn.classList.add('active');
     }
 
-    // Filtro Software (Abas de Cima)
     function filterSoftware(progCode, btn) {
         document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
         btn.classList.add('active');
-        // Re-renderiza o conteúdo filtrando pelo programa escolhido
         renderContent(progCode);
     }
 </script>
