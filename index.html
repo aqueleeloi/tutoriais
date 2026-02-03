@@ -14,18 +14,16 @@
             --card-bg: #121212;
             
             /* NEON GRADIENTS */
-            --grad-blue: linear-gradient(90deg, #00C6FF 0%, #0072FF 100%);
-            --grad-pink: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
-            --grad-yellow: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);
+            --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
+            --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
+            --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
             --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
             --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             
-            /* Solid Colors for Text/Details */
-            --c-blue: #00C6FF;
-            --c-green: #00b09b;
-            --c-purple: #9D50BB;
-            --c-pink: #FF416C;
-            --c-yellow: #F2994A;
+            /* CORES MARCAS */
+            --ps: #31A8FF;
+            --pp: #00D26A;
+            --cv: #8B5CF6;
 
             --text-main: #fff;
             --text-dim: #777;
@@ -55,38 +53,63 @@
             flex-shrink: 0;
         }
 
-        /* LOGO */
+        /* LOGO DESIGN */
         .logo-container { margin-bottom: 60px; padding-left: 5px; }
-        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1; color: white; }
-        .brand-name span { color: var(--c-blue); } 
-        .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; font-weight: 500; margin-top: 6px; letter-spacing: 0.5px; }
-        .brand-power span { color: #fff; font-weight: 600; }
+        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -1px; line-height: 1; }
+        .brand-name span { color: #00C6FF; } 
+        .brand-power { font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #666; margin-top: 5px; letter-spacing: 1px; text-transform: uppercase; }
+        .brand-power span { color: #00C6FF; font-weight: 700; }
 
         /* NAVEGAÇÃO SIDEBAR */
         .nav-btn {
             width: 100%;
             background: transparent;
-            border: none;
+            /* Borda transparente inicial */
+            border: 2px solid transparent;
             color: var(--text-dim);
             text-align: left;
             padding: 16px 22px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex; align-items: center; gap: 12px;
             margin-bottom: 10px;
+            position: relative;
+            background-clip: padding-box;
         }
 
         .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        /* ATIVOS (Cheios com Gradiente) */
-        .nav-btn.active { color: white; font-weight: 700; transform: translateX(5px); }
-        .nav-btn.active.soft { background: var(--grad-blue); box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4); }
-        .nav-btn.active.mkt { background: var(--grad-pink); box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); }
-        .nav-btn.active.inspo { background: var(--grad-yellow); color: #000; box-shadow: 0 4px 15px rgba(242, 153, 74, 0.4); }
+        /* --- ESTADO ATIVO SIDEBAR: BORDA GRADIENTE (A MUDANÇA) --- */
+        .nav-btn.active {
+            /* Fundo interior escuro, borda gradiente */
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            color: white;
+            font-weight: 700;
+        }
+
+        .nav-btn.active.soft {
+            background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue);
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.2);
+        }
+        .nav-btn.active.soft i { color: #00C6FF; }
+
+        .nav-btn.active.mkt {
+            background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink);
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.2);
+        }
+        .nav-btn.active.mkt i { color: #FF416C; }
+
+        .nav-btn.active.inspo {
+            background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow);
+            box-shadow: 0 0 15px rgba(242, 153, 74, 0.2);
+        }
+        .nav-btn.active.inspo i { color: #F2994A; }
+
 
         /* --- MAIN AREA --- */
         .main-content { flex-grow: 1; padding: 50px 60px; overflow-y: auto; }
@@ -95,104 +118,67 @@
         .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; letter-spacing: -1px; }
         .section-desc { color: var(--text-dim); margin-top: 5px; font-size: 1.1rem; }
 
-        /* --- FILTROS (CHIPS) - AGORA IGUAIS À SIDEBAR --- */
+        /* --- FILTROS (CHIPS) --- */
         .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         
         .chip {
             background: transparent;
-            border: 1px solid #333; /* Borda subtil quando inativo */
+            border: 2px solid #2a2a2a;
             color: #777;
-            padding: 12px 24px;
-            border-radius: 12px; /* MESMO Raio da Sidebar */
+            padding: 10px 24px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
+            position: relative;
+            background-clip: padding-box;
         }
-
         .chip i { font-size: 1.1rem; }
-        .chip:hover { border-color: #666; color: white; }
+        .chip:hover { border-color: #555; color: white; }
 
-        /* ATIVOS FILTROS (Fundo Cheio e Gradiente - Igual à Sidebar) */
-        .chip.active { color: white; border: none; font-weight: 700; transform: translateY(-2px); }
-        
-        .chip.active[data-prog="ps"] { background: var(--grad-blue); box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4); }
-        .chip.active[data-prog="pp"] { background: var(--grad-green); box-shadow: 0 4px 15px rgba(0, 210, 106, 0.4); }
-        .chip.active[data-prog="cv"] { background: var(--grad-purple); box-shadow: 0 4px 15px rgba(157, 80, 187, 0.4); }
-
-
-        /* --- GRID DE CARTÕES --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 50px; }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #222;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex; flex-direction: column;
+        /* Ativos Filtros - Borda Gradiente */
+        .chip.active {
+            border: 2px solid transparent; 
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            color: white;
         }
+        .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); box-shadow: 0 0 15px rgba(0, 198, 255, 0.2); }
+        .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); box-shadow: 0 0 15px rgba(0, 210, 106, 0.2); }
+        .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); box-shadow: 0 0 15px rgba(157, 80, 187, 0.2); }
+
+
+        /* --- GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; padding-bottom: 50px; }
+
+        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid #222; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-7px); border-color: #444; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
         .thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; background: #000; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
-        /* --- CONTEÚDO CENTRADO E BOTÃO MODERNO --- */
-        .content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* CENTRA TUDO */
-            text-align: center;  /* CENTRA TEXTO */
-        }
+        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        /* Tags Pequenas */
-        .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; width: fit-content; }
-        /* Cores sólidas translúcidas */
-        .t-blue { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
-        .t-green { color: var(--c-green); background: rgba(0, 176, 155, 0.1); }
-        .t-purple { color: var(--c-purple); background: rgba(157, 80, 187, 0.1); }
-        .t-pink { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
-        .t-yellow { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
+        /* Tags */
+        .category-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 4px 8px; border-radius: 4px; width: fit-content; }
+        .t-blue { color: var(--ps); background: rgba(49, 168, 255, 0.1); }
+        .t-green { color: var(--pp); background: rgba(0, 210, 106, 0.1); }
+        .t-purple { color: var(--cv); background: rgba(139, 92, 246, 0.1); }
+        .t-pink { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
+        .t-yellow { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
 
-        h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; margin-bottom: 8px; line-height: 1.3; color: #fff; }
-        p { font-size: 0.9rem; color: #888; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; }
+        h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; margin-bottom: 8px; line-height: 1.4; color: #fff; }
+        p { font-size: 0.9rem; color: #777; margin-bottom: 25px; flex-grow: 1; }
 
-        /* --- BOTÃO CARD (NOVO) --- */
-        .card-btn {
-            text-decoration: none;
-            width: 100%;
-            padding: 12px 0;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-top: auto;
-            transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: #1a1a1a; /* Default Dark */
-            color: white;
-        }
-
-        /* Cores do Botão Baseadas na Secção */
-        .card.soft .card-btn { background: rgba(0, 198, 255, 0.15); color: var(--c-blue); }
-        .card.soft:hover .card-btn { background: var(--c-blue); color: #000; box-shadow: 0 0 20px rgba(0, 198, 255, 0.4); }
-
-        .card.mkt .card-btn { background: rgba(255, 65, 108, 0.15); color: var(--c-pink); }
-        .card.mkt:hover .card-btn { background: var(--c-pink); color: white; box-shadow: 0 0 20px rgba(255, 65, 108, 0.4); }
-
-        .card.inspo .card-btn { background: rgba(242, 153, 74, 0.15); color: var(--c-yellow); }
-        .card.inspo:hover .card-btn { background: var(--c-yellow); color: #000; box-shadow: 0 0 20px rgba(242, 153, 74, 0.4); }
-
-        /* Cores Específicas de Programa */
-        .card.soft.pp .card-btn { background: rgba(0, 176, 155, 0.15); color: var(--c-green); }
-        .card.soft.pp:hover .card-btn { background: var(--c-green); color: #000; box-shadow: 0 0 20px rgba(0, 176, 155, 0.4); }
-
-        .card.soft.cv .card-btn { background: rgba(157, 80, 187, 0.15); color: var(--c-purple); }
-        .card.soft.cv:hover .card-btn { background: var(--c-purple); color: white; box-shadow: 0 0 20px rgba(157, 80, 187, 0.4); }
-
+        /* Link */
+        .action-link { text-decoration: none; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.2s; margin-top: auto; }
+        .card.soft .action-link { color: var(--ps); }
+        .card.mkt .action-link { color: #FF416C; }
+        .card.inspo .action-link { color: #F2994A; }
+        .card:hover .action-link { gap: 12px; filter: brightness(1.2); }
 
         .view-section { display: none; animation: fadeIn 0.4s ease; }
         .view-section.active { display: block; }
@@ -204,8 +190,6 @@
             body { flex-direction: column; overflow: auto; }
             .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #222; }
             .main-content { padding: 30px 20px; overflow: visible; }
-            .chips-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 5px; }
-            .chip { white-space: nowrap; }
         }
     </style>
 </head>
@@ -251,7 +235,7 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:var(--c-pink)">Marketing Toolkit</div>
+            <div class="section-title" style="color:#FF416C">Marketing Toolkit</div>
             <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
@@ -259,7 +243,7 @@
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:var(--c-yellow)">Mindset & Cultura</div>
+            <div class="section-title" style="color:#F2994A">Mindset & Cultura</div>
             <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
@@ -292,25 +276,23 @@
             let link = item.id;
             let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
             let btnText = "Aceder";
-            let btnIcon = "fa-external-link-alt";
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
                 btnText = "Assistir Aula";
-                btnIcon = "fa-play";
             } else {
                 if(item.thumb) thumb = item.thumb;
             }
 
             // Cores das Tags
             let tagClass = "t-blue";
-            let cardClass = "soft"; // Default
+            let cardClass = "soft";
             
             if (item.section === 'MARKETING') { tagClass = "t-pink"; cardClass = "mkt"; }
             if (item.section === 'INSPIRATION') { tagClass = "t-yellow"; cardClass = "inspo"; }
-            if (item.program === 'pp') { tagClass = "t-green"; cardClass = "soft pp"; }
-            if (item.program === 'cv') { tagClass = "t-purple"; cardClass = "soft cv"; }
+            if (item.program === 'pp') tagClass = "t-green";
+            if (item.program === 'cv') tagClass = "t-purple";
 
             const html = `
                 <article class="card ${cardClass}">
@@ -321,8 +303,8 @@
                         <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="card-btn">
-                            <i class="fas ${btnIcon}"></i> ${btnText}
+                        <a href="${link}" target="_blank" class="action-link">
+                            ${btnText} <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
