@@ -4,28 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>creativeHUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
             --bg-body: #050505;
-            --sidebar-bg: #0a0a0a;
+            --sidebar-bg: #090909;
             --card-bg: #121212;
             
-            /* NEON GRADIENTS (Vibrantes) */
-            --gradient-blue: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
-            --gradient-hot: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
-            --gradient-green: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-            --gradient-purple: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            /* CORES DAS MARCAS (VIBRANTES) */
+            --ps: #31A8FF;
+            --pp: #00D26A;
+            --cv: #8B5CF6;
+            --mkt: #FF0055;
+            --mind: #FFCC00;
             
-            /* CORES SÓLIDAS DAS MARCAS (Para os botões) */
-            --ps-color: #31A8FF;
-            --pp-color: #00D26A;
-            --cv-color: #8B5CF6;
-            
-            --text-main: #ffffff;
-            --text-muted: #888888;
+            --border-dim: #222;
+            --text-main: #fff;
+            --text-dim: #777;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,10 +30,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-body);
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
             color: var(--text-main);
             display: flex;
             height: 100vh;
@@ -45,137 +38,151 @@
 
         /* --- SIDEBAR --- */
         .sidebar {
-            width: 280px;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255,255,255,0.05);
+            width: 270px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-dim);
             display: flex;
             flex-direction: column;
-            padding: 30px;
+            padding: 40px 25px;
             flex-shrink: 0;
         }
 
-        /* NOVO LOGÓTIPO */
-        .logo-container { margin-bottom: 50px; }
-        
-        .brand-main {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            color: white;
+        /* LOGO DESIGN (Alinhado e Moderno) */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+            padding-left: 5px; /* Ligeiro ajuste visual */
+        }
+
+        .brand-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             line-height: 1;
+            color: white;
         }
         
-        /* "creative" pequeno, "HUB" grande e azul */
-        .brand-main span:first-child { font-size: 1.4rem; font-weight: 500; }
-        .brand-main span:last-child { color: #00C6FF; }
+        .brand-name span { color: var(--ps); } /* "HUB" em azul */
 
-        .brand-sub {
+        .brand-power {
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 400;
+            font-size: 0.7rem;
             color: #555;
-            margin-top: 5px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
         }
         
-        .brand-sub span { color: #888; font-weight: 600; }
+        .brand-power span { color: #fff; font-weight: 600; }
 
-        /* Botões de Navegação */
+        /* NAVEGAÇÃO */
         .nav-btn {
+            width: 100%;
             background: transparent;
             border: none;
-            color: var(--text-muted);
+            color: var(--text-dim);
             text-align: left;
-            padding: 15px 20px;
-            font-size: 1rem;
+            padding: 16px 20px;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            display: flex; align-items: center; gap: 15px;
-            margin-bottom: 10px;
-            font-family: 'Space Grotesk', sans-serif;
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 8px;
         }
 
-        .nav-btn i { width: 24px; text-align: center; }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
+        .nav-btn:hover { color: white; background: rgba(255,255,255,0.03); }
 
-        /* Ativos */
-        .nav-btn.active.soft { background: var(--gradient-blue); color: white; box-shadow: 0 5px 20px rgba(0, 114, 255, 0.3); }
-        .nav-btn.active.mkt { background: var(--gradient-hot); color: white; box-shadow: 0 5px 20px rgba(255, 75, 43, 0.3); }
-        .nav-btn.active.inspo { background: var(--gradient-green); color: white; box-shadow: 0 5px 20px rgba(150, 201, 61, 0.3); }
+        /* Estado Ativo (Sidebar) */
+        .nav-btn.active { background: #161616; color: white; border-left: 3px solid var(--ps); }
+        .nav-btn.active.mkt { border-left-color: var(--mkt); }
+        .nav-btn.active.inspo { border-left-color: var(--mind); }
 
-        /* --- MAIN CONTENT --- */
+        /* --- MAIN AREA --- */
         .main-content {
             flex-grow: 1;
-            padding: 40px;
+            padding: 50px 60px;
             overflow-y: auto;
-            position: relative;
         }
 
-        /* Títulos CORRIGIDOS (Branco Sólido para Visibilidade) */
-        .section-header { margin-bottom: 30px; }
-        
+        /* CABEÇALHOS (Agora visíveis e limpos) */
+        .section-header { margin-bottom: 40px; }
         .section-title { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             font-size: 2.5rem; 
-            font-family: 'Space Grotesk', sans-serif; 
-            font-weight: 700; 
-            color: white; /* Corrigido: Branco puro para legibilidade */
+            font-weight: 800; 
+            color: white; /* Branco puro para contraste máximo */
+            letter-spacing: -1px;
         }
+        .section-desc { color: var(--text-dim); margin-top: 5px; font-size: 1.1rem; }
 
-        .section-desc { color: var(--text-muted); margin-top: 5px; font-size: 1.1rem; }
-
-        /* Sub-Abas (Chips) CORRIGIDOS - Cores das Marcas */
-        .chips-container { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        /* --- BOTÕES DE FILTRO (A CORREÇÃO IMPORTANTE) --- */
+        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         
         .chip {
-            background: #151515;
-            border: 1px solid #333;
-            color: #888;
-            padding: 10px 25px;
+            background: transparent; /* Fundo transparente */
+            border: 2px solid #333;  /* Borda escura inativa */
+            color: #777;
+            padding: 10px 24px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            display: flex; align-items: center; gap: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px;
         }
-        
-        .chip i { font-size: 1.2rem; }
-        .chip:hover { border-color: #555; color: white; }
-        
-        /* Cores Ativas das Marcas (Sem ficar branco) */
-        .chip.active[data-prog="ps"] { background: rgba(49, 168, 255, 0.15); border-color: var(--ps-color); color: var(--ps-color); }
-        .chip.active[data-prog="pp"] { background: rgba(0, 210, 106, 0.15); border-color: var(--pp-color); color: var(--pp-color); }
-        .chip.active[data-prog="cv"] { background: rgba(139, 92, 246, 0.15); border-color: var(--cv-color); color: var(--cv-color); }
 
-        /* --- GRID DE CARTÕES --- */
+        .chip i { font-size: 1.1rem; }
+        .chip:hover { border-color: #555; color: white; }
+
+        /* --- ESTADOS ATIVOS (OUTLINE / BORDA COLORIDA) --- */
+        /* Photoshop */
+        .chip.active[data-prog="ps"] {
+            border-color: var(--ps);
+            color: var(--ps);
+            background: rgba(49, 168, 255, 0.05); /* Brilho muito subtil no fundo */
+            box-shadow: 0 0 15px rgba(49, 168, 255, 0.15); /* Glow na borda */
+        }
+        /* Photopea */
+        .chip.active[data-prog="pp"] {
+            border-color: var(--pp);
+            color: var(--pp);
+            background: rgba(0, 210, 106, 0.05);
+            box-shadow: 0 0 15px rgba(0, 210, 106, 0.15);
+        }
+        /* Canva */
+        .chip.active[data-prog="cv"] {
+            border-color: var(--cv);
+            color: var(--cv);
+            background: rgba(139, 92, 246, 0.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+        }
+
+        /* --- GRID --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
             padding-bottom: 50px;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid #222;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateY(-7px);
+            border-color: #444;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .thumb {
@@ -183,69 +190,52 @@
             aspect-ratio: 16/9;
             overflow: hidden;
             position: relative;
+            background: #000;
         }
 
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: 0.5s;
-        }
-
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
         .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
-
-        /* Tags Flutuantes */
-        .tag-float {
-            position: absolute;
-            top: 15px; left: 15px;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: white;
-            z-index: 2;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .card.soft .tag-float { background: var(--gradient-blue); }
-        .card.mkt .tag-float { background: var(--gradient-hot); }
-        .card.inspo .tag-float { background: var(--gradient-green); }
-        .card.cv .tag-float { background: var(--gradient-purple); }
 
         .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; }
-        .card p { font-size: 0.9rem; color: #777; margin-bottom: 20px; flex-grow: 1; }
-
-        /* Botão Ação */
-        .action-link {
-            text-decoration: none;
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.9rem; font-weight: 700;
-            transition: 0.2s; margin-top: auto;
+        /* Tags Pequenas */
+        .category-tag {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 12px; padding: 4px 8px; border-radius: 4px; width: fit-content;
         }
         
-        .card.soft .action-link { color: #00C6FF; }
-        .card.mkt .action-link { color: #FF416C; }
-        .card.inspo .action-link { color: #96c93d; }
-        .card.cv .action-link { color: #a855f7; }
+        /* Cores Tags */
+        .t-blue { color: var(--ps); background: rgba(49, 168, 255, 0.1); }
+        .t-green { color: var(--pp); background: rgba(0, 210, 106, 0.1); }
+        .t-purple { color: var(--cv); background: rgba(139, 92, 246, 0.1); }
+        .t-pink { color: var(--mkt); background: rgba(255, 0, 85, 0.1); }
+        .t-yellow { color: var(--mind); background: rgba(255, 204, 0, 0.1); }
 
+        h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; margin-bottom: 8px; line-height: 1.4; color: #fff; }
+        p { font-size: 0.9rem; color: #777; margin-bottom: 25px; flex-grow: 1; }
+
+        /* Link Ação */
+        .action-link {
+            text-decoration: none; font-size: 0.9rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        
+        .card.soft .action-link { color: var(--ps); }
+        .card.mkt .action-link { color: var(--mkt); }
+        .card.inspo .action-link { color: var(--mind); }
         .card:hover .action-link { gap: 12px; filter: brightness(1.2); }
 
         .view-section { display: none; animation: fadeIn 0.4s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        #debug { display: none; background: #991b1b; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        #debug { display: none; color: red; text-align: center; padding: 20px; }
 
         @media (max-width: 900px) {
             body { flex-direction: column; overflow: auto; }
-            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #333; }
-            .logo-container { margin-bottom: 20px; }
-            .main-content { padding: 20px; overflow: visible; }
-            .chips-container { overflow-x: auto; padding-bottom: 10px; }
+            .sidebar { width: 100%; height: auto; padding: 20px; border-right: none; border-bottom: 1px solid #222; }
+            .main-content { padding: 30px 20px; overflow: visible; }
+            .chips-container { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 5px; }
             .chip { white-space: nowrap; }
         }
     </style>
@@ -254,8 +244,8 @@
 
 <aside class="sidebar">
     <div class="logo-container">
-        <div class="brand-main"><span>creative</span><span>HUB</span>.</div>
-        <div class="brand-sub">powered by <span>aquele.eloi</span></div>
+        <div class="brand-name">creative<span>HUB.</span></div>
+        <div class="brand-power">powered by <span>aquele.eloi</span></div>
     </div>
     
     <nav>
@@ -292,7 +282,7 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <div class="section-title">Marketing Toolkit</div>
+            <div class="section-title" style="color:var(--mkt)">Marketing Toolkit</div>
             <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
@@ -300,7 +290,7 @@
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <div class="section-title">Mindset & Cultura</div>
+            <div class="section-title" style="color:var(--mind)">Mindset & Cultura</div>
             <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
@@ -331,7 +321,7 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
-            let thumb = item.thumb || "https://images.unsplash.com/photo-1635326444826-06c8f8d2e67d?w=500&q=80"; // Imagem Dark Abstrata
+            let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
             let btnText = "Aceder";
 
             if (item.type === 'video') {
@@ -342,19 +332,22 @@
                 if(item.thumb) thumb = item.thumb;
             }
 
-            // Classes Visuais
-            let cardClass = "soft"; 
-            if(item.section === 'MARKETING') cardClass = "mkt";
-            if(item.section === 'INSPIRATION') cardClass = "inspo";
-            if(item.program === 'cv') cardClass = "cv"; 
+            // Cores das Tags
+            let tagClass = "t-blue";
+            let cardClass = "soft";
+            
+            if (item.section === 'MARKETING') { tagClass = "t-pink"; cardClass = "mkt"; }
+            if (item.section === 'INSPIRATION') { tagClass = "t-yellow"; cardClass = "inspo"; }
+            if (item.program === 'pp') tagClass = "t-green";
+            if (item.program === 'cv') tagClass = "t-purple";
 
             const html = `
                 <article class="card ${cardClass}">
-                    <div class="tag-float">${item.tag}</div>
                     <a href="${link}" target="_blank" class="thumb">
                         <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
                     </a>
                     <div class="content">
+                        <div class="category-tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
                         <a href="${link}" target="_blank" class="action-link">
