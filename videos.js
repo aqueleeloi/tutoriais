@@ -178,5 +178,45 @@ const tutorialData = [
     "desc": "Tutorial rápido de design profissional.",
     "id": "h2xh9y6Oqvo",
     "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "PHOTOSHOP INICIANTES",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "KbetTkLTCHk",
+    "thumb": "https://img.youtube.com/vi/KbetTkLTCHk/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "PRINCIPAIS FERRAMENTAS",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "kW1n8aNu_58",
+    "thumb": "https://img.youtube.com/vi/kW1n8aNu_58/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "COMO RECORTAR IMAGEM",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "KsUChq8jfwI",
+    "thumb": "https://img.youtube.com/vi/KsUChq8jfwI/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "RECORTE COM MASCARA",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "53goSxCP7QU",
+    "thumb": "https://img.youtube.com/vi/53goSxCP7QU/hqdefault.jpg"
   }
 ];
