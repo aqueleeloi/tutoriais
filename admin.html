@@ -2,52 +2,33 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Creative Hub</title>
+    <title>Admin - The Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: white; padding: 30px; }
-        .container { max-width: 900px; margin: 0 auto; background: #1e293b; padding: 30px; border-radius: 12px; }
-        
+        .container { max-width: 950px; margin: 0 auto; background: #1e293b; padding: 30px; border-radius: 12px; }
         h2 { text-align: center; color: #38bdf8; margin-bottom: 30px; }
-        
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .full { grid-column: span 2; }
-        
         label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 5px; }
         input, select { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; outline: none; }
-        input:focus { border-color: #38bdf8; }
-
-        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.2s; }
+        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
         .add { background: #22c55e; color: white; grid-column: span 2; }
-        .add:hover { background: #16a34a; }
-        .cancel { background: #555; color: white; grid-column: span 2; display: none; }
-        
+        .cancel { background: #64748b; color: white; grid-column: span 2; display: none; }
         .dl { background: #38bdf8; color: #0f172a; font-size: 1.1rem; margin-top: 30px; }
-
-        /* Lista de Itens */
         .item { background: #0f172a; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #334155; }
-        
         .item.SOFTWARE { border-left-color: #38bdf8; }
         .item.MARKETING { border-left-color: #f472b6; }
         .item.INSPIRATION { border-left-color: #facc15; }
-
-        .info strong { display: block; font-size: 1rem; }
-        .info small { color: #94a3b8; font-size: 0.85rem; }
-
-        .actions button { width: 32px; height: 32px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; color: white; display: inline-flex; align-items: center; justify-content: center; }
-        .up, .down { background: #475569; }
-        .edit { background: #f59e0b; }
-        .del { background: #ef4444; }
-        .actions button:hover { filter: brightness(1.1); }
-
+        .actions button { width: 30px; height: 30px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; }
+        .edit { background: #f59e0b; } .del { background: #ef4444; } .up, .down { background: #475569; color:white; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2><i class="fas fa-database"></i> Admin Panel</h2>
-    
     <input type="hidden" id="editIndex">
 
     <div class="form-grid">
@@ -60,56 +41,34 @@
             </select>
         </div>
         <div>
-            <label>2. Programa (Só se for Software)</label>
-            <input type="text" id="program" list="progList" placeholder="Código (ex: ps, pp, cv)">
-            <datalist id="progList">
-                <option value="ps">Photoshop</option>
-                <option value="pp">Photopea</option>
-                <option value="cv">Canva</option>
-            </datalist>
+            <label>2. Programa (Opcional)</label>
+            <input type="text" id="program" list="progList" placeholder="Ex: ps, pp, cv">
+            <datalist id="progList"><option value="ps"><option value="pp"><option value="cv"></datalist>
         </div>
-
         <div>
             <label>3. Tipo</label>
-            <select id="type">
-                <option value="video">Vídeo (YouTube)</option>
-                <option value="doc">Documento / Link</option>
-            </select>
+            <select id="type"><option value="video">Vídeo</option><option value="doc">Documento</option></select>
         </div>
         <div>
             <label>4. Categoria (Tag)</label>
             <input type="text" id="tag" placeholder="Ex: Iniciante, Recursos...">
         </div>
-
         <div class="full">
-            <label>Link do Conteúdo (YouTube ou Site)</label>
+            <label>Link do Conteúdo</label>
             <input type="text" id="url" placeholder="URL Completo...">
         </div>
-
-        <div class="full">
-            <label>Título</label>
-            <input type="text" id="title">
-        </div>
-
-        <div class="full">
-            <label>Descrição</label>
-            <input type="text" id="desc">
-        </div>
-
-        <div class="full">
-            <label>Link da Imagem de Capa (Opcional p/ Vídeos, Obrigatório p/ Docs)</label>
-            <input type="text" id="thumb" placeholder="https://images.unsplash.com/...">
-        </div>
+        <div class="full"><label>Título</label><input type="text" id="title"></div>
+        <div class="full"><label>Descrição</label><input type="text" id="desc"></div>
+        <div class="full"><label>Link da Capa (Opcional)</label><input type="text" id="thumb"></div>
 
         <button class="btn add" id="saveBtn" onclick="saveItem()">Adicionar Conteúdo</button>
         <button class="btn cancel" id="cancelBtn" onclick="resetForm()">Cancelar Edição</button>
     </div>
 
-    <div style="margin-top: 40px; border-top: 1px solid #334155; padding-top: 20px;">
+    <div style="margin-top:40px; border-top:1px solid #334155; padding-top:20px;">
         <h3>Lista Atual (<span id="count">0</span>)</h3>
         <div id="list"></div>
     </div>
-
     <button class="btn dl" onclick="downloadFile()">SALVAR (Baixar videos.js)</button>
 </div>
 
@@ -125,15 +84,12 @@
         data.forEach((item, i) => {
             list.innerHTML += `
                 <div class="item ${item.section}">
-                    <div class="info">
-                        <strong>${item.title}</strong>
-                        <small>${item.section} > ${item.program || 'Geral'} (${item.tag})</small>
-                    </div>
+                    <div><strong>${item.title}</strong><small style="color:#94a3b8; margin-left:10px">${item.section} (${item.tag})</small></div>
                     <div class="actions">
-                        <button class="up" onclick="move(${i}, -1)"><i class="fas fa-arrow-up"></i></button>
-                        <button class="down" onclick="move(${i}, 1)"><i class="fas fa-arrow-down"></i></button>
-                        <button class="edit" onclick="edit(${i})"><i class="fas fa-pen"></i></button>
-                        <button class="del" onclick="del(${i})"><i class="fas fa-trash"></i></button>
+                        <button class="up" onclick="move(${i}, -1)">↑</button>
+                        <button class="down" onclick="move(${i}, 1)">↓</button>
+                        <button class="edit" onclick="edit(${i})">✎</button>
+                        <button class="del" onclick="del(${i})">✖</button>
                     </div>
                 </div>`;
         });
@@ -143,11 +99,9 @@
         const url = document.getElementById('url').value;
         const title = document.getElementById('title').value;
         const type = document.getElementById('type').value;
-
         if(!url || !title) { alert("Link e Título obrigatórios!"); return; }
 
         let finalId = url;
-        // Se for vídeo, tenta sacar o ID. Se não conseguir, usa o link todo.
         if(type === 'video') {
             const match = url.match(/(?:v=|\/)([\w-]{11})/);
             if(match) finalId = match[1];
@@ -165,17 +119,9 @@
         };
 
         const idx = document.getElementById('editIndex').value;
-        
-        if (idx === "") {
-            // ADICIONAR NOVO
-            data.push(newItem);
-        } else {
-            // ATUALIZAR EXISTENTE
-            data[idx] = newItem;
-        }
+        if (idx === "") data.push(newItem); else data[idx] = newItem;
 
-        resetForm();
-        render();
+        resetForm(); render();
     }
 
     function edit(i) {
@@ -188,17 +134,14 @@
         document.getElementById('title').value = item.title;
         document.getElementById('desc').value = item.desc;
         document.getElementById('thumb').value = item.thumb || '';
-
-        // Restaurar URL completo para o user ver
+        
         let showUrl = item.id;
         if(item.type === 'video' && item.id.length === 11) showUrl = `https://www.youtube.com/watch?v=${item.id}`;
         document.getElementById('url').value = showUrl;
 
-        // Mudar botões
         document.getElementById('saveBtn').innerText = "Guardar Alterações";
         document.getElementById('saveBtn').style.background = "#f59e0b";
         document.getElementById('cancelBtn').style.display = "block";
-        
         window.scrollTo(0,0);
     }
 
@@ -208,30 +151,18 @@
         document.getElementById('url').value = '';
         document.getElementById('desc').value = '';
         document.getElementById('thumb').value = '';
-        
         document.getElementById('saveBtn').innerText = "Adicionar Conteúdo";
         document.getElementById('saveBtn').style.background = "#22c55e";
         document.getElementById('cancelBtn').style.display = "none";
     }
 
-    function del(i) {
-        if(confirm("Tens a certeza que queres apagar?")) {
-            data.splice(i, 1);
-            render();
-        }
-    }
-
+    function del(i) { if(confirm("Apagar?")) { data.splice(i, 1); render(); } }
     function move(i, dir) {
         const newPos = i + dir;
-        if (newPos >= 0 && newPos < data.length) {
-            [data[i], data[newPos]] = [data[newPos], data[i]];
-            render();
-        }
+        if (newPos >= 0 && newPos < data.length) { [data[i], data[newPos]] = [data[newPos], data[i]]; render(); }
     }
-
     function downloadFile() {
-        const content = "const tutorialData = " + JSON.stringify(data, null, 2) + ";";
-        const blob = new Blob([content], {type: "text/javascript"});
+        const blob = new Blob(["const tutorialData = " + JSON.stringify(data, null, 2) + ";"], {type: "text/javascript"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "videos.js";
