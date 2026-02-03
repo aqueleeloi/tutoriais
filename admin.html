@@ -4,44 +4,79 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Outfit', sans-serif; background: #050505; color: white; padding: 40px; }
-        .container { max-width: 800px; margin: 0 auto; background: #141414; padding: 40px; border-radius: 16px; border: 1px solid #333; }
-        h2 { text-align: center; margin-bottom: 30px; color: #00C6FF; }
-        input, select { width: 100%; padding: 12px; margin-bottom: 15px; background: #080808; border: 1px solid #333; color: white; border-radius: 6px; }
+        .container { max-width: 900px; margin: 0 auto; background: #111; padding: 40px; border-radius: 16px; border: 1px solid #333; }
+        h2 { text-align: center; margin-bottom: 30px; color: #31A8FF; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full { grid-column: span 2; }
+        
+        label { font-size: 0.8rem; color: #888; display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; background: #050505; border: 1px solid #333; color: white; border-radius: 6px; outline: none; }
+        input:focus { border-color: #31A8FF; }
+
         .btn { padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 6px; margin-top: 10px; border: none; }
-        .save { background: #22c55e; color: white; }
-        .dl { background: #00C6FF; color: black; margin-top: 30px; }
+        .save { background: #22c55e; color: white; grid-column: span 2; }
+        .save:hover { background: #16a34a; }
+        .cancel { background: #666; color: white; grid-column: span 2; display: none; }
+        
+        .dl { background: #31A8FF; color: white; margin-top: 30px; font-size: 1.1rem; }
+
         .item { padding: 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .item strong { color: #fff; font-size: 1.1rem; }
+        .item small { color: #666; margin-left: 10px; }
+        
+        .actions button { width: 35px; height: 35px; border: none; border-radius: 5px; margin-left: 5px; cursor: pointer; color: white; }
+        .up, .down { background: #333; }
+        .edit { background: #eab308; }
+        .del { background: #ef4444; }
+        .actions button:hover { filter: brightness(1.2); }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Admin Panel</h2>
     
-    <label>Secção:</label>
-    <select id="section">
-        <option value="SOFTWARE">Software Lab</option>
-        <option value="MARKETING">Marketing Toolkit</option>
-        <option value="INSPIRATION">Mindset & Cultura</option>
-    </select>
+    <input type="hidden" id="editIndex">
 
-    <label>Programa (Só para Software):</label>
-    <select id="program"><option value="ps">Photoshop</option><option value="pp">Photopea</option><option value="cv">Canva</option><option value="mk">Marketing</option><option value="in">Inspo</option></select>
+    <div class="form-grid">
+        <div>
+            <label>Secção</label>
+            <select id="section">
+                <option value="SOFTWARE">Software Lab</option>
+                <option value="MARKETING">Marketing Toolkit</option>
+                <option value="INSPIRATION">Mindset & Cultura</option>
+            </select>
+        </div>
+        <div>
+            <label>Programa (Só para Software)</label>
+            <input type="text" id="program" list="progList" placeholder="Ex: ps, pp, cv">
+            <datalist id="progList"><option value="ps"><option value="pp"><option value="cv"></datalist>
+        </div>
+        <div>
+            <label>Tipo</label>
+            <select id="type"><option value="video">Vídeo</option><option value="doc">Documento</option></select>
+        </div>
+        <div>
+            <label>Tag (Categoria)</label>
+            <input type="text" id="tag" placeholder="Ex: Iniciante">
+        </div>
+        <div class="full"><label>Link</label><input type="text" id="url" placeholder="URL Completo"></div>
+        <div class="full"><label>Título</label><input type="text" id="title"></div>
+        <div class="full"><label>Descrição</label><input type="text" id="desc"></div>
+        <div class="full"><label>Imagem (Opcional)</label><input type="text" id="thumb"></div>
 
-    <label>Tipo:</label>
-    <select id="type"><option value="video">Vídeo</option><option value="doc">Documento</option></select>
+        <button class="btn save" id="saveBtn" onclick="save()">Adicionar</button>
+        <button class="btn cancel" id="cancelBtn" onclick="reset()">Cancelar</button>
+    </div>
 
-    <input type="text" id="tag" placeholder="Tag (ex: Iniciante)">
-    <input type="text" id="url" placeholder="Link / URL">
-    <input type="text" id="title" placeholder="Título">
-    <input type="text" id="desc" placeholder="Descrição">
-    <input type="text" id="thumb" placeholder="Link da Imagem (Opcional)">
-
-    <button class="btn save" onclick="add()">Adicionar</button>
+    <div style="margin-top:40px; border-top:1px solid #333; padding-top:20px;">
+        <h3>Lista Atual (<span id="count">0</span>)</h3>
+        <div id="list"></div>
+    </div>
     <button class="btn dl" onclick="download()">BAIXAR VIDEOS.JS</button>
-
-    <div id="list" style="margin-top:30px"></div>
 </div>
 
 <script src="videos.js"></script>
@@ -49,23 +84,31 @@
     let data = (typeof tutorialData !== 'undefined') ? tutorialData : [];
     
     function render() {
+        document.getElementById('count').innerText = data.length;
         document.getElementById('list').innerHTML = data.map((item, i) => `
             <div class="item">
-                <div><b>${item.title}</b> (${item.section})</div>
-                <button onclick="del(${i})" style="background:red; color:white; border:none; padding:5px 10px; border-radius:4px">X</button>
+                <div><strong>${item.title}</strong><small>${item.section} (${item.tag})</small></div>
+                <div class="actions">
+                    <button class="up" onclick="move(${i}, -1)"><i class="fas fa-arrow-up"></i></button>
+                    <button class="down" onclick="move(${i}, 1)"><i class="fas fa-arrow-down"></i></button>
+                    <button class="edit" onclick="edit(${i})"><i class="fas fa-pen"></i></button>
+                    <button class="del" onclick="del(${i})"><i class="fas fa-trash"></i></button>
+                </div>
             </div>
         `).join('');
     }
 
-    function add() {
+    function save() {
         let url = document.getElementById('url').value;
+        if(!url) return alert("Link obrigatório");
+        
         let id = url;
         if(document.getElementById('type').value === 'video') {
             let match = url.match(/(?:v=|\/)([\w-]{11})/);
             if(match) id = match[1];
         }
 
-        data.push({
+        const newItem = {
             section: document.getElementById('section').value,
             program: document.getElementById('program').value,
             type: document.getElementById('type').value,
@@ -74,11 +117,57 @@
             desc: document.getElementById('desc').value,
             id: id,
             thumb: document.getElementById('thumb').value
-        });
-        render();
+        };
+
+        let idx = document.getElementById('editIndex').value;
+        if(idx === "") data.push(newItem);
+        else data[idx] = newItem;
+
+        reset(); render();
     }
 
-    function del(i) { data.splice(i,1); render(); }
+    function edit(i) {
+        let item = data[i];
+        document.getElementById('editIndex').value = i;
+        document.getElementById('section').value = item.section;
+        document.getElementById('program').value = item.program || '';
+        document.getElementById('type').value = item.type;
+        document.getElementById('tag').value = item.tag;
+        document.getElementById('title').value = item.title;
+        document.getElementById('desc').value = item.desc;
+        document.getElementById('thumb').value = item.thumb || '';
+        
+        let showUrl = item.id;
+        if(item.type === 'video' && item.id.length === 11) showUrl = `https://www.youtube.com/watch?v=${item.id}`;
+        document.getElementById('url').value = showUrl;
+
+        document.getElementById('saveBtn').innerText = "Guardar Alterações";
+        document.getElementById('saveBtn').style.background = "#eab308";
+        document.getElementById('cancelBtn').style.display = "block";
+        window.scrollTo(0,0);
+    }
+
+    function reset() {
+        document.getElementById('editIndex').value = "";
+        document.getElementById('title').value = "";
+        document.getElementById('desc').value = "";
+        document.getElementById('url').value = "";
+        document.getElementById('thumb').value = "";
+        
+        document.getElementById('saveBtn').innerText = "Adicionar";
+        document.getElementById('saveBtn').style.background = "#22c55e";
+        document.getElementById('cancelBtn').style.display = "none";
+    }
+
+    function del(i) { if(confirm("Apagar?")) { data.splice(i,1); render(); } }
+    
+    function move(i, dir) {
+        let newPos = i + dir;
+        if(newPos >= 0 && newPos < data.length) {
+            [data[i], data[newPos]] = [data[newPos], data[i]];
+            render();
+        }
+    }
 
     function download() {
         const link = document.createElement("a");
