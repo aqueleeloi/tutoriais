@@ -158,5 +158,25 @@ const tutorialData = [
     "desc": "Porque é que o teu trabalho ainda não é bom o suficiente.",
     "id": "PbC4gqZGPSY",
     "thumb": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "Novo Vídeo Tutorial",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "twfFn4y_j38",
+    "thumb": "https://img.youtube.com/vi/twfFn4y_j38/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "Novo Vídeo Tutorial",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "h2xh9y6Oqvo",
+    "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
   }
 ];
