@@ -2,108 +2,96 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - The Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Admin - Creative Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0b0c10; color: #c5c6c7; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; background: #1f2833; padding: 30px; border-radius: 12px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: white; padding: 30px; }
+        .container { max-width: 900px; margin: 0 auto; background: #1e293b; padding: 30px; border-radius: 12px; }
         
-        h2 { color: #66fcf1; text-align: center; margin-bottom: 30px; }
-
-        /* INPUTS */
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .full { grid-column: span 3; }
-        .half { grid-column: span 1; } /* Adjusted span */
-
-        label { display: block; color: #8892b0; margin-bottom: 5px; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 12px; background: #0b0c10; border: 1px solid #333; color: white; border-radius: 6px; }
-        input:focus { border-color: #66fcf1; outline: none; }
-
-        /* BUTTONS */
-        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; color: #0b0c10; }
-        .add { background: #66fcf1; grid-column: span 3; }
-        .add:hover { background: #45a29e; color: white; }
-        .dl { background: #a29bfe; margin-top: 30px; font-size: 1.1rem; }
+        h2 { text-align: center; color: #38bdf8; margin-bottom: 30px; }
         
-        /* LIST */
-        .list-header { border-bottom: 1px solid #333; margin-top: 40px; padding-bottom: 10px; display: flex; justify-content: space-between; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full { grid-column: span 2; }
         
-        .item { background: #151b24; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; border-left: 5px solid #333; }
-        .item.SOFTWARE { border-left-color: #66fcf1; }
-        .item.MARKETING { border-left-color: #a29bfe; }
-        .item.INSPIRATION { border-left-color: #fd79a8; }
+        label { display: block; color: #94a3b8; font-size: 0.85rem; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; outline: none; }
+        input:focus { border-color: #38bdf8; }
 
-        .info strong { color: white; font-size: 1.1rem; }
-        .info span { background: #333; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-left: 10px; }
-        
-        .actions button { background: #333; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer; margin-left: 5px; }
-        .actions button:hover { background: white; color: black; }
-        .del:hover { background: #ff4757 !important; color: white !important; }
+        .btn { padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .add { background: #22c55e; color: white; grid-column: span 2; }
+        .dl { background: #38bdf8; color: #0f172a; font-size: 1.1rem; margin-top: 30px; }
 
+        .item { background: #0f172a; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #334155; }
+        .actions button { width: 30px; height: 30px; border: none; border-radius: 4px; margin-left: 5px; cursor: pointer; }
+        .del { background: #ef4444; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2><i class="fas fa-database"></i> Gestor da Meca</h2>
-
-    <input type="hidden" id="editIndex">
+    <h2><i class="fas fa-database"></i> Admin Panel</h2>
 
     <div class="form-grid">
         <div>
-            <label>1. Em que Secção aparece?</label>
+            <label>1. Secção Principal</label>
             <select id="section">
-                <option value="SOFTWARE">Software Lab (PS/PP)</option>
+                <option value="SOFTWARE">Software Lab</option>
                 <option value="MARKETING">Marketing Toolkit</option>
                 <option value="INSPIRATION">Mindset & Cultura</option>
             </select>
         </div>
         <div>
-            <label>2. Tipo de Conteúdo</label>
+            <label>2. Programa (Só se for Software)</label>
+            <input type="text" id="program" list="progList" placeholder="Código (ex: ps, pp, cv)">
+            <datalist id="progList">
+                <option value="ps">Photoshop</option>
+                <option value="pp">Photopea</option>
+                <option value="cv">Canva</option>
+            </datalist>
+        </div>
+
+        <div>
+            <label>3. Tipo</label>
             <select id="type">
                 <option value="video">Vídeo (YouTube)</option>
                 <option value="doc">Documento / Link</option>
             </select>
         </div>
         <div>
-            <label>3. Categoria (Escreve ou Escolhe)</label>
-            <input type="text" id="tag" list="tagOptions" placeholder="Ex: Estratégia, Photoshop...">
-            <datalist id="tagOptions">
-                <option value="Ferramentas">
-                <option value="Criação">
-                <option value="Planeamento">
-                <option value="Estratégia">
-                <option value="Criatividade">
-                <option value="Carreira">
-            </datalist>
+            <label>4. Categoria (Tag)</label>
+            <input type="text" id="tag" placeholder="Ex: Iniciante, Recursos...">
         </div>
 
         <div class="full">
-            <label>Link / URL</label>
-            <input type="text" id="url" placeholder="Link do YouTube ou do Site...">
+            <label>Link do Conteúdo (YouTube ou Site)</label>
+            <input type="text" id="url" placeholder="URL Completo...">
         </div>
 
         <div class="full">
             <label>Título</label>
-            <input type="text" id="title" placeholder="Título Principal...">
+            <input type="text" id="title">
         </div>
 
         <div class="full">
             <label>Descrição</label>
-            <input type="text" id="desc" placeholder="Breve descrição...">
+            <input type="text" id="desc">
         </div>
-        
-        <button class="btn add" id="saveBtn" onclick="saveItem()">Adicionar Conteúdo</button>
-        <button class="btn" id="cancelBtn" onclick="resetForm()" style="background:#555; color:white; display:none; grid-column:span 3">Cancelar</button>
+
+        <div class="full">
+            <label>Link da Imagem de Capa (Opcional p/ Vídeos, Obrigatório p/ Docs)</label>
+            <input type="text" id="thumb" placeholder="https://images.unsplash.com/...">
+        </div>
+
+        <button class="btn add" onclick="addItem()">Adicionar Conteúdo</button>
     </div>
 
-    <div class="list-header">
-        <h3>Conteúdos (<span id="count">0</span>)</h3>
+    <div style="margin-top: 40px; border-top: 1px solid #334155; padding-top: 20px;">
+        <h3>Lista (<span id="count">0</span>)</h3>
+        <div id="list"></div>
     </div>
-    <div id="list"></div>
 
-    <button class="btn dl" onclick="downloadFile()"><i class="fas fa-save"></i> SALVAR MUDANÇAS (Download videos.js)</button>
+    <button class="btn dl" onclick="downloadFile()">SALVAR (Baixar videos.js)</button>
 </div>
 
 <script src="videos.js"></script>
@@ -116,26 +104,20 @@
         document.getElementById('count').innerText = data.length;
 
         data.forEach((item, i) => {
-            let icon = item.type === 'video' ? '<i class="fab fa-youtube"></i>' : '<i class="fas fa-file-alt"></i>';
             list.innerHTML += `
-                <div class="item ${item.section}">
-                    <div class="info">
-                        <strong>${icon} ${item.title}</strong>
-                        <span>${item.tag}</span>
-                        <small style="color:#8892b0; margin-left:10px">${item.section}</small>
+                <div class="item">
+                    <div>
+                        <strong>${item.title}</strong>
+                        <small style="color:#94a3b8; margin-left:10px">${item.section} > ${item.program || 'Geral'}</small>
                     </div>
                     <div class="actions">
-                        <button onclick="move(${i}, -1)"><i class="fas fa-arrow-up"></i></button>
-                        <button onclick="move(${i}, 1)"><i class="fas fa-arrow-down"></i></button>
-                        <button onclick="edit(${i})"><i class="fas fa-pen"></i></button>
                         <button class="del" onclick="del(${i})"><i class="fas fa-trash"></i></button>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
     }
 
-    function saveItem() {
+    function addItem() {
         const url = document.getElementById('url').value;
         const title = document.getElementById('title').value;
         const type = document.getElementById('type').value;
@@ -148,62 +130,24 @@
             if(match) finalId = match[1];
         }
 
-        const obj = {
+        data.push({
             section: document.getElementById('section').value,
-            platform: 'gen', // Genérico, já não usamos tanto o filtro PS/PP no código novo
+            program: document.getElementById('program').value,
             type: type,
-            tag: document.getElementById('tag').value, // Valor livre
+            tag: document.getElementById('tag').value,
             title: title,
             desc: document.getElementById('desc').value,
-            id: finalId
-        };
+            id: finalId,
+            thumb: document.getElementById('thumb').value // Salva a imagem custom
+        });
 
-        const idx = document.getElementById('editIndex').value;
-        if(idx === "") data.push(obj);
-        else data[idx] = obj;
-
-        resetForm();
         render();
-    }
-
-    function edit(i) {
-        const item = data[i];
-        document.getElementById('editIndex').value = i;
-        document.getElementById('section').value = item.section;
-        document.getElementById('type').value = item.type;
-        document.getElementById('tag').value = item.tag;
-        
-        let showUrl = item.id;
-        if(item.type === 'video' && item.id.length === 11) showUrl = `https://www.youtube.com/watch?v=${item.id}`;
-        document.getElementById('url').value = showUrl;
-        
-        document.getElementById('title').value = item.title;
-        document.getElementById('desc').value = item.desc;
-
-        document.getElementById('saveBtn').innerText = "Atualizar";
-        document.getElementById('cancelBtn').style.display = "block";
-        window.scrollTo(0,0);
-    }
-
-    function resetForm() {
-        document.getElementById('editIndex').value = "";
-        document.getElementById('url').value = "";
-        document.getElementById('title').value = "";
-        document.getElementById('desc').value = "";
-        document.getElementById('tag').value = "";
-        document.getElementById('saveBtn').innerText = "Adicionar Conteúdo";
-        document.getElementById('cancelBtn').style.display = "none";
+        // Limpar campos simples
+        document.getElementById('title').value = '';
+        document.getElementById('url').value = '';
     }
 
     function del(i) { if(confirm("Apagar?")) { data.splice(i, 1); render(); } }
-    
-    function move(i, dir) {
-        const newPos = i + dir;
-        if(newPos >= 0 && newPos < data.length) {
-            [data[i], data[newPos]] = [data[newPos], data[i]];
-            render();
-        }
-    }
 
     function downloadFile() {
         const content = "const tutorialData = " + JSON.stringify(data, null, 2) + ";";
@@ -213,7 +157,6 @@
         link.download = "videos.js";
         link.click();
     }
-
     render();
 </script>
 </body>
