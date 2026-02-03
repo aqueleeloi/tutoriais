@@ -3,65 +3,63 @@ const tutorialData = [
   // PHOTOSHOP (PS)
   // =================================================================
   
-  // 1. CRIAR DOCUMENTO
+  // 1. CRIAR DOCUMENTO (Tamanhos e Cor)
   {
-    "id": "713437536", // Vimeo ID ou Youtube ID (Exemplo placeholder, substituir por links reais abaixo)
-    "id": "lucascharnyai_doc", // Nota: Links reais abaixo
-    "id": "O33uLdOpfhk", // Lucas Charnyai - Criar Novo Documento
-    "title": "Criar Documento: Tamanho & Cor",
-    "desc": "Resolução (DPI), CMYK vs RGB e tamanhos de papel.",
+    "id": "O33uLdOpfhk", 
+    "title": "Criar Novo Documento (Guia)",
+    "desc": "Resolução (DPI), modo de cor (CMYK vs RGB) e tamanhos de impressão.",
     "platform": "ps",
-    "tag": "CONFIG"
+    "tag": "CRIACAO"
   },
 
   // 2. FERRAMENTAS BÁSICAS
   {
-    "id": "kB0P7nXc1Lg", // Brainstorm - Intro
-    "title": "Tour pelas Ferramentas Básicas",
-    "desc": "Entende a barra lateral, zoom e navegação.",
+    "id": "kB0P7nXc1Lg", 
+    "title": "Tour: Interface e Ferramentas",
+    "desc": "Aprende a navegar, dar zoom e onde ficam as ferramentas principais.",
     "platform": "ps",
     "tag": "FERRAMENTAS"
   },
 
-  // 3. RECORTE BÁSICO
+  // 3. RECORTE BÁSICO (Varinha/Lasso)
   {
-    "id": "H4fttqYjCgA", // Adobe - Selection Tools
-    "title": "Recorte Simples (Varinha & Laço)",
-    "desc": "Para fundos de cor sólida ou formas geométricas.",
+    "id": "H4fttqYjCgA", 
+    "title": "Recorte Simples (Iniciante)",
+    "desc": "Usar a Varinha Mágica e Lasso para fundos simples.",
     "platform": "ps",
     "tag": "RECORTE"
   },
 
-  // 4. RECORTE COM MÁSCARAS (AVANÇADO)
+  // 4. RECORTE COM MÁSCARAS (Avançado)
   {
-    "id": "jmsjrohHMVg", // Carlos Alberto - Recorte
-    "title": "Máscaras e Select Subject",
-    "desc": "A forma profissional de recortar cabelos e detalhes.",
+    "id": "jmsjrohHMVg", 
+    "title": "Recorte Perfeito com Máscaras",
+    "desc": "Como recortar cabelos e usar a função 'Select Subject'.",
     "platform": "ps",
     "tag": "MASCARAS"
   },
 
-  // --- EXTRAS ESSENCIAIS (PS) ---
+  // --- EXTRAS OBRIGATÓRIOS ---
   {
-    "id": "vhArnD6TRps", // Coisas de Designer - Pincel
+    "id": "vhArnD6TRps", 
     "title": "Dominar os Pincéis (Brush)",
-    "desc": "Tamanho, dureza e fluxo explicados.",
+    "desc": "Tamanho, dureza, opacidade e fluxo.",
     "platform": "ps",
     "tag": "FERRAMENTAS"
   },
   {
-    "id": "LgS8T7qG9wE", // Héber Simeoni - Camadas
+    "id": "LgS8T7qG9wE", 
     "title": "O Segredo das CAMADAS",
-    "desc": "Como funcionam as 'folhas de acetato' digitais.",
+    "desc": "Entende como funcionam as Layers (indispensável!).",
     "platform": "ps",
-    "tag": "ESSENCIAL"
+    "tag": "EXTRA"
   },
   {
-    "id": "M7Jb5Jm_uF4", // Vamo Colorir - Salvar
+    "id": "M7Jb5Jm_uF4", 
     "title": "Como Salvar e Exportar",
-    "desc": "Diferença entre salvar PSD, JPG e PNG transparente.",
+    "desc": "Salvar editável (PSD) vs imagem final (JPG/PNG).",
     "platform": "ps",
-    "tag": "EXPORTAR"
+    "tag": "EXTRA"
   },
 
   // =================================================================
@@ -70,53 +68,53 @@ const tutorialData = [
 
   // 1. CRIAR DOCUMENTO
   {
-    "id": "EOuiYhvAY7U", // Photopea - Intro
+    "id": "EOuiYhvAY7U", 
     "title": "Novo Projeto no Photopea",
-    "desc": "Configurar tamanhos para Instagram e Impressão.",
+    "desc": "Configurar a área de trabalho e formatos no navegador.",
     "platform": "pp",
-    "tag": "CONFIG"
+    "tag": "CRIACAO"
   },
 
   // 2. FERRAMENTAS BÁSICAS
   {
-    "id": "uzIhFgp3ezw", // Photopea Overview
-    "title": "Ferramentas e Interface",
-    "desc": "Visão geral do 'Photoshop' no navegador.",
+    "id": "uzIhFgp3ezw", 
+    "title": "Visão Geral do Photopea",
+    "desc": "Como usar o 'Photoshop Grátis' sem instalar nada.",
     "platform": "pp",
     "tag": "FERRAMENTAS"
   },
 
   // 3. RECORTE BÁSICO
   {
-    "id": "J2gA3zO6cTQ", // Photopea Magic Wand
-    "title": "Varinha Mágica e Seleção Rápida",
-    "desc": "Remover fundos simples em segundos.",
+    "id": "J2gA3zO6cTQ", 
+    "title": "Varinha Mágica no Photopea",
+    "desc": "Remover fundo branco ou cores sólidas rapidamente.",
     "platform": "pp",
     "tag": "RECORTE"
   },
 
   // 4. RECORTE COM MÁSCARAS
   {
-    "id": "dfP5CnCgkO0", // Photopea Masks
-    "title": "Recorte com Máscaras (Masks)",
-    "desc": "Edição não destrutiva no navegador.",
+    "id": "dfP5CnCgkO0", 
+    "title": "Máscaras de Camada (Masks)",
+    "desc": "Edição não destrutiva: apagar e recuperar partes da imagem.",
     "platform": "pp",
     "tag": "MASCARAS"
   },
 
-  // --- EXTRAS ESSENCIAIS (PP) ---
+  // --- EXTRAS OBRIGATÓRIOS ---
   {
-    "id": "zvr3DgRXL5Q", // Photopea Brushes
+    "id": "zvr3DgRXL5Q", 
     "title": "Pincéis no Photopea",
-    "desc": "Instalar e configurar brushes.",
+    "desc": "Como configurar e instalar novos brushes.",
     "platform": "pp",
     "tag": "FERRAMENTAS"
   },
   {
-    "id": "2yK2K_6yBvM", // Photopea Layers
-    "title": "Entender as Camadas (Layers)",
-    "desc": "A base de qualquer montagem.",
+    "id": "2yK2K_6yBvM", 
+    "title": "Entender Camadas (Layers)",
+    "desc": "Organização fundamental para qualquer montagem.",
     "platform": "pp",
-    "tag": "ESSENCIAL"
+    "tag": "EXTRA"
   }
 ];
