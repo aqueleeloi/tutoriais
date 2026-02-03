@@ -53,6 +53,16 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
+    "tag": "Produtividade",
+    "title": "10 Segredos do Canva",
+    "desc": "Atalhos e funções que poupam horas de trabalho.",
+    "id": "tDq7qHhC_n4",
+    "thumb": "https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
     "tag": "Design",
     "title": "Design Profissional no Canva",
     "desc": "Como fugir do aspeto 'template' e criar artes únicas.",
@@ -97,7 +107,7 @@ const tutorialData = [
     "title": "Google Fonts Pro",
     "desc": "Biblioteca oficial de tipografias modernas para web.",
     "id": "https://fonts.google.com/",
-    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
+    "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800"
   },
   {
     "section": "MARKETING",
@@ -154,7 +164,7 @@ const tutorialData = [
     "program": "pp",
     "type": "video",
     "tag": "NOVO",
-    "title": "Novo Vídeo Tutorial",
+    "title": "BASICO PHOTOPEA",
     "desc": "Tutorial rápido de design profissional.",
     "id": "twfFn4y_j38",
     "thumb": "https://img.youtube.com/vi/twfFn4y_j38/hqdefault.jpg"
@@ -164,7 +174,7 @@ const tutorialData = [
     "program": "ps",
     "type": "video",
     "tag": "NOVO",
-    "title": "Novo Vídeo Tutorial",
+    "title": "COMO CRIAR UM DOCUMENTO",
     "desc": "Tutorial rápido de design profissional.",
     "id": "h2xh9y6Oqvo",
     "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
@@ -208,15 +218,5 @@ const tutorialData = [
     "desc": "Tutorial rápido de design profissional.",
     "id": "53goSxCP7QU",
     "thumb": "https://img.youtube.com/vi/53goSxCP7QU/hqdefault.jpg"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "TRUQUES NO CANVAS",
-    "desc": "Tutorial rápido de design profissional.",
-    "id": "Th8h8REjOzA",
-    "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
   }
 ];
