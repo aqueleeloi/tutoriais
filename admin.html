@@ -81,7 +81,7 @@
 
     function download() {
         const link = document.createElement("a");
-        link.href = URL.createObjectURL(new Blob(["const tutorialData = " + JSON.stringify(data, null, 2) + ";"], {type: "text/javascript"}));
+        link.href = URL.createObjectURL(new Blob(["// Base de dados de Conteúdos\nconst tutorialData = " + JSON.stringify(data, null, 2) + ";"], {type: "text/javascript"}));
         link.download = "videos.js";
         link.click();
     }
