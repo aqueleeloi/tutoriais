@@ -3,100 +3,119 @@ const tutorialData = [
   // PHOTOSHOP (PS)
   // =================================================================
   
-  // 1. CRIAR DOCUMENTO & CONFIGURAÇÃO
+  // DOCUMENTOS ESSENCIAIS
   {
-    "id": "https://helpx.adobe.com/br/photoshop/using/creating-documents.html", 
-    "title": "Guia Oficial: Criar Documentos",
-    "desc": "Artigo da Adobe sobre predefinições, pranchetas e modos de cor.",
+    "id": "https://helpx.adobe.com/br/photoshop/using/default-keyboard-shortcuts.html",
+    "title": "Atalhos de Teclado (Lista Completa)",
+    "desc": "Guia oficial da Adobe. Imprime ou guarda nos favoritos!",
     "platform": "ps",
-    "tag": "CRIACAO"
+    "tag": "EXTRA",
+    "type": "doc"
   },
   {
-    "id": "O33uLdOpfhk", 
-    "title": "Configurar Tamanho e Resolução",
-    "desc": "Vídeo essencial sobre DPI (300 vs 72) e Modos de Cor.",
+    "id": "https://helpx.adobe.com/br/photoshop/using/image-size-resolution.html",
+    "title": "Entender Resolução e Tamanho",
+    "desc": "Leitura obrigatória: Pixels, Polegadas e Resolução de Impressão.",
     "platform": "ps",
-    "tag": "CRIACAO"
-  },
-
-  // 2. FERRAMENTAS BÁSICAS
-  {
-    "id": "kB0P7nXc1Lg", 
-    "title": "Aula 1: Photoshop para Iniciantes",
-    "desc": "Tour completo pela interface e ferramentas principais.",
-    "platform": "ps",
-    "tag": "FERRAMENTAS"
-  },
-  {
-    "id": "https://helpx.adobe.com/br/photoshop/using/default-keyboard-shortcuts.html", 
-    "title": "Lista de Atalhos de Teclado",
-    "desc": "Documento para guardar: todos os atalhos para trabalhar rápido.",
-    "platform": "ps",
-    "tag": "EXTRA"
+    "tag": "CRIACAO",
+    "type": "doc"
   },
 
-  // 3. RECORTE (BÁSICO E MÁSCARAS)
+  // VÍDEOS (Verificados)
   {
-    "id": "H4fttqYjCgA", 
-    "title": "Ferramentas de Seleção Básica",
-    "desc": "Como usar o Letreiro, Laço e Varinha Mágica.",
+    "id": "kB0P7nXc1Lg",
+    "title": "Curso Básico Completo (Parte 1)",
+    "desc": "Brainstorm Tutoriais: A melhor intro ao Photoshop em PT.",
     "platform": "ps",
-    "tag": "RECORTE"
+    "tag": "FERRAMENTAS",
+    "type": "video"
   },
   {
-    "id": "jmsjrohHMVg", 
-    "title": "Recorte Perfeito (Cabelos)",
-    "desc": "Técnica profissional usando 'Select and Mask'.",
+    "id": "O33uLdOpfhk",
+    "title": "Criar Arquivo: CMYK vs RGB",
+    "desc": "Lucas Charnyai explica como configurar o documento corretamente.",
     "platform": "ps",
-    "tag": "MASCARAS"
-  },
-
-  // 4. EXTRAS OBRIGATÓRIOS
-  {
-    "id": "LgS8T7qG9wE", 
-    "title": "Como funcionam as CAMADAS",
-    "desc": "Entende o conceito de 'pilha de papéis' (Layers).",
-    "platform": "ps",
-    "tag": "EXTRA"
+    "tag": "CRIACAO",
+    "type": "video"
   },
   {
-    "id": "https://www.adobe.com/br/creativecloud/file-types/image/raster/jpeg-file.html", 
-    "title": "JPG vs PNG: Qual usar?",
-    "desc": "Guia rápido para entender transparência e compressão.",
+    "id": "H4fttqYjCgA",
+    "title": "Ferramentas de Seleção (Básico)",
+    "desc": "Aprende a usar o Laço, Varinha e Seleção Rápida.",
     "platform": "ps",
-    "tag": "EXTRA"
+    "tag": "RECORTE",
+    "type": "video"
+  },
+  {
+    "id": "jmsjrohHMVg",
+    "title": "Recorte Avançado (Cabelos)",
+    "desc": "Como usar a função 'Selecionar e Mascarar' profissionalmente.",
+    "platform": "ps",
+    "tag": "MASCARAS",
+    "type": "video"
+  },
+  {
+    "id": "LgS8T7qG9wE",
+    "title": "Tudo sobre CAMADAS (Layers)",
+    "desc": "Héber Simeoni explica o conceito mais importante do design.",
+    "platform": "ps",
+    "tag": "EXTRA",
+    "type": "video"
   },
 
   // =================================================================
   // PHOTOPEA (PP)
   // =================================================================
 
+  // DOCUMENTOS ESSENCIAIS
   {
-    "id": "https://www.photopea.com/learn/", 
+    "id": "https://www.photopea.com/learn/",
     "title": "Manual Oficial do Photopea",
-    "desc": "A documentação escrita completa dos criadores do software.",
+    "desc": "A 'Bíblia' do Photopea. Tudo o que o programa faz está aqui.",
     "platform": "pp",
-    "tag": "EXTRA"
+    "tag": "EXTRA",
+    "type": "doc"
   },
   {
-    "id": "uzIhFgp3ezw", 
-    "title": "Introdução ao Photopea",
-    "desc": "Visão geral para quem nunca abriu o programa.",
+    "id": "https://www.photopea.com/templates/",
+    "title": "Galeria de Templates Prontos",
+    "desc": "Modelos editáveis gratuitos para redes sociais e cartões.",
     "platform": "pp",
-    "tag": "FERRAMENTAS"
+    "tag": "CRIACAO",
+    "type": "doc"
+  },
+
+  // VÍDEOS
+  {
+    "id": "uzIhFgp3ezw",
+    "title": "Começar no Photopea (Intro)",
+    "desc": "Visão geral para quem não tem Photoshop instalado.",
+    "platform": "pp",
+    "tag": "FERRAMENTAS",
+    "type": "video"
   },
   {
-    "id": "dfP5CnCgkO0", 
-    "title": "Máscaras no Photopea",
-    "desc": "Como fazer recortes não destrutivos no navegador.",
-    "platform": "pp",
-    "tag": "MASCARAS"
-  },
-  {
-    "id": "EOuiYhvAY7U", 
+    "id": "EOuiYhvAY7U",
     "title": "Criar Novo Projeto",
-    "desc": "Formatos, templates e iniciar um arquivo do zero.",
+    "desc": "Como iniciar um ficheiro do zero e formatos suportados.",
     "platform": "pp",
-    "tag": "CRIACAO"
+    "tag": "CRIACAO",
+    "type": "video"
+  },
+  {
+    "id": "dfP5CnCgkO0",
+    "title": "Máscaras no Photopea",
+    "desc": "Técnica de recorte não destrutiva no navegador.",
+    "platform": "pp",
+    "tag": "MASCARAS",
+    "type": "video"
+  },
+  {
+    "id": "zvr3DgRXL5Q",
+    "title": "Instalar e Usar Pincéis",
+    "desc": "Como colocar pincéis personalizados (.ABR) no Photopea.",
+    "platform": "pp",
+    "tag": "FERRAMENTAS",
+    "type": "video"
   }
 ];
