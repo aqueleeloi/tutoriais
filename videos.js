@@ -1,16 +1,14 @@
 const tutorialData = [
   // =================================================================
-  // 1. SOFTWARE LAB (PS, PP, CV)
+  // 1. SOFTWARE LAB - PHOTOSHOP (PS)
   // =================================================================
-  
-  // --- PHOTOSHOP (PS) ---
   {
     "section": "SOFTWARE",
     "program": "ps",
     "type": "video",
-    "tag": "Curso Básico",
-    "title": "Photoshop para Iniciantes (Aula 1)",
-    "desc": "Héber Simeoni: A introdução definitiva ao software.",
+    "tag": "Iniciante",
+    "title": "Curso Básico Completo (Aula 1)",
+    "desc": "Héber Simeoni: A introdução obrigatória ao software.",
     "id": "U6qC0w5k3ec",
     "thumb": ""
   },
@@ -18,10 +16,40 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "ps",
     "type": "video",
+    "tag": "Configuração",
+    "title": "RGB vs CMYK: O Guia",
+    "desc": "Nunca mais erres na impressão ou no ecrã.",
+    "id": "O33uLdOpfhk",
+    "thumb": ""
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
     "tag": "Recorte",
-    "title": "Recorte de Cabelos Perfeito",
-    "desc": "Brainstorm Tutoriais: Aprende a usar máscaras avançadas.",
+    "title": "Recorte Perfeito de Cabelos",
+    "desc": "Brainstorm: Dominar máscaras e canais.",
     "id": "jmsjrohHMVg",
+    "thumb": ""
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "Essencial",
+    "title": "Dominar as CAMADAS (Layers)",
+    "desc": "Como organizar o teu projeto profissionalmente.",
+    "id": "LgS8T7qG9wE",
+    "thumb": ""
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "Exportação",
+    "title": "Como Salvar em Alta Qualidade",
+    "desc": "Diferença entre salvar para Web e Impressão.",
+    "id": "M7Jb5Jm_uF4",
     "thumb": ""
   },
   {
@@ -30,19 +58,21 @@ const tutorialData = [
     "type": "doc",
     "tag": "Recursos",
     "title": "Atalhos de Teclado (PDF)",
-    "desc": "Lista oficial da Adobe. Imprime isto para trabalhares rápido!",
+    "desc": "Lista oficial da Adobe para imprimir.",
     "id": "https://helpx.adobe.com/br/photoshop/using/default-keyboard-shortcuts.html",
     "thumb": "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=600&q=80"
   },
 
-  // --- PHOTOPEA (PP) ---
+  // =================================================================
+  // 1. SOFTWARE LAB - PHOTOPEA (PP)
+  // =================================================================
   {
     "section": "SOFTWARE",
     "program": "pp",
     "type": "video",
-    "tag": "Essencial",
+    "tag": "Intro",
     "title": "Guia Completo do Photopea",
-    "desc": "Como usar o 'Photoshop Grátis' no navegador.",
+    "desc": "Como usar o 'Photoshop Grátis' no browser.",
     "id": "uzIhFgp3ezw",
     "thumb": ""
   },
@@ -51,13 +81,35 @@ const tutorialData = [
     "program": "pp",
     "type": "video",
     "tag": "Prática",
-    "title": "Criar Posts para Instagram",
+    "title": "Criar Posts para Social Media",
     "desc": "Do zero até à exportação final.",
     "id": "EOuiYhvAY7U",
     "thumb": ""
   },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "Ferramentas",
+    "title": "Remover Fundos no Photopea",
+    "desc": "Técnicas rápidas com Varinha e Laço.",
+    "id": "J2gA3zO6cTQ",
+    "thumb": ""
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "doc",
+    "tag": "Manual",
+    "title": "Documentação Oficial",
+    "desc": "O manual escrito de todas as ferramentas.",
+    "id": "https://www.photopea.com/learn/",
+    "thumb": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80"
+  },
 
-  // --- CANVA (CV) ---
+  // =================================================================
+  // 1. SOFTWARE LAB - CANVA (CV)
+  // =================================================================
   {
     "section": "SOFTWARE",
     "program": "cv",
@@ -72,15 +124,25 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
-    "tag": "Dicas",
-    "title": "10 Truques Escondidos",
-    "desc": "Funcionalidades mágicas que poupam horas.",
+    "tag": "Truques",
+    "title": "10 Segredos do Canva",
+    "desc": "Atalhos e efeitos que ninguém conhece.",
     "id": "tDq7qHhC_n4",
+    "thumb": ""
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "Design",
+    "title": "Princípios de Design no Canva",
+    "desc": "Como não parecer amador usando templates.",
+    "id": "7X8XJ6_Xj_k",
     "thumb": ""
   },
 
   // =================================================================
-  // 2. MARKETING TOOLKIT (Docs e Ferramentas)
+  // 2. MARKETING TOOLKIT (Docs & Tools)
   // =================================================================
   {
     "section": "MARKETING",
@@ -97,7 +159,7 @@ const tutorialData = [
     "program": "mk",
     "type": "doc",
     "tag": "Branding",
-    "title": "Gerador de Cores (Coolors)",
+    "title": "Coolors: Gerador de Cores",
     "desc": "Cria paletas de cores harmoniosas em segundos.",
     "id": "https://coolors.co/",
     "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&q=80"
@@ -116,9 +178,29 @@ const tutorialData = [
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
+    "tag": "Vídeo",
+    "title": "Pexels: Vídeos Grátis",
+    "desc": "Vídeos de stock gratuitos para os teus Reels/TikToks.",
+    "id": "https://www.pexels.com/pt-br/videos/",
+    "thumb": "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&q=80"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "Tipografia",
+    "title": "DaFont (Fontes Grátis)",
+    "desc": "Milhares de fontes para instalar.",
+    "id": "https://www.dafont.com/pt/",
+    "thumb": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
     "tag": "Apresentação",
     "title": "Slidesgo: Templates PPT",
-    "desc": "Baixa apresentações criativas prontas a usar.",
+    "desc": "Apresentações criativas prontas a baixar.",
     "id": "https://slidesgo.com/",
     "thumb": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80"
   },
@@ -126,11 +208,21 @@ const tutorialData = [
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
-    "tag": "Estratégia",
-    "title": "Gerador de Personas",
-    "desc": "Cria o perfil do teu cliente ideal passo a passo.",
-    "id": "https://www.hubspot.com/make-my-persona",
-    "thumb": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80"
+    "tag": "Tamanhos",
+    "title": "Guia de Tamanhos Social Media",
+    "desc": "Medidas atualizadas para Instagram, LinkedIn e TikTok.",
+    "id": "https://sproutsocial.com/insights/social-media-image-sizes-guide/",
+    "thumb": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "Organização",
+    "title": "Trello: Gestão de Projetos",
+    "desc": "A ferramenta visual para organizar as tuas tarefas.",
+    "id": "https://trello.com/",
+    "thumb": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80"
   },
 
   // =================================================================
@@ -162,8 +254,18 @@ const tutorialData = [
     "type": "video",
     "tag": "Carreira",
     "title": "O Gosto Criativo (Ira Glass)",
-    "desc": "O vídeo mais importante para quem está a começar.",
+    "desc": "O vídeo mais importante para não desistires.",
     "id": "PbC4gqZGPSY",
+    "thumb": ""
+  },
+  {
+    "section": "INSPIRATION",
+    "program": "in",
+    "type": "video",
+    "tag": "Design",
+    "title": "Erros de Tipografia a Evitar",
+    "desc": "Não faças design amador: aprende as regras.",
+    "id": "sByzHoiYFX0",
     "thumb": ""
   }
 ];
