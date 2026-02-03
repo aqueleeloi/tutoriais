@@ -9,7 +9,7 @@
     
     <style>
         :root {
-            /* Palette Dark Premium */
+            /* Tema Dark */
             --bg: #0f172a; --sidebar: #1e293b; --card: #1e293b; 
             --text-main: #f8fafc; --text-dim: #94a3b8;
             /* Cores */
@@ -29,13 +29,18 @@
 
         /* MAIN CONTENT */
         .main-content { margin-left: 260px; padding: 40px 50px; width: 100%; }
+        
+        /* DIAGNÓSTICO DE ERRO */
+        #debug-message { 
+            display: none; 
+            background: #ef4444; color: white; padding: 20px; 
+            border-radius: 8px; margin-bottom: 30px; border: 2px solid #b91c1c; 
+        }
+
         .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; }
         .section-header p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 20px; }
 
-        /* ALERT BOX (Diagnóstico) */
-        #error-box { display: none; background: #ef4444; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; font-weight: bold; }
-
-        /* SUB-ABAS (Software) */
+        /* SUB-ABAS */
         .software-tabs { display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid #334155; padding-bottom: 20px; flex-wrap: wrap; }
         .sub-tab { background: #0f172a; border: 1px solid #334155; color: var(--text-dim); padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .sub-tab:hover { border-color: white; color: white; }
@@ -83,7 +88,7 @@
 
 <main class="main-content">
     
-    <div id="error-box"></div>
+    <div id="debug-message"></div>
 
     <div id="SOFTWARE" class="view-section active">
         <div class="section-header"><h2>Software Lab</h2><p>Tutoriais técnicos.</p></div>
@@ -107,33 +112,38 @@
 </main>
 
 <script src="videos.js"></script>
+
 <script>
-    // DIAGNÓSTICO DE ERRO
+    // VERIFICADOR DE ERRO
     if (typeof tutorialData === 'undefined') {
-        const errBox = document.getElementById('error-box');
-        errBox.style.display = 'block';
-        errBox.innerHTML = "⚠️ ERRO CRÍTICO: O site não consegue ler o ficheiro 'videos.js'.<br>Verifica se o ficheiro 'videos.js' está na mesma pasta que o 'index.html'.";
+        const msg = document.getElementById('debug-message');
+        msg.style.display = 'block';
+        msg.innerHTML = `
+            <h3>⚠️ ERRO CRÍTICO: Ficheiro em falta!</h3>
+            <p>O site não consegue encontrar o ficheiro <strong>videos.js</strong>.</p>
+            <ul>
+                <li>Verifica se o ficheiro se chama exatamente <code>videos.js</code> (tudo minúsculas).</li>
+                <li>Verifica se está na mesma pasta que o <code>index.html</code>.</li>
+            </ul>
+        `;
     } else {
+        // Se carregou, renderiza
         const grids = {
             'SOFTWARE': document.getElementById('grid-software'),
             'MARKETING': document.getElementById('grid-marketing'),
             'INSPIRATION': document.getElementById('grid-inspiration')
         };
-        // Inicializa com Photoshop
         renderContent('ps');
     }
 
     function renderContent(filterProg) {
-        // Limpar Grids
         Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
-            // LÓGICA DE FILTRAGEM
             if (item.section === 'SOFTWARE' && item.program !== filterProg) return;
 
             let thumb, link, icon, btnText, btnColor, tagBg, tagColor;
 
-            // Configuração Visual
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
@@ -144,7 +154,6 @@
                 icon = "fas fa-file-alt"; btnText = "Abrir Recurso";
             }
 
-            // Cores
             if (item.section === 'SOFTWARE') {
                 if (item.program === 'ps') { btnColor = 'var(--ps)'; tagBg = 'rgba(56, 189, 248, 0.1)'; tagColor = 'var(--ps)'; }
                 else if (item.program === 'pp') { btnColor = 'var(--pp)'; tagBg = 'rgba(74, 222, 128, 0.1)'; tagColor = 'var(--pp)'; }
