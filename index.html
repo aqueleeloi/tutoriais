@@ -9,14 +9,15 @@
     
     <style>
         :root {
+            /* FUNDOS */
             --bg-body: #050505;
             --sidebar-bg: #090909;
             --card-bg: #121212;
             
-            /* NEON GRADIENTS */
-            --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
-            --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
-            --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
+            /* NEON GRADIENTS (Para as bordas) */
+            --grad-blue: linear-gradient(90deg, #00C6FF 0%, #0072FF 100%);
+            --grad-pink: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
+            --grad-yellow: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);
             --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
             --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             
@@ -43,7 +44,7 @@
             min-height: 100vh;
         }
 
-        /* --- SIDEBAR (RESPONSIVA) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 280px;
             background: var(--sidebar-bg);
@@ -86,7 +87,7 @@
         .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
 
-        /* ATIVOS (Borda Gradiente) */
+        /* ATIVOS (Borda Gradiente, Fundo Transparente) */
         .nav-btn.active {
             background-clip: padding-box, border-box;
             background-origin: padding-box, border-box;
@@ -124,7 +125,7 @@
             border: 1px solid #333;
             color: #777;
             padding: 12px 24px;
-            border-radius: 12px;
+            border-radius: 12px; /* MESMO Raio da Sidebar */
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
@@ -200,19 +201,19 @@
         h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; margin-bottom: 8px; line-height: 1.3; color: #fff; }
         p { font-size: 0.9rem; color: #888; margin-bottom: 25px; flex-grow: 1; line-height: 1.5; }
 
-        /* BOTÃO CARD COM BORDA GRADIENTE */
+        /* BOTÃO CARD COM BORDA GRADIENTE (IGUAL SIDEBAR) */
         .card-btn {
             text-decoration: none;
             width: 100%;
             padding: 12px 0;
-            border-radius: 12px;
+            border-radius: 12px; /* Squircle */
             font-size: 0.9rem;
             font-weight: 700;
             margin-top: auto;
             transition: all 0.3s ease;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             background: transparent;
-            border: 2px solid transparent;
+            border: 2px solid transparent; /* Borda transparente inicial */
             color: var(--text-dim);
             position: relative;
             background-clip: padding-box;
@@ -334,17 +335,19 @@
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
             let link = item.id;
-            let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=60";
+            // Lógica para imagem High-Res
+            let thumb = item.thumb;
             let btnText = "Aceder";
             let btnIcon = "fa-external-link-alt";
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
-                thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
+                // Tenta usar a maxresdefault
+                thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`;
                 btnText = "Assistir Aula";
                 btnIcon = "fa-play";
             } else {
-                if(item.thumb) thumb = item.thumb;
+                if(!item.thumb) thumb = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80"; // Fallback docs
             }
 
             let tagClass = "t-blue";
@@ -358,7 +361,7 @@
             const html = `
                 <article class="card ${cardClass}">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'" alt="${item.title}">
                     </a>
                     <div class="content">
                         <div class="category-tag ${tagClass}">${item.tag}</div>
