@@ -1,9 +1,9 @@
 const tutorialData = [
   {
     "section": "SOFTWARE",
-    "program": "ps",
+    "program": "pp",
     "type": "video",
-    "tag": "Máscaras",
+    "tag": "NOVO",
     "title": "Recorte com Máscaras",
     "desc": "O segredo para recortes perfeitos.",
     "id": "jmsjrohHMVg",
