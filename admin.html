@@ -2,226 +2,125 @@
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin - Tutoriais</title>
+    <title>Admin - Gestor de Vídeos</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #121212; color: white; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        
-        h1 { color: #00a8ff; text-align: center; margin-bottom: 30px; }
-        
-        /* Formulário */
-        .editor-box { background: #1e1e1e; padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #333; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #bbb; font-size: 0.9rem; }
-        input, select { width: 100%; padding: 10px; background: #2a2a2a; border: 1px solid #444; color: white; border-radius: 6px; }
-        
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
-        .btn-add { background: #00d26a; color: white; }
-        .btn-copy { background: #00a8ff; color: white; font-size: 1.2rem; padding: 15px; margin-top: 20px; }
-
-        /* Lista de Videos */
-        .video-list { display: grid; gap: 10px; }
-        .video-item { background: #2a2a2a; padding: 15px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; }
-        .video-info { display: flex; align-items: center; gap: 15px; }
-        .thumb-preview { width: 80px; height: 45px; object-fit: cover; border-radius: 4px; }
-        .actions button { padding: 5px 10px; margin-left: 5px; cursor: pointer; border: none; border-radius: 4px; }
-        .btn-del { background: #ff4757; color: white; }
-        .btn-edit { background: #ffa502; color: white; }
-
-        .ps-tag { color: #00a8ff; font-size: 0.8rem; font-weight: bold; }
-        .pp-tag { color: #00d26a; font-size: 0.8rem; font-weight: bold; }
-
-        /* Area de Código */
-        #codeOutput { width: 100%; height: 150px; background: #000; color: #0f0; font-family: monospace; padding: 10px; margin-top: 20px; border-radius: 8px; }
+        body { font-family: 'Poppins', sans-serif; background: #222; color: white; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #333; padding: 20px; border-radius: 10px; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0 15px; background: #444; border: 1px solid #555; color: white; border-radius: 5px; }
+        .btn { padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem; margin-bottom: 10px; }
+        .save { background: #00d26a; color: white; }
+        .download { background: #00a8ff; color: white; margin-top: 20px; padding: 20px; font-size: 1.2rem; }
+        .item { background: #444; padding: 10px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px; }
+        .del { background: #ff4757; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1><i class="fas fa-tools"></i> Gestor de Tutoriais</h1>
+    <h2 style="text-align:center">Adicionar Novo Vídeo</h2>
+    
+    <label>Plataforma</label>
+    <select id="platform">
+        <option value="ps">Photoshop</option>
+        <option value="pp">Photopea</option>
+    </select>
 
-    <div class="editor-box">
-        <h3>Adicionar / Editar Vídeo</h3>
-        <input type="hidden" id="editIndex">
-        <div class="form-group">
-            <label>Plataforma</label>
-            <select id="platform">
-                <option value="ps">Photoshop</option>
-                <option value="pp">Photopea</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Link do YouTube (ex: https://www.youtube.com/watch?v=...)</label>
-            <input type="text" id="url" placeholder="Cola o link aqui...">
-        </div>
-        <div class="form-group">
-            <label>Título da Aula</label>
-            <input type="text" id="title" placeholder="Ex: Recorte Perfeito">
-        </div>
-        <div class="form-group">
-            <label>Descrição Curta</label>
-            <input type="text" id="desc" placeholder="Ex: Aprende a usar a Pen Tool...">
-        </div>
-        <div class="form-group">
-            <label>Categoria (Tag)</label>
-            <select id="tag">
-                <option value="INTRO">Intro / Básico</option>
-                <option value="RECORTE">Recorte & Máscaras</option>
-                <option value="PINCEL">Pincéis / Cores</option>
-                <option value="CONFIG">Configuração / Arquivos</option>
-            </select>
-        </div>
-        <button class="btn btn-add" onclick="saveVideo()" id="saveBtn"><i class="fas fa-plus"></i> Adicionar Vídeo</button>
-        <button class="btn" style="background:#555; color:white; display:none;" onclick="cancelEdit()" id="cancelBtn">Cancelar</button>
-    </div>
+    <label>Link YouTube</label>
+    <input type="text" id="url" placeholder="Cola o link aqui...">
 
-    <h3>Lista de Vídeos Atuais</h3>
-    <div id="videoList" class="video-list"></div>
+    <label>Título</label>
+    <input type="text" id="title" placeholder="Título da aula...">
 
-    <hr style="border-color:#333; margin: 30px 0;">
+    <label>Descrição</label>
+    <input type="text" id="desc" placeholder="Pequena descrição...">
 
-    <h3 style="color:#00d26a"> Passo Final: Gerar Código</h3>
-    <p style="color:#bbb">Quando terminares de editar, clica abaixo, copia o código e cola na página dos alunos.</p>
-    <button class="btn btn-copy" onclick="generateCode()"><i class="fas fa-code"></i> 1. Gerar Código</button>
-    <textarea id="codeOutput" placeholder="O código aparecerá aqui..."></textarea>
-    <button class="btn" style="background:white; color:black;" onclick="copyToClipboard()"><i class="fas fa-copy"></i> 2. Copiar Tudo</button>
+    <label>Etiqueta</label>
+    <select id="tag">
+        <option value="INTRO">Intro</option>
+        <option value="RECORTE">Recorte</option>
+        <option value="PINCEL">Pincel</option>
+        <option value="CONFIG">Config</option>
+    </select>
+
+    <button class="btn save" onclick="addVideo()">Adicionar à Lista</button>
+
+    <h3 style="margin-top:30px; border-top:1px solid #555; padding-top:20px;">Lista Atual de Vídeos</h3>
+    <div id="list"></div>
+
+    <button class="btn download" onclick="downloadFile()">
+        <i class="fas fa-save"></i> SALVAR ALTERAÇÕES (Baixar videos.js)
+    </button>
+    <p style="text-align:center; color:#bbb; font-size:0.9rem;">Ao clicar, substitui o ficheiro 'videos.js' na pasta.</p>
 </div>
 
+<script src="videos.js"></script>
+
 <script>
-    // Dados Iniciais (Exemplo)
-    let videos = [
-        { id: 'kB0P7nXc1Lg', title: 'Photoshop para Iniciantes', desc: 'Interface e ferramentas básicas.', platform: 'ps', tag: 'INTRO' },
-        { id: 'uzIhFgp3ezw', title: 'Photopea Visão Geral', desc: 'Alternativa grátis ao Photoshop.', platform: 'pp', tag: 'INTRO' }
-    ];
+    // Se não houver ficheiro, inicia array vazio
+    let videos = (typeof tutorialData !== 'undefined') ? tutorialData : [];
 
-    // Carregar videos salvos no navegador (se houver)
-    if(localStorage.getItem('myTutorials')) {
-        videos = JSON.parse(localStorage.getItem('myTutorials'));
-    }
-
-    function renderList() {
-        const list = document.getElementById('videoList');
+    function render() {
+        const list = document.getElementById('list');
         list.innerHTML = '';
-        videos.forEach((v, index) => {
-            let thumb = `https://img.youtube.com/vi/${v.id}/default.jpg`;
-            let platformClass = v.platform === 'ps' ? 'ps-tag' : 'pp-tag';
-            let platformName = v.platform === 'ps' ? 'PHOTOSHOP' : 'PHOTOPEA';
-            
+        videos.forEach((v, i) => {
             list.innerHTML += `
-                <div class="video-item">
-                    <div class="video-info">
-                        <img src="${thumb}" class="thumb-preview">
-                        <div>
-                            <span class="${platformClass}">${platformName}</span>
-                            <strong>${v.title}</strong><br>
-                            <small style="color:#888">${v.tag}</small>
-                        </div>
+                <div class="item">
+                    <div>
+                        <strong style="color:${v.platform === 'ps' ? '#00a8ff' : '#00d26a'}">[${v.platform.toUpperCase()}]</strong> 
+                        ${v.title}
                     </div>
-                    <div class="actions">
-                        <button class="btn-edit" onclick="editVideo(${index})"><i class="fas fa-pen"></i></button>
-                        <button class="btn-del" onclick="deleteVideo(${index})"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `;
+                    <button class="del" onclick="remove(${i})"><i class="fas fa-trash"></i></button>
+                </div>`;
         });
-        saveToLocal();
     }
 
-    function getYoutubeID(url) {
-        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        let match = url.match(regExp);
-        return (match && match[2].length == 11) ? match[2] : null;
-    }
-
-    function saveVideo() {
-        const idInput = document.getElementById('url').value;
-        const title = document.getElementById('title').value;
-        const desc = document.getElementById('desc').value;
-        const platform = document.getElementById('platform').value;
-        const tag = document.getElementById('tag').value;
-        const editIndex = document.getElementById('editIndex').value;
-
-        const youtubeID = getYoutubeID(idInput);
-
-        if (!youtubeID && !editIndex && idInput.length < 11) { alert('URL Inválido'); return; }
+    function addVideo() {
+        const url = document.getElementById('url').value;
+        const idMatch = url.match(/(?:v=|\/)([\w-]{11})/);
         
-        // Se estivermos editando, usamos o ID antigo se o URL estiver vazio, ou o novo
-        let finalID = youtubeID; 
-        if(editIndex !== "") {
-            if(!youtubeID) finalID = videos[editIndex].id; // Mantém o antigo se não colou novo link
-        } else {
-             if(!youtubeID) { alert('Link do YouTube inválido'); return; }
+        if (!idMatch || !document.getElementById('title').value) {
+            alert("Preenche o título e um link válido do YouTube!");
+            return;
         }
 
-        const videoData = { id: finalID, title, desc, platform, tag };
+        videos.push({
+            id: idMatch[1],
+            title: document.getElementById('title').value,
+            desc: document.getElementById('desc').value,
+            platform: document.getElementById('platform').value,
+            tag: document.getElementById('tag').value
+        });
 
-        if (editIndex === "") {
-            videos.push(videoData);
-        } else {
-            videos[parseInt(editIndex)] = videoData;
-            document.getElementById('saveBtn').innerHTML = '<i class="fas fa-plus"></i> Adicionar Vídeo';
-            document.getElementById('cancelBtn').style.display = 'none';
-        }
-
+        // Limpar campos
         document.getElementById('url').value = '';
         document.getElementById('title').value = '';
         document.getElementById('desc').value = '';
-        document.getElementById('editIndex').value = '';
-        
-        renderList();
+        render();
     }
 
-    function editVideo(index) {
-        const v = videos[index];
-        document.getElementById('url').value = `https://www.youtube.com/watch?v=${v.id}`;
-        document.getElementById('title').value = v.title;
-        document.getElementById('desc').value = v.desc;
-        document.getElementById('platform').value = v.platform;
-        document.getElementById('tag').value = v.tag;
-        document.getElementById('editIndex').value = index;
-
-        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> Guardar Alterações';
-        document.getElementById('cancelBtn').style.display = 'inline-block';
-        window.scrollTo(0,0);
-    }
-
-    function cancelEdit() {
-        document.getElementById('url').value = '';
-        document.getElementById('title').value = '';
-        document.getElementById('desc').value = '';
-        document.getElementById('editIndex').value = '';
-        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-plus"></i> Adicionar Vídeo';
-        document.getElementById('cancelBtn').style.display = 'none';
-    }
-
-    function deleteVideo(index) {
-        if(confirm('Apagar este vídeo?')) {
+    function remove(index) {
+        if(confirm("Apagar este vídeo?")) {
             videos.splice(index, 1);
-            renderList();
+            render();
         }
     }
 
-    function saveToLocal() {
-        localStorage.setItem('myTutorials', JSON.stringify(videos));
+    function downloadFile() {
+        // A MAGIA: Cria o ficheiro JS dinamicamente
+        const content = "const tutorialData = " + JSON.stringify(videos, null, 2) + ";";
+        const blob = new Blob([content], {type: "text/javascript"});
+        const link = document.createElement("a");
+        
+        link.href = URL.createObjectURL(blob);
+        link.download = "videos.js"; // Nome do ficheiro a baixar
+        link.click();
+        
+        alert("Ficheiro baixado! Agora arrasta-o para a pasta onde está o index.html e substitui o antigo.");
     }
 
-    function generateCode() {
-        const json = JSON.stringify(videos, null, 2);
-        const code = `const tutorialData = ${json};`;
-        document.getElementById('codeOutput').value = code;
-    }
-
-    function copyToClipboard() {
-        const copyText = document.getElementById("codeOutput");
-        copyText.select();
-        document.execCommand("copy");
-        alert("Código copiado! Agora cola na página dos alunos.");
-    }
-
-    renderList();
+    render();
 </script>
 
 </body>
