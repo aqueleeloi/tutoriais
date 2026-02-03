@@ -1,187 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Admin creativeHUB - Automático</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Painel Admin - Atualizar Vídeos</title>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #050505; color: white; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; background: #111; padding: 30px; border-radius: 16px; border: 1px solid #333; }
-        
-        .auto-box { background: rgba(34, 197, 94, 0.1); border: 2px solid #22c55e; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
-        .auto-box h3 { color: #22c55e; margin-bottom: 10px; font-size: 1rem; }
-
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #161616; padding: 20px; border-radius: 12px; }
-        .full { grid-column: span 2; }
-        
-        label { font-size: 0.75rem; color: #888; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 14px; background: #000; border: 1px solid #333; color: white; border-radius: 8px; outline: none; font-size: 1rem; }
-        input:focus { border-color: #22c55e; }
-
-        /* Preview Thumbnail */
-        #previewContainer { margin-top: 10px; display: none; text-align: center; }
-        #previewImg { width: 200px; border-radius: 8px; border: 2px solid #333; }
-
-        .btn { padding: 15px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 8px; border: none; transition: 0.3s; margin-top: 10px; }
-        .save-item { background: #22c55e; color: #000; }
-        
-        .code-output { margin-top: 30px; background: #000; padding: 20px; border-radius: 12px; border: 1px solid #444; }
-        #codeArea { width: 100%; height: 150px; background: transparent; color: #00FF00; font-family: monospace; border: none; resize: none; margin-top: 10px; font-size: 0.8rem; }
-        .copy-btn { background: #00C6FF; color: white; }
-
-        .item { background: #161616; padding: 12px; border-radius: 10px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-        .actions button { width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer; color: white; margin-left: 5px; }
-        .edit { background: #eab308; } .del { background: #ef4444; }
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        textarea { width: 100%; height: 200px; margin: 10px 0; font-family: monospace; }
+        button { background: #2ea44f; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button:disabled { background: #ccc; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="auto-box">
-        <h3><i class="fas fa-robot"></i> MODO AUTOMÁTICO ATIVO</h3>
-        <p style="font-size: 0.9rem;">Cola o link do YouTube abaixo e eu preencho o resto por ti!</p>
-    </div>
-
-    <div class="form-grid">
-        <div class="full">
-            <label style="color: #22c55e;">1. COLA O LINK DO VÍDEO AQUI</label>
-            <input type="text" id="mainLink" placeholder="https://www.youtube.com/watch?v=..." oninput="autoFill()">
-        </div>
-
-        <div id="previewContainer" class="full">
-            <label>Thumbnail Detetada:</label>
-            <img id="previewImg" src="">
-        </div>
-
-        <div>
-            <label>Secção</label>
-            <select id="section">
-                <option value="SOFTWARE">Software Lab</option>
-                <option value="MARKETING">Marketing Toolkit</option>
-                <option value="INSPIRATION">Mindset & Cultura</option>
-            </select>
-        </div>
-        <div>
-            <label>Sub-Cat (ps, pp, cv)</label>
-            <input type="text" id="program" placeholder="ps">
-        </div>
-        <div class="full">
-            <label>Título (Gerado automaticamente, podes editar)</label>
-            <input type="text" id="title">
-        </div>
-        <div class="full">
-            <label>Descrição</label>
-            <input type="text" id="desc" value="Tutorial rápido de design profissional.">
-        </div>
-        
-        <input type="hidden" id="editIndex" value="">
-        <input type="hidden" id="finalID" value="">
-        <input type="hidden" id="thumbURL" value="">
-
-        <button class="btn save-item" onclick="addItem()">ADICIONAR À LISTA</button>
-    </div>
-
-    <div id="list" style="margin-top: 20px;"></div>
-
-    <div class="code-output">
-        <label>2. Copia este código para o teu ficheiro videos.js:</label>
-        <textarea id="codeArea" readonly></textarea>
-        <button class="btn copy-btn" onclick="generateCode()">GERAR E COPIAR CÓDIGO</button>
-    </div>
+    <h2>🎬 Atualizar videos.js</h2>
+    <p>Insere o novo código JS abaixo:</p>
+    <textarea id="codigoJs" placeholder="const videos = [...]"></textarea>
+    <br>
+    <button id="btnGravar" onclick="atualizarGithub()">Gravar no GitHub 🚀</button>
+    <p id="status"></p>
 </div>
 
-<script src="videos.js"></script>
 <script>
-    let data = (typeof tutorialData !== 'undefined') ? tutorialData : [];
+    // CONFIGURAÇÃO - PREENCHE AQUI:
+    const TOKEN = 'O_TEU_TOKEN_AQUI'; // CUIDADO: Em sites públicos, isto é arriscado!
+    const REPO = 'aqueleeloi/tutoriais';
+    const PATH = 'videos.js';
 
-    function autoFill() {
-        const url = document.getElementById('mainLink').value;
-        let videoId = "";
+    async function atualizarGithub() {
+        const conteudo = document.getElementById('codigoJs').value;
+        const status = document.getElementById('status');
+        const btn = document.getElementById('btnGravar');
+        
+        status.innerText = "A ligar ao GitHub...";
+        btn.disabled = true;
 
-        // Extrair ID do YouTube
-        if (url.includes("v=")) videoId = url.split("v=")[1].split("&")[0];
-        else if (url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0];
+        try {
+            // 1. Obter o "sha" do ficheiro atual (necessário para o GitHub aceitar o update)
+            const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`);
+            const data = await res.json();
+            const sha = data.sha;
 
-        if (videoId) {
-            document.getElementById('finalID').value = videoId;
-            const thumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            document.getElementById('thumbURL').value = thumb;
-            
-            // Mostrar Preview
-            document.getElementById('previewImg').src = thumb;
-            document.getElementById('previewContainer').style.display = "block";
+            // 2. Enviar o novo conteúdo
+            const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${TOKEN}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: "Atualização automática via Admin 🤖",
+                    content: btoa(unescape(encodeURIComponent(conteudo))), // Converte para Base64
+                    sha: sha
+                })
+            });
 
-            // Tentar adivinhar a categoria pelo link ou deixar padrão
-            const lowUrl = url.toLowerCase();
-            if (lowUrl.includes("photoshop")) { document.getElementById('section').value = "SOFTWARE"; document.getElementById('program').value = "ps"; }
-            else if (lowUrl.includes("photopea")) { document.getElementById('section').value = "SOFTWARE"; document.getElementById('program').value = "pp"; }
-            else if (lowUrl.includes("canva")) { document.getElementById('section').value = "SOFTWARE"; document.getElementById('program').value = "cv"; }
-
-            // Título Provisório Limpo
-            document.getElementById('title').value = "Novo Vídeo Tutorial";
+            if (updateRes.ok) {
+                status.innerText = "✅ Gravado com sucesso! O site vai atualizar em 1 min.";
+                status.style.color = "green";
+            } else {
+                throw new Error("Erro ao gravar");
+            }
+        } catch (err) {
+            status.innerText = "❌ Erro: " + err.message;
+            status.style.color = "red";
+        } finally {
+            btn.disabled = false;
         }
     }
-
-    function render() {
-        const listEl = document.getElementById('list');
-        listEl.innerHTML = data.map((item, i) => `
-            <div class="item">
-                <span><b>${item.title}</b> [${item.program}]</span>
-                <div class="actions">
-                    <button class="edit" onclick="editItem(${i})"><i class="fas fa-pen"></i></button>
-                    <button class="del" onclick="deleteItem(${i})"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function addItem() {
-        const idx = document.getElementById('editIndex').value;
-        const obj = {
-            section: document.getElementById('section').value,
-            program: document.getElementById('program').value,
-            type: "video",
-            tag: "NOVO",
-            title: document.getElementById('title').value,
-            desc: document.getElementById('desc').value,
-            id: document.getElementById('finalID').value,
-            thumb: document.getElementById('thumbURL').value
-        };
-
-        if(!obj.id) return alert("Link inválido!");
-
-        if(idx === "") data.push(obj); else data[idx] = obj;
-        
-        document.getElementById('editIndex').value = "";
-        document.getElementById('mainLink').value = "";
-        document.getElementById('previewContainer').style.display = "none";
-        render();
-    }
-
-    function editItem(i) {
-        const item = data[i];
-        document.getElementById('editIndex').value = i;
-        document.getElementById('title').value = item.title;
-        document.getElementById('finalID').value = item.id;
-        document.getElementById('desc').value = item.desc;
-        document.getElementById('thumbURL').value = item.thumb;
-        document.getElementById('section').value = item.section;
-        document.getElementById('program').value = item.program;
-        window.scrollTo(0,0);
-    }
-
-    function deleteItem(i) { data.splice(i,1); render(); }
-
-    function generateCode() {
-        const finalCode = `const tutorialData = ${JSON.stringify(data, null, 2)};`;
-        document.getElementById('codeArea').value = finalCode;
-        document.getElementById('codeArea').select();
-        document.execCommand('copy');
-        alert("Código Copiado! Agora cola no teu ficheiro videos.js");
-    }
-
-    render();
 </script>
+
 </body>
 </html>
