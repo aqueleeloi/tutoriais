@@ -10,19 +10,16 @@
     <style>
         :root {
             --bg-body: #050505;
-            --sidebar-bg: #080808;
+            --sidebar-bg: #090909;
             --card-bg: #121212;
             
-            /* NEON GRADIENTS (Para os botões CHEIOS) */
-            --grad-blue: linear-gradient(90deg, #00C6FF 0%, #0072FF 100%);
-            --grad-pink: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
-            --grad-yellow: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);
+            /* DEFINIÇÃO DOS GRADIENTES */
+            --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
+            --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
+            --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
+            --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
+            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             
-            /* CORES MARCAS */
-            --ps: #31A8FF;
-            --pp: #00D26A;
-            --cv: #8B5CF6;
-
             --text-main: #fff;
             --text-dim: #777;
         }
@@ -44,7 +41,7 @@
 
         /* --- SIDEBAR --- */
         .sidebar {
-            width: 280px;
+            width: 270px;
             background: var(--sidebar-bg);
             border-right: 1px solid #1a1a1a;
             display: flex;
@@ -53,92 +50,76 @@
             flex-shrink: 0;
         }
 
-        /* LOGO DESIGN (IGUAL À IMAGEM) */
-        .logo-container { margin-bottom: 50px; }
-        
-        .brand-main {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: -1px;
-            line-height: 1;
-        }
-        
-        .brand-main span { color: #00C6FF; } /* HUB em Azul */
+        /* LOGO DESIGN */
+        .logo-container { margin-bottom: 60px; padding-left: 5px; }
+        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1; color: white; }
+        .brand-name span { color: #00C6FF; } 
+        .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; font-weight: 500; margin-top: 6px; letter-spacing: 0.5px; }
+        .brand-power span { color: #fff; font-weight: 600; }
 
-        .brand-sub {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            color: #666;
-            margin-top: 5px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .brand-sub span { color: #00C6FF; font-weight: 700; }
-
-        /* NAVEGAÇÃO (Botões Cheios) */
+        /* NAVEGAÇÃO */
         .nav-btn {
             width: 100%;
             background: transparent;
-            border: none;
+            /* Borda transparente por defeito */
+            border: 2px solid transparent; 
             color: var(--text-dim);
             text-align: left;
-            padding: 16px 22px; /* Altura confortável */
-            font-size: 1rem;
+            padding: 14px 20px;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             display: flex; align-items: center; gap: 12px;
             margin-bottom: 10px;
+            position: relative;
         }
 
         .nav-btn i { width: 24px; text-align: center; font-size: 1.1rem; }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-btn:hover { color: white; background: rgba(255,255,255,0.03); }
 
-        /* --- ESTADO ATIVO (O Visual da Imagem Azul) --- */
+        /* --- ESTADO ATIVO: AQUI ESTÁ A MAGIA DA BORDA GRADIENTE --- */
         .nav-btn.active {
+            /* Fundo interior igual à sidebar, fundo exterior é o gradiente */
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
             color: white;
             font-weight: 700;
-            transform: translateX(5px); /* Efeito movimento ligeiro */
         }
 
+        /* Variante: Software (Azul) */
         .nav-btn.active.soft {
-            background: var(--grad-blue);
-            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4); /* Glow Azul */
+            /* O primeiro valor é o fundo escuro, o segundo é o gradiente da borda */
+            background-image: linear-gradient(#090909, #090909), var(--grad-blue);
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.15); /* Glow subtil */
         }
+        .nav-btn.active.soft i { color: #00C6FF; }
 
+        /* Variante: Marketing (Rosa) */
         .nav-btn.active.mkt {
-            background: var(--grad-pink);
-            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4); /* Glow Rosa */
+            background-image: linear-gradient(#090909, #090909), var(--grad-pink);
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.15);
         }
+        .nav-btn.active.mkt i { color: #FF416C; }
 
+        /* Variante: Inspiration (Amarelo) */
         .nav-btn.active.inspo {
-            background: var(--grad-yellow);
-            color: #000; /* Texto preto no amarelo para contraste */
-            box-shadow: 0 4px 15px rgba(242, 153, 74, 0.4); /* Glow Amarelo */
+            background-image: linear-gradient(#090909, #090909), var(--grad-yellow);
+            box-shadow: 0 0 15px rgba(242, 153, 74, 0.15);
         }
+        .nav-btn.active.inspo i { color: #F2994A; }
 
 
         /* --- MAIN AREA --- */
-        .main-content {
-            flex-grow: 1;
-            padding: 50px 60px;
-            overflow-y: auto;
-        }
+        .main-content { flex-grow: 1; padding: 50px 60px; overflow-y: auto; }
 
         .section-header { margin-bottom: 40px; }
-        .section-title { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            font-size: 2.5rem; 
-            font-weight: 800; 
-            color: white; 
-            letter-spacing: -1px;
-        }
+        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; letter-spacing: -1px; }
         .section-desc { color: var(--text-dim); margin-top: 5px; font-size: 1.1rem; }
 
-        /* --- FILTROS (Chips com Outline) --- */
+
+        /* --- BOTÕES DE FILTRO (Mantive a lógica da borda gradiente) --- */
         .chips-container { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
         
         .chip {
@@ -152,14 +133,33 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             display: flex; align-items: center; gap: 8px;
+            position: relative;
+            background-clip: padding-box;
         }
+
         .chip i { font-size: 1.1rem; }
         .chip:hover { border-color: #555; color: white; }
 
-        /* Ativos dos Filtros */
-        .chip.active[data-prog="ps"] { border-color: var(--ps); color: var(--ps); background: rgba(49, 168, 255, 0.1); box-shadow: 0 0 15px rgba(49, 168, 255, 0.15); }
-        .chip.active[data-prog="pp"] { border-color: var(--pp); color: var(--pp); background: rgba(0, 210, 106, 0.1); box-shadow: 0 0 15px rgba(0, 210, 106, 0.15); }
-        .chip.active[data-prog="cv"] { border-color: var(--cv); color: var(--cv); background: rgba(139, 92, 246, 0.1); box-shadow: 0 0 15px rgba(139, 92, 246, 0.15); }
+        /* Chip Ativo - Borda Gradiente */
+        .chip.active {
+            border: 2px solid transparent; 
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            color: white;
+        }
+
+        .chip.active[data-prog="ps"] {
+            background-image: linear-gradient(#050505, #050505), var(--grad-blue);
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.2);
+        }
+        .chip.active[data-prog="pp"] {
+            background-image: linear-gradient(#050505, #050505), var(--grad-green);
+            box-shadow: 0 0 15px rgba(0, 210, 106, 0.2);
+        }
+        .chip.active[data-prog="cv"] {
+            background-image: linear-gradient(#050505, #050505), var(--grad-purple);
+            box-shadow: 0 0 15px rgba(157, 80, 187, 0.2);
+        }
 
 
         /* --- GRID --- */
@@ -176,20 +176,21 @@
 
         /* Tags */
         .category-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; padding: 4px 8px; border-radius: 4px; width: fit-content; }
-        .t-blue { color: var(--ps); background: rgba(49, 168, 255, 0.1); }
-        .t-green { color: var(--pp); background: rgba(0, 210, 106, 0.1); }
-        .t-purple { color: var(--cv); background: rgba(139, 92, 246, 0.1); }
-        .t-pink { color: #FF0055; background: rgba(255, 0, 85, 0.1); }
-        .t-yellow { color: #FFCC00; background: rgba(255, 204, 0, 0.1); }
+        /* Cores sólidas translúcidas para as tags internas */
+        .t-blue { color: #00C6FF; background: rgba(0, 198, 255, 0.1); }
+        .t-green { color: #00b09b; background: rgba(0, 176, 155, 0.1); }
+        .t-purple { color: #9D50BB; background: rgba(157, 80, 187, 0.1); }
+        .t-pink { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
+        .t-yellow { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
 
         h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; margin-bottom: 8px; line-height: 1.4; color: #fff; }
         p { font-size: 0.9rem; color: #777; margin-bottom: 25px; flex-grow: 1; }
 
         /* Link */
         .action-link { text-decoration: none; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: 0.2s; margin-top: auto; }
-        .card.soft .action-link { color: var(--ps); }
-        .card.mkt .action-link { color: #FF0055; }
-        .card.inspo .action-link { color: #FFCC00; }
+        .card.soft .action-link { color: #00C6FF; }
+        .card.mkt .action-link { color: #FF416C; }
+        .card.inspo .action-link { color: #F2994A; }
         .card:hover .action-link { gap: 12px; filter: brightness(1.2); }
 
         .view-section { display: none; animation: fadeIn 0.4s ease; }
@@ -210,7 +211,7 @@
 <aside class="sidebar">
     <div class="logo-container">
         <div class="brand-name">creative<span>HUB.</span></div>
-        <div class="brand-sub">POWERED BY <span>AQUELE.ELOI</span></div>
+        <div class="brand-power">powered by <span>aquele.eloi</span></div>
     </div>
     
     <nav>
@@ -247,7 +248,7 @@
 
     <div id="MARKETING" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:#FF0055">Marketing Toolkit</div>
+            <div class="section-title" style="color:#FF416C">Marketing Toolkit</div>
             <div class="section-desc">Recursos para criar impacto.</div>
         </div>
         <div class="grid" id="grid-marketing"></div>
@@ -255,7 +256,7 @@
 
     <div id="INSPIRATION" class="view-section">
         <div class="section-header">
-            <div class="section-title" style="color:#FFCC00">Mindset & Cultura</div>
+            <div class="section-title" style="color:#F2994A">Mindset & Cultura</div>
             <div class="section-desc">Expande a tua visão criativa.</div>
         </div>
         <div class="grid" id="grid-inspiration"></div>
