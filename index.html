@@ -9,106 +9,63 @@
     
     <style>
         :root {
-            /* Palette Dark Premium */
+            /* Tema Dark Premium */
             --bg: #0f172a; --sidebar: #1e293b; --card: #1e293b; 
             --text-main: #f8fafc; --text-dim: #94a3b8;
-            
-            /* Cores das Secções */
+            /* Cores */
             --ps: #38bdf8; --pp: #4ade80; --cv: #c084fc;
             --mkt: #f472b6; --mind: #facc15;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* MENU LATERAL */
-        .sidebar {
-            width: 260px; background: var(--sidebar); padding: 30px 20px; 
-            display: flex; flex-direction: column; border-right: 1px solid #334155;
-            position: fixed; height: 100%; z-index: 10;
-        }
-        
-        .logo { font-size: 1.6rem; font-weight: 800; color: white; margin-bottom: 40px; letter-spacing: -0.5px; }
+        /* SIDEBAR */
+        .sidebar { width: 260px; background: var(--sidebar); padding: 30px 20px; display: flex; flex-direction: column; border-right: 1px solid #334155; position: fixed; height: 100%; z-index: 10; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: white; margin-bottom: 40px; }
         .logo span { color: var(--ps); }
-
-        .nav-item {
-            background: transparent; border: none; color: var(--text-dim);
-            padding: 14px 15px; text-align: left; font-size: 1rem; font-weight: 600;
-            cursor: pointer; border-radius: 8px; margin-bottom: 8px;
-            display: flex; align-items: center; gap: 12px; width: 100%; transition: 0.2s;
-        }
-        
+        .nav-item { background: transparent; border: none; color: var(--text-dim); padding: 14px 15px; text-align: left; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; width: 100%; transition: 0.2s; }
         .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
         .nav-item.active { background: #334155; color: white; border-left: 3px solid var(--ps); }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* MAIN CONTENT */
         .main-content { margin-left: 260px; padding: 40px 50px; width: 100%; }
-
-        /* CABEÇALHOS */
         .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; }
         .section-header p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 20px; }
 
-        /* SUB-ABAS (Só para Software) */
+        /* SUB-ABAS (Software) */
         .software-tabs { display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid #334155; padding-bottom: 20px; flex-wrap: wrap; }
-        
-        .sub-tab {
-            background: #0f172a; border: 1px solid #334155; color: var(--text-dim);
-            padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
+        .sub-tab { background: #0f172a; border: 1px solid #334155; color: var(--text-dim); padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .sub-tab:hover { border-color: white; color: white; }
-        
         .sub-tab.active[data-prog="ps"] { background: rgba(56, 189, 248, 0.15); border-color: var(--ps); color: var(--ps); }
         .sub-tab.active[data-prog="pp"] { background: rgba(74, 222, 128, 0.15); border-color: var(--pp); color: var(--pp); }
         .sub-tab.active[data-prog="cv"] { background: rgba(192, 132, 252, 0.15); border-color: var(--cv); color: var(--cv); }
 
-        /* VISUALIZAÇÃO DAS SECÇÕES */
+        /* GRIDS & CARDS */
         .view-section { display: none; animation: fadeIn 0.4s ease; }
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-
-        /* CARTÃO (CARD) */
-        .card {
-            background: var(--card); border-radius: 12px; overflow: hidden;
-            border: 1px solid #334155; transition: 0.3s; display: flex; flex-direction: column; height: 100%;
-        }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #334155; transition: 0.3s; display: flex; flex-direction: column; height: 100%; }
         .card:hover { transform: translateY(-7px); border-color: var(--text-dim); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 
         .thumb { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000; }
         .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.3s; }
         .card:hover .thumb img { opacity: 0.6; transform: scale(1.05); }
 
-        .icon-overlay {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 3rem; color: white; z-index: 2; text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            opacity: 0.9;
-        }
+        .icon-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; z-index: 2; text-shadow: 0 4px 10px rgba(0,0,0,0.5); opacity: 0.9; }
 
         .content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        
-        .tag {
-            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px;
-            padding: 4px 10px; border-radius: 4px; width: fit-content; letter-spacing: 0.5px;
-        }
-
+        .tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; width: fit-content; }
         h3 { font-size: 1.15rem; margin-bottom: 8px; line-height: 1.4; color: white; }
         p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px; flex-grow: 1; }
-
-        .btn {
-            text-decoration: none; padding: 12px; border-radius: 6px; text-align: center;
-            font-weight: 700; color: white; margin-top: auto; transition: 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
+        .btn { text-decoration: none; padding: 12px; border-radius: 6px; text-align: center; font-weight: 700; color: white; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px; background: #334155; }
         .btn:hover { filter: brightness(1.1); }
 
         @media (max-width: 900px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #334155; }
             .main-content { margin-left: 0; padding: 20px; }
-            .nav-item { display: inline-flex; width: auto; margin-right: 10px; }
-            .software-tabs { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -116,100 +73,64 @@
 
 <nav class="sidebar">
     <div class="logo">THE <span>HUB</span>.</div>
-    
-    <button class="nav-item active" onclick="switchMain('SOFTWARE', this)">
-        <i class="fas fa-layer-group"></i> Software Lab
-    </button>
-    <button class="nav-item" onclick="switchMain('MARKETING', this)">
-        <i class="fas fa-briefcase"></i> Marketing Toolkit
-    </button>
-    <button class="nav-item" onclick="switchMain('INSPIRATION', this)">
-        <i class="fas fa-lightbulb"></i> Mindset & Cultura
-    </button>
+    <button class="nav-item active" onclick="switchMain('SOFTWARE', this)"><i class="fas fa-laptop-code"></i> Software Lab</button>
+    <button class="nav-item" onclick="switchMain('MARKETING', this)"><i class="fas fa-bullhorn"></i> Marketing Toolkit</button>
+    <button class="nav-item" onclick="switchMain('INSPIRATION', this)"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
 </nav>
 
 <main class="main-content">
-
     <div id="SOFTWARE" class="view-section active">
-        <div class="section-header">
-            <h2>Software Lab</h2>
-            <p>Tutoriais técnicos e práticos para dominares as ferramentas.</p>
-        </div>
-
+        <div class="section-header"><h2>Software Lab</h2><p>Tutoriais técnicos.</p></div>
         <div class="software-tabs">
-            <button class="sub-tab active" data-prog="ps" onclick="filterSoftware('ps', this)">
-                <i class="fab fa-adobe"></i> Photoshop
-            </button>
-            <button class="sub-tab" data-prog="pp" onclick="filterSoftware('pp', this)">
-                <i class="fas fa-leaf"></i> Photopea
-            </button>
-            <button class="sub-tab" data-prog="cv" onclick="filterSoftware('cv', this)">
-                <i class="fas fa-pen-nib"></i> Canva
-            </button>
+            <button class="sub-tab active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
+            <button class="sub-tab" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
+            <button class="sub-tab" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
         </div>
-
         <div class="grid" id="grid-software"></div>
     </div>
 
     <div id="MARKETING" class="view-section">
-        <div class="section-header">
-            <h2 style="color: var(--mkt)">Marketing Toolkit</h2>
-            <p>Documentos, templates, bancos de imagem e ferramentas essenciais.</p>
-        </div>
+        <div class="section-header"><h2 style="color: var(--mkt)">Marketing Toolkit</h2><p>Docs, Templates e Ferramentas.</p></div>
         <div class="grid" id="grid-marketing"></div>
     </div>
 
     <div id="INSPIRATION" class="view-section">
-        <div class="section-header">
-            <h2 style="color: var(--mind)">Mindset & Cultura</h2>
-            <p>Vídeos essenciais para expandir a tua visão criativa.</p>
-        </div>
+        <div class="section-header"><h2 style="color: var(--mind)">Mindset & Cultura</h2><p>Expandir a visão criativa.</p></div>
         <div class="grid" id="grid-inspiration"></div>
     </div>
-
 </main>
 
 <script src="videos.js"></script>
 <script>
     if (typeof tutorialData === 'undefined') {
-        document.querySelector('.main-content').innerHTML = "<h1 style='color:#ef4444; padding:50px'>ERRO: videos.js em falta!</h1>";
+        document.querySelector('.main-content').innerHTML = "<h1 style='color:#ef4444; padding:50px'>ERRO: videos.js não encontrado. Certifica-te que os 3 ficheiros estão na mesma pasta.</h1>";
     } else {
         const grids = {
             'SOFTWARE': document.getElementById('grid-software'),
             'MARKETING': document.getElementById('grid-marketing'),
             'INSPIRATION': document.getElementById('grid-inspiration')
         };
-
-        // Renderiza tudo inicialmente com Photoshop ativo
         renderContent('ps');
     }
 
     function renderContent(filterProg) {
-        // Limpar grids
         Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
-            // LÓGICA DE FILTRO:
-            // Só filtra se for SOFTWARE. Marketing e Inspo mostram tudo o que têm.
             if (item.section === 'SOFTWARE' && item.program !== filterProg) return;
 
-            // Configurar Thumbnails e Links
             let thumb, link, icon, btnText, btnColor, tagBg, tagColor;
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                icon = "fas fa-play";
-                btnText = "Assistir Aula";
+                icon = "fas fa-play"; btnText = "Assistir Aula";
             } else {
                 link = item.id;
-                // Usa thumb do JSON, senão placeholder
                 thumb = item.thumb ? item.thumb : "https://images.unsplash.com/photo-1557683316-973673baf926?w=500&q=60";
-                icon = "fas fa-file-alt";
-                btnText = "Abrir Recurso";
+                icon = "fas fa-file-alt"; btnText = "Abrir Recurso";
             }
 
-            // Estilos
             if (item.section === 'SOFTWARE') {
                 if (item.program === 'ps') { btnColor = 'var(--ps)'; tagBg = 'rgba(56, 189, 248, 0.1)'; tagColor = 'var(--ps)'; }
                 else if (item.program === 'pp') { btnColor = 'var(--pp)'; tagBg = 'rgba(74, 222, 128, 0.1)'; tagColor = 'var(--pp)'; }
@@ -230,12 +151,9 @@
                         <div class="tag" style="background:${tagBg}; color:${tagColor}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="btn" style="background:${btnColor}">
-                            ${btnText}
-                        </a>
+                        <a href="${link}" target="_blank" class="btn" style="background:${btnColor}">${btnText}</a>
                     </div>
-                </article>
-            `;
+                </article>`;
 
             if(grids[item.section]) grids[item.section].innerHTML += html;
         });
@@ -254,6 +172,5 @@
         renderContent(progCode);
     }
 </script>
-
 </body>
 </html>
