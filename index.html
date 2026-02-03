@@ -4,100 +4,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Creative Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg: #0f172a; --sidebar: #1e293b; --card: #1e293b; 
-            --text-main: #f8fafc; --text-dim: #94a3b8;
-            --ps: #38bdf8; --pp: #4ade80; --cv: #c084fc; --mkt: #f472b6; --mind: #facc15;
+            /* --- NOVO ESQUEMA DE CORES (Design Forte) --- */
+            --bg-main: #121212;       /* Fundo Principal muito escuro */
+            --bg-container: #1E1E1E;  /* Fundo do Container Principal */
+            --card-bg: #2A2A2A;       /* Fundo dos Cartões */
+            --text-primary: #FFFFFF;  /* Texto Principal */
+            --text-secondary: #B3B3B3;/* Texto Secundário */
+            --border-color: #333333;  /* Cor das Bordas */
+            
+            /* Cores de Destaque (Vibrantes) */
+            --blue-accent: #3B82F6;   /* Azul (Photoshop, Inciante) */
+            --red-accent: #EF4444;    /* Vermelho (Recursos, Marketing) */
+            --yellow-accent: #EAB308; /* Amarelo (Inscrição, Inspiração) */
+            --green-accent: #22C55E;  /* Verde (Photopea, Ad) */
+            
+            --tab-active-border: var(--blue-accent);
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); display: flex; min-height: 100vh; margin:0;}
+        body { font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-primary); display: flex; justify-content: center; min-height: 100vh; padding: 20px; }
 
-        /* SIDEBAR */
-        .sidebar { width: 260px; background: var(--sidebar); padding: 30px 20px; display: flex; flex-direction: column; border-right: 1px solid #334155; position: fixed; height: 100%; z-index: 10; }
-        .logo { font-size: 1.6rem; font-weight: 800; color: white; margin-bottom: 40px; }
-        .logo span { color: var(--ps); }
-        .nav-item { background: transparent; border: none; color: var(--text-dim); padding: 14px 15px; text-align: left; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; width: 100%; transition: 0.2s; }
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        .nav-item.active { background: #334155; color: white; border-left: 3px solid var(--ps); }
+        /* MAIN CONTAINER (O "Bloco" Principal) */
+        .app-container {
+            background: var(--bg-container);
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden; /* Para o border-radius funcionar */
+            display: flex;
+            flex-direction: column;
+        }
 
-        /* MAIN CONTENT */
-        .main-content { margin-left: 260px; padding: 40px 50px; width: 100%; }
-        .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; }
-        .section-header p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 20px; }
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 25px 0 15px;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .header h1 span { color: var(--blue-accent); }
+
+        /* MAIN TABS (Software, Marketing, Inspiration) */
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 20px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .tab-btn:hover { color: var(--text-primary); }
+        .tab-btn.active { color: var(--text-primary); }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--tab-active-border);
+        }
+
+        /* CONTENT AREA */
+        .content-area { padding: 30px; flex-grow: 1; }
+
+        /* VIEW SECTIONS (Onde o conteúdo muda) */
+        .view-section { display: none; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SUB-TABS (Só para Software) */
+        .sub-tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .sub-tab {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.3s;
+        }
+        .sub-tab:hover { border-color: var(--text-primary); color: var(--text-primary); }
+        .sub-tab.active { background: var(--blue-accent); border-color: var(--blue-accent); color: white; }
+        /* Cores específicas para cada sub-aba ativa */
+        .sub-tab.active[data-prog="pp"] { background: var(--green-accent); border-color: var(--green-accent); }
+        .sub-tab.active[data-prog="cv"] { background: #8B5CF6; border-color: #8B5CF6; } /* Roxo para Canva */
+
+        /* GRID & CARDS (Novo Design dos Cartões) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: #555;
+        }
+
+        .thumb { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #1a1a1a; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s; }
+        .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
+        .icon-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+
+        .card-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        
+        /* Tags Coloridas (Estilo Sólido) */
+        .tag {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;
+            padding: 6px 10px; border-radius: 6px; width: fit-content; color: white;
+        }
+        .tag-blue { background: var(--blue-accent); }
+        .tag-red { background: var(--red-accent); }
+        .tag-yellow { background: var(--yellow-accent); }
+        .tag-green { background: var(--green-accent); }
+
+        h3 { font-size: 1.1rem; margin-bottom: 8px; line-height: 1.4; color: var(--text-primary); }
+        p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; flex-grow: 1; }
+
+        /* Botões Coloridos (Estilo Sólido) */
+        .btn {
+            text-decoration: none; padding: 10px; border-radius: 8px; text-align: center;
+            font-weight: 700; color: white; margin-top: auto; display: block; transition: filter 0.2s;
+        }
+        .btn:hover { filter: brightness(1.1); }
+        .btn-blue { background: var(--blue-accent); }
+        .btn-red { background: var(--red-accent); }
+        .btn-yellow { background: var(--yellow-accent); }
+        .btn-green { background: var(--green-accent); }
 
         /* DEBUG BOX */
         #debug-box { display: none; background: #7f1d1d; color: #fecaca; padding: 20px; border: 2px solid #ef4444; border-radius: 10px; margin-bottom: 30px; font-family: monospace; }
 
-        /* TABS & GRID */
-        .software-tabs { display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid #334155; padding-bottom: 20px; flex-wrap: wrap; }
-        .sub-tab { background: #0f172a; border: 1px solid #334155; color: var(--text-dim); padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .sub-tab:hover { border-color: white; color: white; }
-        .sub-tab.active[data-prog="ps"] { background: rgba(56, 189, 248, 0.15); border-color: var(--ps); color: var(--ps); }
-        .sub-tab.active[data-prog="pp"] { background: rgba(74, 222, 128, 0.15); border-color: var(--pp); color: var(--pp); }
-        .sub-tab.active[data-prog="cv"] { background: rgba(192, 132, 252, 0.15); border-color: var(--cv); color: var(--cv); }
-
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #334155; transition: 0.3s; display: flex; flex-direction: column; height: 100%; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-color: var(--text-dim); }
-        
-        .thumb { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
-        .card:hover .thumb img { opacity: 0.6; transform: scale(1.05); }
-        .icon-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.9; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-
-        .content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; width: fit-content; }
-        h3 { font-size: 1.15rem; margin-bottom: 8px; line-height: 1.4; color: white; }
-        p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px; flex-grow: 1; }
-        .btn { text-decoration: none; padding: 12px; border-radius: 6px; text-align: center; font-weight: 700; color: white; margin-top: auto; background: #334155; display: block; transition: 0.2s; }
-        .btn:hover { filter: brightness(1.2); }
-
-        @media (max-width: 900px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; border-right: none; } .main-content { margin-left: 0; padding: 20px; } }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .app-container { border-radius: 0; height: auto; min-height: 100vh; }
+            .main-tabs { flex-wrap: wrap; }
+            .tab-btn { flex-grow: 1; text-align: center; padding: 15px 10px; }
+            .content-area { padding: 20px; }
+            .sub-tabs { overflow-x: auto; padding-bottom: 5px; }
+            .sub-tab { white-space: nowrap; }
+        }
     </style>
 </head>
 <body>
 
-<nav class="sidebar">
-    <div class="logo">THE <span>HUB</span>.</div>
-    <button class="nav-item active" onclick="switchMain('SOFTWARE', this)"><i class="fas fa-laptop-code"></i> Software Lab</button>
-    <button class="nav-item" onclick="switchMain('MARKETING', this)"><i class="fas fa-bullhorn"></i> Marketing Toolkit</button>
-    <button class="nav-item" onclick="switchMain('INSPIRATION', this)"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
-</nav>
+<div class="app-container">
+    <header class="header">
+        <h1>THE <span>CREATIVE</span> HUB.</h1>
+    </header>
 
-<main class="main-content">
-    
-    <div id="debug-box"></div>
+    <nav class="main-tabs">
+        <button class="tab-btn active" onclick="switchMain('SOFTWARE', this)">Software</button>
+        <button class="tab-btn" onclick="switchMain('MARKETING', this)">Marketing</button>
+        <button class="tab-btn" onclick="switchMain('INSPIRATION', this)">Inspiration</button>
+    </nav>
 
-    <div id="SOFTWARE" class="view-section active">
-        <div class="section-header"><h2>Software Lab</h2><p>Tutoriais técnicos.</p></div>
-        <div class="software-tabs">
-            <button class="sub-tab active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
-            <button class="sub-tab" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
-            <button class="sub-tab" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
+    <main class="content-area">
+        <div id="debug-box"></div>
+
+        <div id="SOFTWARE" class="view-section active">
+            <div class="sub-tabs">
+                <button class="sub-tab active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
+                <button class="sub-tab" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
+                <button class="sub-tab" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
+            </div>
+            <div class="grid" id="grid-software"></div>
         </div>
-        <div class="grid" id="grid-software"></div>
-    </div>
 
-    <div id="MARKETING" class="view-section">
-        <div class="section-header"><h2 style="color: var(--mkt)">Marketing Toolkit</h2><p>Docs, Templates e Ferramentas.</p></div>
-        <div class="grid" id="grid-marketing"></div>
-    </div>
+        <div id="MARKETING" class="view-section">
+            <div class="grid" id="grid-marketing"></div>
+        </div>
 
-    <div id="INSPIRATION" class="view-section">
-        <div class="section-header"><h2 style="color: var(--mind)">Mindset & Cultura</h2><p>Visão criativa.</p></div>
-        <div class="grid" id="grid-inspiration"></div>
-    </div>
-</main>
+        <div id="INSPIRATION" class="view-section">
+            <div class="grid" id="grid-inspiration"></div>
+        </div>
+    </main>
+</div>
 
 <script src="videos.js"></script>
+
 <script>
     // 1. VERIFICAÇÃO DE ERROS
     let safeData = [];
@@ -121,11 +234,11 @@
             'MARKETING': document.getElementById('grid-marketing'),
             'INSPIRATION': document.getElementById('grid-inspiration')
         };
-
+        // Inicializa com Photoshop
         renderContent('ps', grids);
     }
 
-    // 3. RENDERIZAÇÃO
+    // 3. RENDERIZAÇÃO (Lógica de Cores do Novo Design)
     function renderContent(filterProg, grids) {
         // Limpar
         Object.values(grids).forEach(g => g.innerHTML = '');
@@ -150,18 +263,19 @@
                 if (!thumb) thumb = "https://images.unsplash.com/photo-1557683316-973673baf926?w=500&q=60";
             }
 
-            // Cores
-            let tagColor = '#fff', tagBg = '#333', btnColor = '#555';
+            // --- LÓGICA DE CORES (Design Forte) ---
+            let tagClass = 'tag-blue', btnClass = 'btn-blue';
             
-            if (item.section === 'SOFTWARE') {
-                if (item.program === 'ps') { tagColor=btnColor='var(--ps)'; tagBg='rgba(56,189,248,0.1)'; }
-                else if (item.program === 'pp') { tagColor=btnColor='var(--pp)'; tagBg='rgba(74,222,128,0.1)'; }
-                else if (item.program === 'cv') { tagColor=btnColor='var(--cv)'; tagBg='rgba(192,132,252,0.1)'; }
-            } else if (item.section === 'MARKETING') {
-                tagColor=btnColor='var(--mkt)'; tagBg='rgba(244,114,182,0.1)';
-            } else {
-                tagColor=btnColor='var(--mind)'; tagBg='rgba(250,204,21,0.1)';
-            }
+            // Cores baseadas na Tag (Iniciante=Azul, Recursos=Vermelho, etc.)
+            const tagLower = item.tag.toLowerCase();
+            if (tagLower.includes('iniciante') || tagLower.includes('intro')) { tagClass='tag-blue'; btnClass='btn-blue'; }
+            else if (tagLower.includes('recursos') || tagLower.includes('marketing')) { tagClass='tag-red'; btnClass='btn-red'; }
+            else if (tagLower.includes('inspiração') || tagLower.includes('criatividade')) { tagClass='tag-yellow'; btnClass='btn-yellow'; }
+            else if (tagLower.includes('photopea') || tagLower.includes('ferramentas')) { tagClass='tag-green'; btnClass='btn-green'; }
+            
+            // Override por Secção se necessário
+            if (item.section === 'MARKETING') { tagClass='tag-red'; btnClass='btn-red'; }
+            if (item.section === 'INSPIRATION') { tagClass='tag-yellow'; btnClass='btn-yellow'; }
 
             const html = `
                 <article class="card">
@@ -169,11 +283,11 @@
                         <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'" alt="${item.title}">
                         <i class="${icon} icon-overlay"></i>
                     </a>
-                    <div class="content">
-                        <div class="tag" style="background:${tagBg}; color:${tagColor}">${item.tag}</div>
+                    <div class="card-content">
+                        <div class="tag ${tagClass}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="btn" style="background:${btnColor}">${btnText}</a>
+                        <a href="${link}" target="_blank" class="btn ${btnClass}">${btnText}</a>
                     </div>
                 </article>
             `;
@@ -185,7 +299,7 @@
     // 4. NAVEGAÇÃO
     window.switchMain = function(sectionId, btn) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
         document.getElementById(sectionId).classList.add('active');
         btn.classList.add('active');
     };
