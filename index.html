@@ -3,70 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Creative Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Creative Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* --- PALETA BLACK MINIMAL --- */
-            --bg-body: #050505;       /* Preto quase absoluto */
-            --bg-card: #0F0F0F;       /* Cartões ligeiramente mais claros */
-            --border: #222222;        /* Bordas subtis */
+            /* BASE COLORS */
+            --bg-body: #080808;
+            --bg-card: #141414;
+            --border: #262626;
             --text-main: #FFFFFF;
-            --text-dim: #888888;
-            
-            /* --- CORES DE ACENTO (NEON SUAVE) --- */
-            --accent-blue: #3B82F6;
-            --accent-green: #10B981;
-            --accent-purple: #8B5CF6;
-            --accent-pink: #EC4899;
-            --accent-yellow: #F59E0B;
+            --text-dim: #9ca3af;
+
+            /* NEON ACCENTS */
+            --neon-blue: #06b6d4;   /* Software */
+            --neon-pink: #ec4899;   /* Marketing */
+            --neon-yellow: #eab308; /* Inspiration */
+            --neon-purple: #8b5cf6; /* Canva/Extra */
+            --neon-green: #22c55e;  /* Photopea */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
+            padding: 30px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-        }
+        .wrapper { max-width: 1300px; margin: 0 auto; }
 
-        /* --- HEADER --- */
+        /* --- MODERN HEADER --- */
         header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-        }
-        h1 span { color: var(--text-dim); } /* O "THE" e "HUB" ficam cinza */
-
-        /* --- NAVEGAÇÃO PRINCIPAL (TABS) --- */
-        .nav-tabs {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            background: #0F0F0F;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- NAVIGATION CAPSULE --- */
+        .nav-capsule {
+            background: #1a1a1a;
             padding: 5px;
-            border-radius: 12px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            border-radius: 50px;
+            display: flex;
+            gap: 5px;
             border: 1px solid var(--border);
         }
 
@@ -75,75 +70,69 @@
             border: none;
             color: var(--text-dim);
             padding: 10px 25px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 30px;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .nav-btn:hover { color: white; }
+
+        /* Cores Ativas das Abas */
+        .nav-btn.active.soft { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .nav-btn.active.mkt { background: var(--neon-pink); color: white; box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+        .nav-btn.active.inspo { background: var(--neon-yellow); color: #000; box-shadow: 0 0 15px rgba(234, 179, 8, 0.4); }
+
+        /* --- SUB-TABS (SOFTWARE) --- */
+        .sub-nav { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         
-        .nav-btn.active {
-            background: #1F1F1F;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* --- SUB-ABAS (Só software) --- */
-        .sub-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
         .sub-btn {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text-dim);
-            padding: 8px 16px;
-            border-radius: 50px; /* Pílulas */
-            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 8px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
             transition: 0.3s;
-            display: flex; align-items: center; gap: 6px;
         }
 
-        .sub-btn:hover { border-color: #444; color: white; }
+        .sub-btn:hover { border-color: #555; color: white; }
         
-        .sub-btn.active {
-            background: white;
-            color: black;
-            border-color: white;
-            font-weight: 700;
-        }
+        .sub-btn.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(6, 182, 212, 0.1); }
+        .sub-btn.active[data-prog="pp"] { border-color: var(--neon-green); color: var(--neon-green); background: rgba(34, 197, 94, 0.1); }
+        .sub-btn.active[data-prog="cv"] { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(139, 92, 246, 0.1); }
 
-        /* --- GRID DE CARTÕES --- */
+        /* --- GRID --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
 
+        /* --- CARTÃO MODERNO --- */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: #333;
+            border-color: #444;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         /* Imagem */
-        .thumb-wrapper {
+        .thumb {
             position: relative;
             width: 100%;
             aspect-ratio: 16/9;
@@ -151,103 +140,83 @@
             background: #000;
         }
         
-        .thumb-wrapper img {
+        .thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
-            transition: 0.3s;
+            opacity: 0.8;
+            transition: 0.4s;
         }
         
-        .card:hover .thumb-wrapper img { opacity: 1; transform: scale(1.03); }
+        .card:hover .thumb img { opacity: 1; transform: scale(1.05); }
 
-        /* Icon Play/Doc no centro da imagem */
-        .center-icon {
+        /* Play Button (Glass) */
+        .play-icon {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2rem;
-            color: white;
-            opacity: 0.8;
-            backdrop-filter: blur(4px);
-            background: rgba(0,0,0,0.5);
             width: 50px; height: 50px;
-            display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
         }
 
-        /* Conteúdo do Cartão */
-        .card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
+        /* Conteúdo */
+        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        /* Tags Minimalistas */
-        .tag {
+        /* TAGS CATEGORIA (AQUI ESTÁ A COR QUE PEDISTE!) */
+        .category-tag {
             font-size: 0.7rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             margin-bottom: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            width: fit-content;
             display: inline-block;
         }
-        
-        /* Cores das Tags */
-        .text-blue { color: var(--accent-blue); }
-        .text-green { color: var(--accent-green); }
-        .text-purple { color: var(--accent-purple); }
-        .text-pink { color: var(--accent-pink); }
-        .text-yellow { color: var(--accent-yellow); }
 
-        .card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
+        /* Estilos de Cor das Tags */
+        .tag-cyan { background: rgba(6, 182, 212, 0.15); color: var(--neon-blue); border: 1px solid rgba(6, 182, 212, 0.3); }
+        .tag-pink { background: rgba(236, 72, 153, 0.15); color: var(--neon-pink); border: 1px solid rgba(236, 72, 153, 0.3); }
+        .tag-yellow { background: rgba(234, 179, 8, 0.15); color: var(--neon-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
+        .tag-green { background: rgba(34, 197, 94, 0.15); color: var(--neon-green); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-purple { background: rgba(139, 92, 246, 0.15); color: var(--neon-purple); border: 1px solid rgba(139, 92, 246, 0.3); }
 
-        .card p {
+        h3 { font-size: 1.2rem; margin-bottom: 10px; line-height: 1.3; color: white; }
+        p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
+
+        /* Link "Botão" */
+        .card-link {
             font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-bottom: 25px;
-            flex-grow: 1;
-            line-height: 1.5;
-        }
-
-        /* Botão Ação */
-        .action-btn {
+            font-weight: 700;
             text-decoration: none;
-            padding: 12px;
-            background: #161616;
-            color: white;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
-            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: 0.2s;
         }
+        
+        .link-cyan { color: var(--neon-blue); }
+        .link-pink { color: var(--neon-pink); }
+        .link-yellow { color: var(--neon-yellow); }
+        
+        .card:hover .card-link { gap: 12px; } /* Animação setinha */
 
-        .action-btn:hover {
-            background: white;
-            color: black;
-            border-color: white;
-        }
-
-        /* Secções (Esconder/Mostrar) */
-        .view-section { display: none; animation: fadeUp 0.4s ease; }
+        /* Secções */
+        .view-section { display: none; animation: fadeInUp 0.4s ease; }
         .view-section.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Diagnóstico */
-        #debug-box { display: none; color: #ff5555; text-align: center; margin-bottom: 20px; border: 1px solid #ff5555; padding: 10px; border-radius: 8px; }
-
+        /* Mobile */
         @media(max-width: 768px) {
-            .nav-tabs { width: 100%; }
-            .nav-btn { flex: 1; padding: 10px; }
+            header { flex-direction: column; gap: 20px; }
+            .nav-capsule { width: 100%; justify-content: center; }
             .sub-nav { overflow-x: auto; padding-bottom: 5px; flex-wrap: nowrap; }
             .sub-btn { white-space: nowrap; }
         }
@@ -255,51 +224,54 @@
 </head>
 <body>
 
-<div class="container">
+<div class="wrapper">
+    
     <header>
-        <h1>THE <span>CREATIVE</span> HUB.</h1>
+        <div class="brand">CREATIVE <span style="font-weight:400; color:#666">HUB.</span></div>
+        
+        <nav class="nav-capsule">
+            <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)">Software</button>
+            <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)">Marketing</button>
+            <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)">Inspiration</button>
+        </nav>
     </header>
 
-    <nav class="nav-tabs">
-        <button class="nav-btn active" onclick="switchMain('SOFTWARE', this)">Software</button>
-        <button class="nav-btn" onclick="switchMain('MARKETING', this)">Marketing</button>
-        <button class="nav-btn" onclick="switchMain('INSPIRATION', this)">Inspiration</button>
-    </nav>
-    
-    <div id="debug-box"></div>
+    <main>
+        <div id="debug-error" style="display:none; color:red; text-align:center; padding:20px;">⚠️ Erro: videos.js não carregou.</div>
 
-    <div id="SOFTWARE" class="view-section active">
-        <nav class="sub-nav">
-            <button class="sub-btn active" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
-            <button class="sub-btn" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
-            <button class="sub-btn" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
-        </nav>
-        <div class="grid" id="grid-software"></div>
-    </div>
+        <div id="SOFTWARE" class="view-section active">
+            <div class="sub-nav">
+                <button class="sub-btn active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
+                <button class="sub-btn" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
+                <button class="sub-btn" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
+            </div>
+            <div class="grid" id="grid-software"></div>
+        </div>
 
-    <div id="MARKETING" class="view-section">
-        <div class="grid" id="grid-marketing"></div>
-    </div>
+        <div id="MARKETING" class="view-section">
+            <div class="grid" id="grid-marketing"></div>
+        </div>
 
-    <div id="INSPIRATION" class="view-section">
-        <div class="grid" id="grid-inspiration"></div>
-    </div>
+        <div id="INSPIRATION" class="view-section">
+            <div class="grid" id="grid-inspiration"></div>
+        </div>
+    </main>
+
 </div>
 
 <script src="videos.js"></script>
 <script>
-    // 1. Diagnóstico
+    // 1. Check
     let safeData = [];
     if (typeof tutorialData === 'undefined') {
-        document.getElementById('debug-box').style.display = 'block';
-        document.getElementById('debug-box').innerHTML = "ERRO: O ficheiro 'videos.js' não carregou.";
+        document.getElementById('debug-error').style.display = 'block';
     } else {
         safeData = tutorialData;
-        init();
+        initApp();
     }
 
     // 2. Init
-    function init() {
+    function initApp() {
         const grids = {
             'SOFTWARE': document.getElementById('grid-software'),
             'MARKETING': document.getElementById('grid-marketing'),
@@ -308,70 +280,78 @@
         render('ps', grids);
     }
 
-    // 3. Render
+    // 3. Render com Lógica de Cores NEON
     function render(filter, grids) {
         Object.values(grids).forEach(g => g.innerHTML = '');
 
         safeData.forEach(item => {
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
-            // Dados
             let link = item.id;
             let thumb = item.thumb || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80";
-            let iconClass = "fas fa-file-alt";
-            let btnLabel = "Abrir";
+            let icon = "fas fa-file-alt";
+            let actionText = "Abrir Recurso";
 
             if (item.type === 'video') {
                 link = `https://www.youtube.com/watch?v=${item.id}`;
                 thumb = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
-                iconClass = "fas fa-play";
-                btnLabel = "Assistir";
+                icon = "fas fa-play";
+                actionText = "Ver Aula";
             }
 
-            // Cores Tags
-            let colorClass = 'text-blue';
-            if (item.section === 'MARKETING') colorClass = 'text-pink';
-            if (item.section === 'INSPIRATION') colorClass = 'text-yellow';
-            if (item.program === 'pp') colorClass = 'text-green';
-            if (item.program === 'cv') colorClass = 'text-purple';
+            // --- Lógica de Cores das TAGS ---
+            let tagStyle = 'tag-cyan';
+            let linkStyle = 'link-cyan';
 
-            const card = `
+            // Cores por Secção
+            if (item.section === 'MARKETING') { tagStyle = 'tag-pink'; linkStyle = 'link-pink'; }
+            if (item.section === 'INSPIRATION') { tagStyle = 'tag-yellow'; linkStyle = 'link-yellow'; }
+            
+            // Cores Específicas por Programa
+            if (item.program === 'pp') { tagStyle = 'tag-green'; linkStyle = 'link-cyan'; } // Photopea Verde
+            if (item.program === 'cv') { tagStyle = 'tag-purple'; linkStyle = 'link-cyan'; } // Canva Roxo
+
+            const html = `
                 <article class="card">
-                    <a href="${link}" target="_blank" class="thumb-wrapper">
-                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/mqdefault.jpg'">
-                        <div class="center-icon"><i class="${iconClass}"></i></div>
+                    <a href="${link}" target="_blank" class="thumb">
+                        <img src="${thumb}" onerror="this.src='https://img.youtube.com/vi/${item.id}/hqdefault.jpg'">
+                        <div class="play-icon"><i class="${icon}"></i></div>
                     </a>
-                    <div class="card-content">
-                        <div class="tag ${colorClass}">${item.tag}</div>
+                    <div class="content">
+                        <div class="category-tag ${tagStyle}">${item.tag}</div>
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
-                        <a href="${link}" target="_blank" class="action-btn">${btnLabel}</a>
+                        <a href="${link}" target="_blank" class="card-link ${linkStyle}">
+                            ${actionText} <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </article>
             `;
 
-            if(grids[item.section]) grids[item.section].innerHTML += card;
+            if(grids[item.section]) grids[item.section].innerHTML += html;
         });
     }
 
-    // 4. Navegação
+    // 4. Funções Navegação
     window.switchMain = function(secId, btn) {
         document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
+        
         document.getElementById(secId).classList.add('active');
         btn.classList.add('active');
-    };
+    }
 
     window.filterSoftware = function(prog, btn) {
         document.querySelectorAll('.sub-btn').forEach(e => e.classList.remove('active'));
         btn.classList.add('active');
+        
         const grids = {
             'SOFTWARE': document.getElementById('grid-software'),
             'MARKETING': document.getElementById('grid-marketing'),
             'INSPIRATION': document.getElementById('grid-inspiration')
         };
         render(prog, grids);
-    };
+    }
 </script>
 </body>
 </html>
