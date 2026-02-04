@@ -107,7 +107,7 @@ const tutorialData = [
     "title": "Google Fonts Pro",
     "desc": "Biblioteca oficial de tipografias modernas para web.",
     "id": "https://fonts.google.com/",
-    "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800"
+    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
   },
   {
     "section": "MARKETING",
