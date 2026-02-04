@@ -7,7 +7,7 @@ const tutorialData = [
     "title": "COMO CRIAR UM DOCUMENTO",
     "desc": "Tutorial rápido de design profissional.",
     "id": "h2xh9y6Oqvo",
-    "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
+    "thumb": "https://lightroom-photoshop-tutorials.com/wp-content/uploads/2024/08/Step-by-Step-Guide-to-Creating-a-New-Document%E2%80%8B.webp"
   },
   {
     "section": "SOFTWARE",
