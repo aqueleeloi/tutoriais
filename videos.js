@@ -1,7 +1,7 @@
 const tutorialData = [
   {
     "section": "SOFTWARE",
-    "program": "pp",
+    "program": "ps",
     "type": "video",
     "tag": "NOVO",
     "title": "Recorte com Máscaras",
