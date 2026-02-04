@@ -43,16 +43,6 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "pp",
     "type": "video",
-    "tag": "Recorte",
-    "title": "Recorte de Imagem Básico",
-    "desc": "Remover fundos de forma rápida e simples.",
-    "id": "J2gA3zO6cTQ",
-    "thumb": "https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "pp",
-    "type": "video",
     "tag": "Máscaras",
     "title": "Recorte com Máscaras",
     "desc": "Edição avançada e não destrutiva.",
@@ -268,5 +258,15 @@ const tutorialData = [
     "desc": "",
     "id": "https://fonts.google.com/",
     "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "básico",
+    "title": "Recorte de Imagem Básico photopea",
+    "desc": "Recorte de Imagem Básico photopea",
+    "id": "Ec-q4u1neU0",
+    "thumb": "https://img.youtube.com/vi/Ec-q4u1neU0/hqdefault.jpg"
   }
 ];
