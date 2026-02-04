@@ -53,16 +53,6 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
-    "tag": "Produtividade",
-    "title": "10 Segredos do Canva",
-    "desc": "Atalhos e funções que poupam horas de trabalho.",
-    "id": "tDq7qHhC_n4",
-    "thumb": "https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
     "tag": "Design",
     "title": "Design Profissional no Canva",
     "desc": "Como fugir do aspeto 'template' e criar artes únicas.",
@@ -228,5 +218,15 @@ const tutorialData = [
     "desc": "vale a pena!",
     "id": "q_k8fVNzbGU",
     "thumb": "https://img.youtube.com/vi/q_k8fVNzbGU/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "segredos do canvas",
+    "desc": "Domina todos os segredos do canvas.",
+    "id": "Th8h8REjOzA",
+    "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
   }
 ];
