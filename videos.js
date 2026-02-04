@@ -258,5 +258,15 @@ const tutorialData = [
     "desc": "arquivos de tipo de letra da google.",
     "id": "https://fonts.google.com/",
     "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "NOVO",
+    "title": "Novo Recurso",
+    "desc": "",
+    "id": "https://fonts.google.com/",
+    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
   }
 ];
