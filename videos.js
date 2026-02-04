@@ -228,5 +228,35 @@ const tutorialData = [
     "desc": "Domina todos os segredos do canvas.",
     "id": "Th8h8REjOzA",
     "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
+  },
+  {
+    "section": "INSPIRATION",
+    "program": "in",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "Aaron Draplin - logo design",
+    "desc": "Aaron Draplin como abordar uma imagem visual.",
+    "id": "gVUVUoXrPzM",
+    "thumb": "https://img.youtube.com/vi/gVUVUoXrPzM/hqdefault.jpg"
+  },
+  {
+    "section": "INSPIRATION",
+    "program": "in",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "Pros Think Differently",
+    "desc": "Why Your Designs Still Look Amateur",
+    "id": "UtEnQCWd0m4",
+    "thumb": "https://img.youtube.com/vi/UtEnQCWd0m4/hqdefault.jpg"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "LOGOS ANIMADOS",
+    "desc": "Referências de animações de logotipos",
+    "id": "m-osco-Xuqs",
+    "thumb": "https://img.youtube.com/vi/m-osco-Xuqs/hqdefault.jpg"
   }
 ];
