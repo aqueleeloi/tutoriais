@@ -4,6 +4,16 @@ const tutorialData = [
     "program": "ps",
     "type": "video",
     "tag": "NOVO",
+    "title": "COMO CRIAR UM DOCUMENTO",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "h2xh9y6Oqvo",
+    "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "NOVO",
     "title": "Recorte com Máscaras",
     "desc": "O segredo para recortes perfeitos.",
     "id": "jmsjrohHMVg",
@@ -158,16 +168,6 @@ const tutorialData = [
     "desc": "Tutorial rápido de design profissional.",
     "id": "twfFn4y_j38",
     "thumb": "https://img.youtube.com/vi/twfFn4y_j38/hqdefault.jpg"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "ps",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "COMO CRIAR UM DOCUMENTO",
-    "desc": "Tutorial rápido de design profissional.",
-    "id": "h2xh9y6Oqvo",
-    "thumb": "https://img.youtube.com/vi/h2xh9y6Oqvo/hqdefault.jpg"
   },
   {
     "section": "SOFTWARE",
