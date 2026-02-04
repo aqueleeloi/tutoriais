@@ -92,8 +92,8 @@ const tutorialData = [
   {
     "section": "MARKETING",
     "program": "mk",
-    "type": "doc",
-    "tag": "Fontes",
+    "type": "video",
+    "tag": "NOVO",
     "title": "Google Fonts Pro",
     "desc": "Biblioteca oficial de tipografias modernas para web.",
     "id": "https://fonts.google.com/",
