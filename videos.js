@@ -210,16 +210,6 @@ const tutorialData = [
     "thumb": "https://img.youtube.com/vi/53goSxCP7QU/hqdefault.jpg"
   },
   {
-    "section": "INSPIRATION",
-    "program": "in",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "ABSTRACT - SEASON 1",
-    "desc": "vale a pena!",
-    "id": "q_k8fVNzbGU",
-    "thumb": "https://img.youtube.com/vi/q_k8fVNzbGU/hqdefault.jpg"
-  },
-  {
     "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
