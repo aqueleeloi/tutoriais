@@ -102,16 +102,6 @@ const tutorialData = [
   {
     "section": "MARKETING",
     "program": "mk",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "Google Fonts Pro",
-    "desc": "Biblioteca oficial de tipografias modernas para web.",
-    "id": "https://fonts.google.com/",
-    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
-  },
-  {
-    "section": "MARKETING",
-    "program": "mk",
     "type": "doc",
     "tag": "Ícones",
     "title": "Flaticon Library",
