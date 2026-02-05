@@ -298,5 +298,15 @@ const tutorialData = [
     "desc": "Aprenda uma técnica de pretos e brancos para conseguir recortar na perfeição.",
     "id": "w21tgyB8-0o",
     "thumb": "https://img.youtube.com/vi/w21tgyB8-0o/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "remover",
+    "title": " Remove objetos no Photopea",
+    "desc": "Técnica de combinação incrível!",
+    "id": "RmlCRDOVI5k",
+    "thumb": "https://img.youtube.com/vi/RmlCRDOVI5k/hqdefault.jpg"
   }
 ];
