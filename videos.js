@@ -50,26 +50,6 @@ const tutorialData = [
     "thumb": "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=800"
   },
   {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
-    "tag": "Design",
-    "title": "Design Profissional no Canva",
-    "desc": "Como fugir do aspeto 'template' e criar artes únicas.",
-    "id": "7X8XJ6_Xj_k",
-    "thumb": "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
-    "tag": "Animação",
-    "title": "Artes Animadas para Reels",
-    "desc": "Cria vídeos dinâmicos sem usar softwares complexos.",
-    "id": "E3uN96FqFmI",
-    "thumb": "https://images.unsplash.com/photo-1551269901-5c5e14c25df7?q=80&w=800"
-  },
-  {
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
@@ -298,5 +278,15 @@ const tutorialData = [
     "desc": "Como remover a cerca de uma foto usando um editor de fotos online gratuito chamado Photopea.",
     "id": "OBaZaIpqcFc",
     "thumb": "https://img.youtube.com/vi/OBaZaIpqcFc/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "dicas",
+    "title": "POSTS MAIS PROFISSIONAIS",
+    "desc": "3 DICAS DE CANVA PARA POSTS MAIS PROFISSIONAIS",
+    "id": "uD-weRxR9d8",
+    "thumb": "https://img.youtube.com/vi/uD-weRxR9d8/hqdefault.jpg"
   }
 ];
