@@ -180,16 +180,6 @@ const tutorialData = [
     "thumb": "https://img.youtube.com/vi/53goSxCP7QU/hqdefault.jpg"
   },
   {
-    "section": "SOFTWARE",
-    "program": "cv",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "segredos do canvas",
-    "desc": "Domina todos os segredos do canvas.",
-    "id": "Th8h8REjOzA",
-    "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
-  },
-  {
     "section": "INSPIRATION",
     "program": "in",
     "type": "video",
@@ -288,5 +278,25 @@ const tutorialData = [
     "desc": "3 DICAS DE CANVA PARA POSTS MAIS PROFISSIONAIS",
     "id": "uD-weRxR9d8",
     "thumb": "https://img.youtube.com/vi/uD-weRxR9d8/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "dicas",
+    "title": "Ccriar um Post",
+    "desc": "Como criar um Post Social Media no CANVA",
+    "id": "KifK0BTArZM",
+    "thumb": "https://img.youtube.com/vi/KifK0BTArZM/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "cv",
+    "type": "video",
+    "tag": "NOVO",
+    "title": "segredos do canvas",
+    "desc": "Domina todos os segredos do canvas.",
+    "id": "Th8h8REjOzA",
+    "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
   }
 ];
