@@ -278,5 +278,15 @@ const tutorialData = [
     "desc": "Ótima maneira de conseguir fazer recortes de forma bastante simples e rápida",
     "id": "H5o89CzHHTw",
     "thumb": "https://img.youtube.com/vi/H5o89CzHHTw/hqdefault.jpg"
+  },
+  {
+    "section": "INSPIRATION",
+    "program": "in",
+    "type": "playlist",
+    "tag": "serie",
+    "title": "Abstract ( Season 2)",
+    "desc": "Collection of design documentaries kindly published by Netflix.",
+    "id": "https://youtube.com/playlist?list=PL_ckkMmgTrA0bjrvO4x9vfhOMfXU_fF7N&si=ZA7_g0KCtiDNlRnS",
+    "thumb": "https://i.ytimg.com/vi/PHXxKZkeFmc/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAFwxTOF8LJax_nbuuiEk27QJfdDg"
   }
 ];
