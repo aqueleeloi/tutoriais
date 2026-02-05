@@ -288,5 +288,15 @@ const tutorialData = [
     "desc": "Collection of design documentaries kindly published by Netflix.",
     "id": "https://youtube.com/playlist?list=PL_ckkMmgTrA0bjrvO4x9vfhOMfXU_fF7N&si=ZA7_g0KCtiDNlRnS",
     "thumb": "https://i.ytimg.com/vi/PHXxKZkeFmc/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAFwxTOF8LJax_nbuuiEk27QJfdDg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "recorte",
+    "title": "Remover cabelo",
+    "desc": "Aprenda uma técnica de pretos e brancos para conseguir recortar na perfeição.",
+    "id": "w21tgyB8-0o",
+    "thumb": "https://img.youtube.com/vi/w21tgyB8-0o/hqdefault.jpg"
   }
 ];
