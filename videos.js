@@ -308,5 +308,15 @@ const tutorialData = [
     "desc": "Técnica de combinação incrível!",
     "id": "RmlCRDOVI5k",
     "thumb": "https://img.youtube.com/vi/RmlCRDOVI5k/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
+    "tag": "remover",
+    "title": "Remove cercas de uma foto",
+    "desc": "Como remover a cerca de uma foto usando um editor de fotos online gratuito chamado Photopea.",
+    "id": "OBaZaIpqcFc",
+    "thumb": "https://img.youtube.com/vi/OBaZaIpqcFc/hqdefault.jpg"
   }
 ];
