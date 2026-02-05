@@ -240,16 +240,6 @@ const tutorialData = [
     "thumb": "https://img.youtube.com/vi/m-osco-Xuqs/hqdefault.jpg"
   },
   {
-    "section": "INSPIRATION",
-    "program": "Geral",
-    "type": "video",
-    "tag": "NOVO",
-    "title": "ABSTRACT",
-    "desc": "Collection of design documentaries kindly published by Netflix.",
-    "id": "q_k8fVNzbGU",
-    "thumb": "https://img.youtube.com/vi/q_k8fVNzbGU/hqdefault.jpg"
-  },
-  {
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
