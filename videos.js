@@ -51,16 +51,6 @@ const tutorialData = [
   },
   {
     "section": "SOFTWARE",
-    "program": "pp",
-    "type": "video",
-    "tag": "Ferramentas",
-    "title": "Ferramentas Básicas",
-    "desc": "Domina a barra lateral e os atalhos.",
-    "id": "LGeuJgCqFp8",
-    "thumb": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
     "tag": "Design",
