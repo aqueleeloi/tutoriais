@@ -33,6 +33,16 @@ const tutorialData = [
     "section": "SOFTWARE",
     "program": "pp",
     "type": "video",
+    "tag": "básico",
+    "title": "Recorte de Imagem Básico photopea",
+    "desc": "Recorte de Imagem Básico photopea",
+    "id": "Ec-q4u1neU0",
+    "thumb": "https://img.youtube.com/vi/Ec-q4u1neU0/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "pp",
+    "type": "video",
     "tag": "Configuração",
     "title": "Criar Documento (Tamanhos e Cores)",
     "desc": "Aprende a configurar o teu projeto no Photopea.",
@@ -258,15 +268,5 @@ const tutorialData = [
     "desc": "",
     "id": "https://fonts.google.com/",
     "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "pp",
-    "type": "video",
-    "tag": "básico",
-    "title": "Recorte de Imagem Básico photopea",
-    "desc": "Recorte de Imagem Básico photopea",
-    "id": "Ec-q4u1neU0",
-    "thumb": "https://img.youtube.com/vi/Ec-q4u1neU0/hqdefault.jpg"
   }
 ];
