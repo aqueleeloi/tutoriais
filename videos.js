@@ -298,5 +298,25 @@ const tutorialData = [
     "desc": "Domina todos os segredos do canvas.",
     "id": "Th8h8REjOzA",
     "thumb": "https://img.youtube.com/vi/Th8h8REjOzA/hqdefault.jpg"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "LIVRO",
+    "title": "Trade Marks & Symbols",
+    "desc": "Symbolical Designs by Yasaburo Kuwayama",
+    "id": "https://www.are.na/block/4186451",
+    "thumb": "https://i.pinimg.com/736x/5b/43/21/5b43217b6ac2d90256a6902e926efea8.jpg"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "LIVRO",
+    "title": "Trade Marks & Symbols - Volume 2",
+    "desc": "Symbolical Designs by Yasaburo Kuwayama",
+    "id": "https://www.are.na/block/6893623",
+    "thumb": "https://d2w9rnfcy7mm78.cloudfront.net/6893623/original_7de4c47e8a8aa7f220200417-4-1fcd4jy.jpg?1587116600?bc=0"
   }
 ];
