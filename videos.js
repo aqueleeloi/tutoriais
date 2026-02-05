@@ -103,9 +103,9 @@ const tutorialData = [
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
-    "tag": "NOVO",
-    "title": "Novo Recurso",
-    "desc": "",
+    "tag": "fonts",
+    "title": "Google Fonts",
+    "desc": "Libraria de tipos de letras da google.",
     "id": "https://fonts.google.com/",
     "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
   },
