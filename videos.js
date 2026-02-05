@@ -4,6 +4,16 @@ const tutorialData = [
     "program": "ps",
     "type": "video",
     "tag": "Inicio",
+    "title": "PHOTOSHOP INICIANTES",
+    "desc": "Tutorial rápido de design profissional.",
+    "id": "KbetTkLTCHk",
+    "thumb": "https://img.youtube.com/vi/KbetTkLTCHk/hqdefault.jpg"
+  },
+  {
+    "section": "SOFTWARE",
+    "program": "ps",
+    "type": "video",
+    "tag": "Inicio",
     "title": "COMO CRIAR UM DOCUMENTO",
     "desc": "Tutorial rápido de design profissional.",
     "id": "h2xh9y6Oqvo",
@@ -148,16 +158,6 @@ const tutorialData = [
     "desc": "Tutorial rápido de design profissional.",
     "id": "twfFn4y_j38",
     "thumb": "https://img.youtube.com/vi/twfFn4y_j38/hqdefault.jpg"
-  },
-  {
-    "section": "SOFTWARE",
-    "program": "ps",
-    "type": "video",
-    "tag": "Inicio",
-    "title": "PHOTOSHOP INICIANTES",
-    "desc": "Tutorial rápido de design profissional.",
-    "id": "KbetTkLTCHk",
-    "thumb": "https://img.youtube.com/vi/KbetTkLTCHk/hqdefault.jpg"
   },
   {
     "section": "SOFTWARE",
