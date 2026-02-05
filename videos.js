@@ -61,16 +61,6 @@ const tutorialData = [
   },
   {
     "section": "SOFTWARE",
-    "program": "pp",
-    "type": "video",
-    "tag": "Máscaras",
-    "title": "Recorte com Máscaras",
-    "desc": "Edição avançada e não destrutiva.",
-    "id": "2y7WqZqNqQA",
-    "thumb": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800"
-  },
-  {
-    "section": "SOFTWARE",
     "program": "cv",
     "type": "video",
     "tag": "Design",
