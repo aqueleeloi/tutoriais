@@ -250,16 +250,6 @@ const tutorialData = [
     "thumb": "https://img.youtube.com/vi/q_k8fVNzbGU/hqdefault.jpg"
   },
   {
-    "section": "SOFTWARE",
-    "program": "in",
-    "type": "doc",
-    "tag": "NOVO",
-    "title": "GOOGLE FONTS",
-    "desc": "arquivos de tipo de letra da google.",
-    "id": "https://fonts.google.com/",
-    "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
-  },
-  {
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
@@ -268,5 +258,15 @@ const tutorialData = [
     "desc": "",
     "id": "https://fonts.google.com/",
     "thumb": "https://siteorigin.com/wp-content/uploads/2019/03/google-fonts-logo.png"
+  },
+  {
+    "section": "INSPIRATION",
+    "program": "in",
+    "type": "playlist",
+    "tag": "serie",
+    "title": "Abstract ( Season 1)",
+    "desc": "Collection of design documentaries kindly published by Netflix.",
+    "id": "PLuctemCzX-m4svPpBctWUp0oG__Lhglq9",
+    "thumb": "https://i.ytimg.com/vi/q_k8fVNzbGU/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCfYVH2gLMK9XTd21N0xhWzC12MPw"
   }
 ];
