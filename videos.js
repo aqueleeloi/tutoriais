@@ -266,16 +266,6 @@ const tutorialData = [
     "tag": "serie",
     "title": "Abstract ( Season 1)",
     "desc": "Collection of design documentaries kindly published by Netflix.",
-    "id": "PLuctemCzX-m4svPpBctWUp0oG__Lhglq9",
-    "thumb": "https://i.ytimg.com/vi/q_k8fVNzbGU/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCfYVH2gLMK9XTd21N0xhWzC12MPw"
-  },
-  {
-    "section": "INSPIRATION",
-    "program": "in",
-    "type": "playlist",
-    "tag": "NOVO",
-    "title": "Nova Playlist",
-    "desc": "",
     "id": "https://youtube.com/playlist?list=PLuctemCzX-m4svPpBctWUp0oG__Lhglq9&si=PFT_GYpEMv7XhzNl",
     "thumb": "https://i.ytimg.com/vi/q_k8fVNzbGU/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCfYVH2gLMK9XTd21N0xhWzC12MPw"
   }
