@@ -53,11 +53,21 @@ const tutorialData = [
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
-    "tag": "Paleta",
-    "title": "Adobe Color Wheel",
-    "desc": "A ferramenta definitiva para criar harmonias cromáticas.",
-    "id": "https://color.adobe.com/",
-    "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800"
+    "tag": "Estratégia",
+    "title": "Calendário Editorial",
+    "desc": "Template para organizar as tuas redes sociais.",
+    "id": "https://offers.hubspot.com/social-media-content-calendar",
+    "thumb": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800"
+  },
+  {
+    "section": "MARKETING",
+    "program": "mk",
+    "type": "doc",
+    "tag": "fonts",
+    "title": "DaFont",
+    "desc": "Site mais famoso de tipos de font.",
+    "id": "https://www.dafont.com/pt/",
+    "thumb": "data:image/png;base64,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"
   },
   {
     "section": "MARKETING",
@@ -93,21 +103,21 @@ const tutorialData = [
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
-    "tag": "Ícones",
-    "title": "Flaticon Library",
-    "desc": "Milhões de ícones vetoriais para os teus designs.",
-    "id": "https://www.flaticon.com/",
-    "thumb": "https://media.flaticon.com/share/flaticon-generic.jpg"
+    "tag": "Paleta",
+    "title": "Adobe Color Wheel",
+    "desc": "A ferramenta definitiva para criar harmonias cromáticas.",
+    "id": "https://color.adobe.com/",
+    "thumb": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800"
   },
   {
     "section": "MARKETING",
     "program": "mk",
     "type": "doc",
-    "tag": "Estratégia",
-    "title": "Calendário Editorial",
-    "desc": "Template para organizar as tuas redes sociais.",
-    "id": "https://offers.hubspot.com/social-media-content-calendar",
-    "thumb": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800"
+    "tag": "Ícones",
+    "title": "Flaticon Library",
+    "desc": "Milhões de ícones vetoriais para os teus designs.",
+    "id": "https://www.flaticon.com/",
+    "thumb": "https://media.flaticon.com/share/flaticon-generic.jpg"
   },
   {
     "section": "INSPIRATION",
