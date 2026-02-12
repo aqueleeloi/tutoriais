@@ -13,10 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
-        // Verifica se existe sessão. Se não, manda para o início (index.html)
-        if (!sessionStorage.getItem("hub_user")) {
-            window.location.href = "index.html";
-        }
+        if (!sessionStorage.getItem("hub_user")) { window.location.href = "index.html"; }
     </script>
     <style>
         :root {
@@ -33,7 +30,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* --- SIDEBAR --- */
         .sidebar {
             width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a;
             display: flex; flex-direction: column; padding: 40px 25px; flex-shrink: 0;
@@ -41,17 +37,11 @@
         }
         
         .logo-container { margin-bottom: 60px; padding: 0 22px; }
-        
         .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
-        
         .brand-name span { 
-            background-image: var(--grad-blue); /* Default */
-            background-clip: text; 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: 0.5s ease;
+            background-image: var(--grad-blue); background-clip: text; 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: 0.5s ease;
         }
-        
         .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; margin-top: 6px; text-transform: uppercase; }
 
         .nav-btn {
@@ -60,17 +50,14 @@
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
         }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
-
         .nav-btn.active { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; font-weight: 700; transform: translateX(5px); }
         .nav-btn.active.soft { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue); }
         .nav-btn.active.mkt { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink); }
         .nav-btn.active.inspo { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow); }
 
-        /* --- MAIN AREA --- */
         .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 60px; min-height: 100vh; }
         .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 40px; }
 
-        /* --- CHIPS --- */
         .chips-container { display: flex; gap: 15px; margin-bottom: 40px; }
         .chip {
             background: transparent; border: 1px solid #333; color: #777; padding: 12px 24px; border-radius: 12px;
@@ -81,7 +68,6 @@
         .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
         .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
 
-        /* --- GRID & CARDS --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; transition: 0.3s; }
         .card:hover { transform: translateY(-7px); border-color: #444; }
@@ -91,7 +77,6 @@
         .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; }
         
-        /* Tag Colors */
         .t-soft { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
         .t-mkt { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
         .t-inspo { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
@@ -118,16 +103,20 @@
 
 <aside class="sidebar">
     <div class="logo-container">
-        <a href="https://aqueleeloi.github.io/social/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-            <div class="brand-name">creative<span id="hub-text">HUB.</span></div>
-            <div class="brand-power">powered by <span>aquele.eloi</span></div>
-        </a>
+        <div class="brand-name">creative<span id="hub-text">HUB.</span></div>
+        <div class="brand-power">powered by <span>aquele.eloi</span></div>
     </div>
     <nav>
         <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)"><i class="fas fa-layer-group"></i> Software Lab</button>
         <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)"><i class="fas fa-rocket"></i> Marketing Toolkit</button>
         <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
     </nav>
+
+    <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #222;">
+        <button onclick="logout()" style="background: transparent; border: none; color: #666; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; font-family: inherit;">
+            <i class="fas fa-sign-out-alt"></i> SAIR
+        </button>
+    </div>
 </aside>
 
 <main class="main-content">
@@ -154,7 +143,6 @@
 
 <script src="videos.js"></script>
 <script>
-    // Variável para guardar o estado atual da subcategoria de software
     let currentSoftware = 'ps';
 
     function updateHubColor(gradientVar) {
@@ -174,6 +162,10 @@
 
             let thumb = item.thumb || `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
             let link = item.type === 'video' ? `https://www.youtube.com/watch?v=${item.id}` : item.id;
+            // Se for playlist com link completo
+            if (item.type === 'playlist' && item.id.includes('http')) link = item.id;
+            else if (item.type === 'playlist') link = `https://youtube.com/playlist?list=${item.id}`;
+
             let tagClass = item.section === 'SOFTWARE' ? 't-soft' : (item.section === 'MARKETING' ? 't-mkt' : 't-inspo');
 
             const html = `
@@ -202,13 +194,9 @@
         document.getElementById(id).classList.add('active');
         btn.classList.add('active');
 
-        // Lógica de mudança de cor do título HUB.
-        if (id === 'MARKETING') {
-            updateHubColor('--grad-pink');
-        } else if (id === 'INSPIRATION') {
-            updateHubColor('--grad-yellow');
-        } else if (id === 'SOFTWARE') {
-            // Se voltar ao software, repõe a cor da subcategoria ativa
+        if (id === 'MARKETING') updateHubColor('--grad-pink');
+        else if (id === 'INSPIRATION') updateHubColor('--grad-yellow');
+        else if (id === 'SOFTWARE') {
             if (currentSoftware === 'ps') updateHubColor('--grad-blue');
             if (currentSoftware === 'pp') updateHubColor('--grad-green');
             if (currentSoftware === 'cv') updateHubColor('--grad-purple');
@@ -218,9 +206,8 @@
     function filterSoftware(prog, btn) {
         document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
         btn.classList.add('active');
-        currentSoftware = prog; // Guardar estado
+        currentSoftware = prog; 
         
-        // Atualiza a cor do HUB. consoante a subcategoria
         if (prog === 'ps') updateHubColor('--grad-blue');
         if (prog === 'pp') updateHubColor('--grad-green');
         if (prog === 'cv') updateHubColor('--grad-purple');
@@ -228,9 +215,14 @@
         render(prog);
     }
 
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = "index.html";
+    }
+
     window.onload = () => {
         render('ps');
-        updateHubColor('--grad-blue'); // Cor inicial
+        updateHubColor('--grad-blue');
     };
 </script>
 </body>
