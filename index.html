@@ -3,230 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>creativeHUB</title>
-    
+    <title>adminHUB | Acesso</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-        posthog.init('phc_TEU_CODIGO_POSTHOG_AQUI', { api_host: 'https://eu.i.posthog.com' });
+        // ⚠️ COLA AQUI O TEU TOKEN POSTHOG
+        posthog.init('phc_TEU_TOKEN_POSTHOG', { api_host: 'https://eu.i.posthog.com' });
     </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <style>
-        :root {
-            --bg-body: #050505; --sidebar-bg: #090909; --card-bg: #121212;
-            --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
-            --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
-            --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
-            --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
-            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
-            --c-blue: #00C6FF; --c-green: #00b09b; --c-purple: #9D50BB; --c-pink: #FF416C; --c-yellow: #F2994A;
-            --text-main: #fff; --text-dim: #777;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
-
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a;
-            display: flex; flex-direction: column; padding: 40px 25px; flex-shrink: 0;
-            position: fixed; height: 100vh; z-index: 100;
-        }
-        
-        .logo-container { margin-bottom: 60px; padding: 0 22px; }
-        
-        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -0.5px; }
-        
-        .brand-name span { 
-            background-image: var(--grad-blue); /* Default */
-            background-clip: text; 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: 0.5s ease;
-        }
-        
-        .brand-power { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #555; margin-top: 6px; text-transform: uppercase; }
-
-        .nav-btn {
-            width: 100%; background: transparent; border: 2px solid transparent; color: var(--text-dim);
-            text-align: left; padding: 16px 22px; font-size: 0.95rem; font-weight: 600; border-radius: 12px;
-            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-        }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
-
-        .nav-btn.active { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; font-weight: 700; transform: translateX(5px); }
-        .nav-btn.active.soft { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue); }
-        .nav-btn.active.mkt { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink); }
-        .nav-btn.active.inspo { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow); }
-
-        /* --- MAIN AREA --- */
-        .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 60px; min-height: 100vh; }
-        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 40px; }
-
-        /* --- CHIPS --- */
-        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; }
-        .chip {
-            background: transparent; border: 1px solid #333; color: #777; padding: 12px 24px; border-radius: 12px;
-            cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 10px;
-        }
-        .chip.active { border: 1px solid transparent; background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; }
-        .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); }
-        .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
-        .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
-
-        /* --- GRID & CARDS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; transition: 0.3s; }
-        .card:hover { transform: translateY(-7px); border-color: #444; }
-        .thumb { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
-        .card:hover .thumb img { opacity: 1; }
-        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; }
-        
-        /* Tag Colors */
-        .t-soft { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
-        .t-mkt { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
-        .t-inspo { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
-
-        .card-btn {
-            text-decoration: none; width: 100%; padding: 12px 0; border-radius: 12px; font-size: 0.9rem; font-weight: 700;
-            margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: transparent; border: 1px solid transparent; color: var(--text-dim); transition: 0.3s;
-        }
-        .card:hover .card-btn { border-color: #444; color: white; background: rgba(255,255,255,0.05); }
-
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; padding: 20px; }
-            .main-content { margin-left: 0; width: 100%; padding: 30px 20px; }
-        }
+        body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; }
+        .hidden { display: none !important; }
+        .login-container { text-align: center; }
+        .brand { font-size: 2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .brand span { color: #00C6FF; }
+        .profile-card { background: #111; border: 1px solid #333; padding: 40px; border-radius: 20px; text-align: center; width: 350px; animation: fadeIn 0.5s ease; }
+        .user-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #333; margin-bottom: 15px; }
+        .badge { padding: 6px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 20px; }
+        .badge.admin { background: #00C6FF; color: #000; box-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
+        .badge.user { background: #333; color: #888; border: 1px solid #555; }
+        .btn-enter { width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem; margin-top: 10px; transition: 0.2s; text-transform: uppercase; }
+        .btn-enter.admin { background: linear-gradient(90deg, #00C6FF, #0072FF); color: white; }
+        .btn-enter.user { background: #fff; color: #000; }
+        .btn-enter:hover { transform: scale(1.02); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-
-<aside class="sidebar">
-    <div class="logo-container">
-        <a href="https://aqueleeloi.github.io/social/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
-            <div class="brand-name">creative<span id="hub-text">HUB.</span></div>
-            <div class="brand-power">powered by <span>aquele.eloi</span></div>
-        </a>
-    </div>
-    <nav>
-        <button class="nav-btn active soft" onclick="switchMain('SOFTWARE', this)"><i class="fas fa-layer-group"></i> Software Lab</button>
-        <button class="nav-btn mkt" onclick="switchMain('MARKETING', this)"><i class="fas fa-rocket"></i> Marketing Toolkit</button>
-        <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
-    </nav>
-</aside>
-
-<main class="main-content">
-    <div id="SOFTWARE" class="view-section active">
-        <h1 class="section-title">Software Lab</h1>
-        <div class="chips-container">
-            <button class="chip active" data-prog="ps" onclick="filterSoftware('ps', this)"><i class="fab fa-adobe"></i> Photoshop</button>
-            <button class="chip" data-prog="pp" onclick="filterSoftware('pp', this)"><i class="fas fa-leaf"></i> Photopea</button>
-            <button class="chip" data-prog="cv" onclick="filterSoftware('cv', this)"><i class="fas fa-pen-nib"></i> Canva</button>
-        </div>
-        <div class="grid" id="grid-software"></div>
+    <div id="login-view" class="login-container">
+        <div class="brand">admin<span>HUB.</span></div>
+        <p style="color: #666; margin-bottom: 30px;">Identifica-te para continuar.</p>
+        <div id="googleBtn"></div>
     </div>
 
-    <div id="MARKETING" class="view-section">
-        <h1 class="section-title">Marketing Toolkit</h1>
-        <div class="grid" id="grid-marketing"></div>
+    <div id="profile-view" class="profile-card hidden">
+        <img id="p-img" class="user-img" src="">
+        <h2 id="p-name" style="margin: 0; font-size: 1.2rem;"></h2>
+        <div id="p-email" style="color: #666; font-size: 0.8rem; margin-bottom: 10px;"></div>
+        <div id="p-badge" class="badge"></div>
+        <div id="actions"></div>
     </div>
 
-    <div id="INSPIRATION" class="view-section">
-        <h1 class="section-title">Mindset & Cultura</h1>
-        <div class="grid" id="grid-inspiration"></div>
-    </div>
-</main>
+    <script>
+        // ⚠️ COLA AQUI O CLIENT ID DO GOOGLE
+        const GOOGLE_ID = "TEU_CLIENT_ID_GOOGLE.apps.googleusercontent.com";
+        const DOMINIO_ADMIN = "formacao.iefp.pt"; 
 
-<script src="videos.js"></script>
-<script>
-    // Variável para guardar o estado atual da subcategoria de software
-    let currentSoftware = 'ps';
+        function handleLogin(response) {
+            const data = jwtDecode(response.credential);
+            const isAdmin = data.email.endsWith("@" + DOMINIO_ADMIN);
+            
+            // GUARDAR SESSÃO (O Porteiro)
+            sessionStorage.setItem("hub_user", JSON.stringify(data));
+            sessionStorage.setItem("hub_role", isAdmin ? "admin" : "aluno");
 
-    function updateHubColor(gradientVar) {
-        document.getElementById('hub-text').style.backgroundImage = `var(${gradientVar})`;
-    }
+            posthog.identify(data.email, { name: data.name, email: data.email, role: isAdmin ? "formador" : "aluno" });
 
-    function render(filter) {
-        const grids = {
-            'SOFTWARE': document.getElementById('grid-software'),
-            'MARKETING': document.getElementById('grid-marketing'),
-            'INSPIRATION': document.getElementById('grid-inspiration')
-        };
-        Object.values(grids).forEach(g => g.innerHTML = '');
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('profile-view').classList.remove('hidden');
+            
+            document.getElementById('p-img').src = data.picture;
+            document.getElementById('p-name').innerText = data.name;
+            document.getElementById('p-email').innerText = data.email;
+            
+            const badge = document.getElementById('p-badge');
+            const actions = document.getElementById('actions');
 
-        tutorialData.forEach(item => {
-            if (item.section === 'SOFTWARE' && item.program !== filter) return;
-
-            let thumb = item.thumb || `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
-            let link = item.type === 'video' ? `https://www.youtube.com/watch?v=${item.id}` : item.id;
-            let tagClass = item.section === 'SOFTWARE' ? 't-soft' : (item.section === 'MARKETING' ? 't-mkt' : 't-inspo');
-
-            const html = `
-                <article class="card">
-                    <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b79931256ce?q=80&w=800';">
-                    </a>
-                    <div class="content">
-                        <div class="category-tag ${tagClass}">${item.tag}</div>
-                        <h3>${item.title}</h3>
-                        <p style="font-size:0.85rem; color:#666; margin: 10px 0 20px;">${item.desc}</p>
-                        <a href="${link}" target="_blank" class="card-btn">
-                            <i class="fas ${item.type === 'video' ? 'fa-play' : 'fa-external-link-alt'}"></i> 
-                            ${item.type === 'video' ? 'Assistir' : 'Aceder'}
-                        </a>
-                    </div>
-                </article>
-            `;
-            grids[item.section].innerHTML += html;
-        });
-    }
-
-    function switchMain(id, btn) {
-        document.querySelectorAll('.view-section').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(e => e.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        btn.classList.add('active');
-
-        // Lógica de mudança de cor do título HUB.
-        if (id === 'MARKETING') {
-            updateHubColor('--grad-pink');
-        } else if (id === 'INSPIRATION') {
-            updateHubColor('--grad-yellow');
-        } else if (id === 'SOFTWARE') {
-            // Se voltar ao software, repõe a cor da subcategoria ativa
-            if (currentSoftware === 'ps') updateHubColor('--grad-blue');
-            if (currentSoftware === 'pp') updateHubColor('--grad-green');
-            if (currentSoftware === 'cv') updateHubColor('--grad-purple');
+            if(isAdmin) {
+                badge.innerText = "FORMADOR IEFP";
+                badge.className = "badge admin";
+                actions.innerHTML = `<button class="btn-enter admin" onclick="entrar('admin.html')">Entrar no Painel</button>`;
+            } else {
+                badge.innerText = "ALUNO / CONVIDADO";
+                badge.className = "badge user";
+                actions.innerHTML = `<button class="btn-enter user" onclick="entrar('app.html')">Aceder aos Conteúdos</button>`;
+            }
         }
-    }
 
-    function filterSoftware(prog, btn) {
-        document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
-        btn.classList.add('active');
-        currentSoftware = prog; // Guardar estado
-        
-        // Atualiza a cor do HUB. consoante a subcategoria
-        if (prog === 'ps') updateHubColor('--grad-blue');
-        if (prog === 'pp') updateHubColor('--grad-green');
-        if (prog === 'cv') updateHubColor('--grad-purple');
+        function entrar(url) {
+            window.location.href = url;
+        }
 
-        render(prog);
-    }
+        window.onload = function() {
+            // Se já estiver logado, mostra logo o perfil
+            const savedUser = sessionStorage.getItem("hub_user");
+            if(savedUser) {
+                // Simular login automático se já tiver dados (opcional, para ser mais rápido)
+                // Para simplificar, deixamos pedir login sempre para segurança
+            }
+            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin });
+            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large" });
+        }
 
-    window.onload = () => {
-        render('ps');
-        updateHubColor('--grad-blue'); // Cor inicial
-    };
-</script>
+        function jwtDecode(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+    </script>
 </body>
 </html>
