@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUB | Digital Space</title>
+    <title>creativeHUB | Space</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,21 +15,17 @@
 
     <style>
         :root {
-            --primary: #00C6FF;
-            --bg-dark: #080808;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --text-dim: #666666;
+            --primary-blue: #00C6FF;
+            --bg-black: #000000;
+            --card-gray: #0a0a0a;
+            --text-white: #ffffff;
+            --text-muted: #444444;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(0, 198, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(0, 198, 255, 0.05) 0%, transparent 40%);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -40,200 +36,178 @@
 
         .hidden { display: none !important; }
 
-        /* Hub Layout */
-        .hub-interface {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
+        .container {
             text-align: center;
-            animation: appAppear 1s ease-out;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .logo-section {
-            margin-bottom: 60px;
+        /* Branding Vibe: CreativeHub */
+        .brand-section {
+            margin-bottom: 50px;
         }
 
-        .hub-logo {
-            font-size: 3rem;
+        .main-logo {
+            font-size: 2.8rem;
             font-weight: 900;
-            letter-spacing: -3px;
-            text-transform: uppercase;
+            letter-spacing: -2px;
             margin: 0;
-            background: linear-gradient(180deg, #fff 0%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .hub-tagline {
+        .main-logo span {
+            color: var(--primary-blue);
+            text-shadow: 0 0 25px rgba(0, 198, 255, 0.5);
+        }
+
+        .powered-by {
             font-size: 0.75rem;
-            color: var(--primary);
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-top: 10px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-top: 8px;
             font-weight: 600;
-            opacity: 0.8;
+            text-transform: uppercase;
         }
 
-        /* Glass Login Box */
-        .login-module {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            padding: 50px 30px;
-            border-radius: 32px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        /* Interface Module */
+        .glass-box {
+            background: var(--card-gray);
+            border: 1px solid #151515;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
 
-        .login-title {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: var(--text-dim);
-            margin-bottom: 30px;
+        .box-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Google Button Style */
+        #googleBtn {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
         }
 
         /* Profile Interface */
-        .profile-module {
-            text-align: center;
-        }
-
-        .avatar-frame {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px;
-        }
-
-        .avatar-frame::after {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border: 1px solid var(--primary);
+        .avatar-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
             border-radius: 50%;
-            opacity: 0.3;
+            padding: 3px;
+            background: linear-gradient(180deg, var(--primary-blue), transparent);
         }
 
-        .user-avatar {
+        .avatar-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
+            background: #111;
         }
 
-        .welcome-text {
-            font-size: 1.5rem;
+        .user-name {
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin: 0 0 5px 0;
         }
 
-        .user-id {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            margin-bottom: 40px;
+        .user-email {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
         }
 
-        /* Action Button */
-        .hub-btn {
+        /* Action Buttons */
+        .btn-launch {
             width: 100%;
-            padding: 20px;
-            background: var(--text);
-            color: var(--bg-dark);
+            padding: 18px;
+            background: var(--text-white);
+            color: var(--bg-black);
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .hub-btn:hover {
-            transform: translateY(-3px);
-            background: var(--primary);
+        .btn-launch:hover {
+            background: var(--primary-blue);
             color: white;
-            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.3);
         }
 
-        .logout-btn {
+        .btn-logout {
             display: inline-block;
             margin-top: 25px;
-            font-size: 0.75rem;
-            color: var(--text-dim);
+            font-size: 0.7rem;
+            color: var(--text-muted);
             text-decoration: none;
+            cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
-            cursor: pointer;
         }
 
-        .logout-btn:hover { color: var(--primary); }
+        .btn-logout:hover { color: var(--primary-blue); }
 
-        /* Animations */
-        @keyframes appAppear {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Customizing Google Button Container */
-        #googleBtn {
-            display: flex;
-            justify-content: center;
-            filter: grayscale(1) invert(0.1);
-            transition: 0.3s;
-        }
-        
-        #googleBtn:hover {
-            filter: grayscale(0) invert(0);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="hub-interface">
-        <div class="logo-section">
-            <h1 class="hub-logo">HUB.</h1>
-            <div class="hub-tagline">Digital Ecosystem</div>
+    <div class="container">
+        <div class="brand-section">
+            <h1 class="main-logo">creative<span>HUB.</span></h1>
+            <div class="powered-by">POWERED BY AQUELE.ELOI</div>
         </div>
 
-        <div id="login-view" class="login-module">
-            <div class="login-title">Inicie sessão para aceder ao espaço</div>
+        <div id="login-view" class="glass-box">
+            <div class="box-title">Authentication Required</div>
             <div id="googleBtn"></div>
         </div>
 
-        <div id="profile-view" class="login-module hidden">
-            <div class="profile-module">
-                <div class="avatar-frame">
-                    <img id="p-img" class="user-avatar" src="">
-                </div>
-                <h2 id="p-name" class="welcome-text"></h2>
-                <div id="p-email" class="user-id"></div>
-                
-                <button class="hub-btn" onclick="window.location.href='app.html'">
-                    Lançar Workspace <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
-                </button>
-                
-                <div onclick="logout()" class="logout-btn">Desconectar</div>
+        <div id="profile-view" class="glass-box hidden">
+            <div class="avatar-wrapper">
+                <img id="p-img" class="avatar-img" src="">
             </div>
+            <h2 id="p-name" class="user-name"></h2>
+            <div id="p-email" class="user-email"></div>
+            
+            <button class="btn-launch" onclick="window.location.href='app.html'">
+                Launch Workspace <i class="fas fa-chevron-right" style="margin-left: 8px; font-size: 0.7rem;"></i>
+            </button>
+            
+            <div onclick="logout()" class="btn-logout">Sign Out</div>
         </div>
     </div>
 
     <script>
-        // O teu Client ID atualizado conforme a imagem
+        // Configuração do seu Client ID
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // Persistência
-            sessionStorage.setItem("hub_user", JSON.stringify({name: data.name, email: data.email}));
+            sessionStorage.setItem("hub_session", JSON.stringify({name: data.name, email: data.email}));
             
-            // Analytics
             posthog.identify(data.email, { name: data.name });
-            posthog.capture('user_entered_hub');
+            posthog.capture('hub_entry_authorized');
 
-            // UI Transition
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('profile-view').classList.remove('hidden');
             
@@ -250,8 +224,7 @@
         window.onload = function() {
             google.accounts.id.initialize({ 
                 client_id: GOOGLE_ID, 
-                callback: handleLogin,
-                auto_select: false 
+                callback: handleLogin 
             });
             
             google.accounts.id.renderButton(
@@ -259,9 +232,9 @@
                 { 
                     theme: "outline", 
                     size: "large", 
-                    width: "320",
+                    width: "300",
                     shape: "rectangular",
-                    text: "continue_with",
+                    text: "signin_with",
                     logo_alignment: "left"
                 } 
             );
