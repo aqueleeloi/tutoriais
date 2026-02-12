@@ -7,14 +7,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-        // ⚠️ COLA AQUI O TEU TOKEN POSTHOG
         posthog.init('phc_TEU_TOKEN_POSTHOG', { api_host: 'https://eu.i.posthog.com' });
-    </script>
-    <script>
-        // Verifica se existe sessão. Se não, manda para o início (index.html)
-        if (!sessionStorage.getItem("hub_user")) {
-            window.location.href = "index.html";
-        }
     </script>
     <style>
         body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; }
@@ -31,6 +24,8 @@
         .btn-enter.admin { background: linear-gradient(90deg, #00C6FF, #0072FF); color: white; }
         .btn-enter.user { background: #fff; color: #000; }
         .btn-enter:hover { transform: scale(1.02); }
+        .logout-link { display: block; margin-top: 15px; color: #666; font-size: 0.8rem; text-decoration: none; }
+        .logout-link:hover { color: #fff; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -47,10 +42,10 @@
         <div id="p-email" style="color: #666; font-size: 0.8rem; margin-bottom: 10px;"></div>
         <div id="p-badge" class="badge"></div>
         <div id="actions"></div>
+        <a href="#" onclick="logout()" class="logout-link">Terminar Sessão</a>
     </div>
 
     <script>
-        // ⚠️ COLA AQUI O CLIENT ID DO GOOGLE
         const GOOGLE_ID = "TEU_CLIENT_ID_GOOGLE.apps.googleusercontent.com";
         const DOMINIO_ADMIN = "formacao.iefp.pt"; 
 
@@ -58,7 +53,6 @@
             const data = jwtDecode(response.credential);
             const isAdmin = data.email.endsWith("@" + DOMINIO_ADMIN);
             
-            // GUARDAR SESSÃO (O Porteiro)
             sessionStorage.setItem("hub_user", JSON.stringify(data));
             sessionStorage.setItem("hub_role", isAdmin ? "admin" : "aluno");
 
@@ -85,17 +79,14 @@
             }
         }
 
-        function entrar(url) {
-            window.location.href = url;
+        function entrar(url) { window.location.href = url; }
+        
+        function logout() {
+            sessionStorage.clear();
+            location.reload();
         }
 
         window.onload = function() {
-            // Se já estiver logado, mostra logo o perfil
-            const savedUser = sessionStorage.getItem("hub_user");
-            if(savedUser) {
-                // Simular login automático se já tiver dados (opcional, para ser mais rápido)
-                // Para simplificar, deixamos pedir login sempre para segurança
-            }
             google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin });
             google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large" });
         }
@@ -111,4 +102,3 @@
     </script>
 </body>
 </html>
-
