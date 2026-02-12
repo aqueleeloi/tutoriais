@@ -19,53 +19,129 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <style>
-        :root {
-            --bg-body: #050505; --sidebar-bg: #090909; --card-bg: #121212;
-            --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
-            --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
-            --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
-            --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
-            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
-            --c-blue: #00C6FF; --c-green: #00b09b; --c-purple: #9D50BB; --c-pink: #FF416C; --c-yellow: #F2994A;
-            --text-main: #fff; --text-dim: #777;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 40px 25px; position: fixed; height: 100vh; z-index: 100; }
-        .logo-container { margin-bottom: 60px; padding: 0 22px; }
-        .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -1.5px; }
-        .brand-name span { background-image: var(--grad-blue); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-btn { width: 100%; background: transparent; border: 2px solid transparent; color: var(--text-dim); text-align: left; padding: 16px 22px; font-size: 0.95rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
-        .nav-btn.active { background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; font-weight: 700; transform: translateX(5px); }
-        .nav-btn.active.soft { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue); }
-        .nav-btn.active.mkt { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink); }
-        .nav-btn.active.inspo { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow); }
-        .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 60px; min-height: 100vh; }
-        .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 40px; }
-        .chips-container { display: flex; gap: 15px; margin-bottom: 40px; }
-        .chip { background: transparent; border: 1px solid #333; color: #777; padding: 12px 24px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        .chip.active { border: 1px solid transparent; background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: white; }
-        .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); }
-        .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
-        .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; transition: 0.3s; }
-        .card:hover { transform: translateY(-7px); border-color: #444; }
-        .thumb { width: 100%; aspect-ratio: 16/9; background: #000; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.4s; }
-        .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .category-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; }
-        .t-soft { color: var(--c-blue); background: rgba(0, 198, 255, 0.1); }
-        .t-mkt { color: var(--c-pink); background: rgba(255, 65, 108, 0.1); }
-        .t-inspo { color: var(--c-yellow); background: rgba(242, 153, 74, 0.1); }
-        .card-btn { text-decoration: none; width: 100%; padding: 12px 0; border-radius: 12px; font-size: 0.9rem; font-weight: 700; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px; background: transparent; border: 1px solid transparent; color: var(--text-dim); transition: 0.3s; }
-        .card:hover .card-btn { border-color: #444; color: white; background: rgba(255,255,255,0.05); }
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+   <style>
+    :root {
+        --bg-body: #050505; 
+        --sidebar-bg: #090909; 
+        --card-bg: #111111;
+        --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
+        --text-main: #fff; 
+        --text-dim: #777;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
+
+    /* Layout da Grelha */
+    .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 40px; }
+    
+    .grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+        gap: 25px; 
+    }
+
+    /* Estilo Premium das Cartas (Cards) */
+    .card { 
+        background: var(--card-bg); 
+        border-radius: 20px; /* Bordas arredondadas totais */
+        overflow: hidden; 
+        border: 1px solid #1a1a1a; 
+        transition: transform 0.3s ease, border-color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card:hover { 
+        transform: translateY(-8px); 
+        border-color: #333; 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Container da Imagem com Aspect Ratio */
+    .thumb { 
+        width: 100%; 
+        aspect-ratio: 16 / 10; 
+        overflow: hidden;
+        background: #000;
+        /* Arredondamento apenas no topo para casar com o card */
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .thumb img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .card:hover .thumb img {
+        transform: scale(1.05);
+    }
+
+    /* Conteúdo e Texto */
+    .content { 
+        padding: 20px; 
+        text-align: center; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-tag { 
+        font-size: 0.6rem; 
+        font-weight: 800; 
+        text-transform: uppercase; 
+        margin-bottom: 12px; 
+        padding: 5px 12px; 
+        border-radius: 6px;
+        letter-spacing: 1px;
+    }
+
+    h3 { 
+        font-size: 1.1rem; 
+        font-weight: 700; 
+        margin-bottom: 8px; 
+        line-height: 1.3;
+    }
+
+    p { 
+        font-size: 0.85rem; 
+        color: var(--text-dim); 
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    /* Botão Aceder Estilo creativeHUB */
+    .card-btn { 
+        text-decoration: none; 
+        width: 100%; 
+        padding: 12px; 
+        border-radius: 10px; 
+        font-size: 0.85rem; 
+        font-weight: 700; 
+        background: #1a1a1a; 
+        color: #fff; 
+        border: 1px solid #252525;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 10px;
+        transition: 0.2s;
+    }
+
+    .card-btn:hover { 
+        background: #252525;
+        border-color: #444;
+    }
+
+    /* Cores das Tags */
+    .t-soft { color: #00C6FF; background: rgba(0, 198, 255, 0.1); }
+    .t-mkt { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
+    .t-inspo { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
+</style>
 </head>
 <body>
 
