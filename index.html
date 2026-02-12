@@ -10,6 +10,12 @@
         // ⚠️ COLA AQUI O TEU TOKEN POSTHOG
         posthog.init('phc_TEU_TOKEN_POSTHOG', { api_host: 'https://eu.i.posthog.com' });
     </script>
+    <script>
+        // Verifica se existe sessão. Se não, manda para o início (index.html)
+        if (!sessionStorage.getItem("hub_user")) {
+            window.location.href = "index.html";
+        }
+    </script>
     <style>
         body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; }
         .hidden { display: none !important; }
@@ -105,3 +111,4 @@
     </script>
 </body>
 </html>
+
