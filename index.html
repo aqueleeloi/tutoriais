@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>adminHUB | Login Unificado</title>
+    <title>adminHUB | Login</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
@@ -18,94 +18,78 @@
         body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; }
         .hidden { display: none !important; }
         
-        .login-container { text-align: center; max-width: 400px; padding: 20px; }
-        .brand { font-size: 2.5rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -1px; }
+        .login-card { 
+            background: #111; border: 1px solid #222; padding: 40px; border-radius: 24px; 
+            text-align: center; width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .brand { font-size: 2rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -1px; }
         .brand span { color: #00C6FF; }
         
-        /* Design das Opções */
-        .login-options { margin-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .separator { display: flex; align-items: center; color: #444; width: 100%; margin: 20px 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .separator::before, .separator::after { content: ""; flex: 1; height: 1px; background: #333; }
-        .separator::before { margin-right: 10px; }
-        .separator::after { margin-left: 10px; }
-
-        .info-text { color: #888; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
-        .highlight-iefp { color: #00C6FF; font-weight: bold; }
+        .info-block { 
+            background: #1a1a1a; padding: 15px; border-radius: 12px; margin: 25px 0; 
+            font-size: 0.85rem; color: #aaa; border: 1px solid #333; line-height: 1.6;
+        }
+        .highlight { color: #fff; font-weight: bold; }
 
         /* Card de Perfil */
-        .profile-card { background: #111; border: 1px solid #333; padding: 40px; border-radius: 20px; text-align: center; width: 350px; animation: fadeIn 0.5s ease; }
-        .user-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #333; margin-bottom: 15px; }
+        .user-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #333; margin-bottom: 15px; }
         .badge { padding: 6px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 20px; }
         .badge.admin { background: #00C6FF; color: #000; box-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
         .badge.user { background: #333; color: #888; border: 1px solid #555; }
 
-        .btn-enter { width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 0.9rem; margin-top: 10px; transition: 0.2s; text-transform: uppercase; }
+        .btn-enter { width: 100%; padding: 16px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; font-size: 0.95rem; margin-top: 10px; transition: 0.2s; text-transform: uppercase; }
         .btn-enter.admin { background: linear-gradient(90deg, #00C6FF, #0072FF); color: white; }
         .btn-enter.user { background: #fff; color: #000; }
-        .btn-enter:hover { transform: scale(1.02); }
-        .logout-link { display: block; margin-top: 15px; color: #666; font-size: 0.8rem; text-decoration: none; }
+        .btn-enter:hover { transform: translateY(-2px); }
+        .logout-link { display: block; margin-top: 20px; color: #666; font-size: 0.8rem; text-decoration: none; cursor: pointer; }
         .logout-link:hover { color: #fff; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate { animation: fadeIn 0.5s ease; }
     </style>
 </head>
 <body>
 
-    <div id="login-view" class="login-container">
+    <div id="login-view" class="login-card animate">
         <div class="brand">admin<span>HUB.</span></div>
+        <p style="color:#666; font-size:0.9rem; margin-top:5px">Gestão de Conteúdos & Aulas</p>
         
-        <p class="info-text">
-            Portal de gestão e aprendizagem.<br>
-            Acede com a tua conta pessoal ou institucional.
-        </p>
+        <div class="info-block">
+            Para entrar, clica no botão abaixo e usa:<br>
+            📧 Email Pessoal (<span class="highlight">Gmail</span>)<br>
+            📧 Email Institucional (<span class="highlight">@formacao.iefp.pt</span>)
+        </div>
 
-        <div class="login-options">
+        <div style="display: flex; justify-content: center;">
             <div id="googleBtn"></div>
-            
-            <div style="margin-top: 10px; font-size: 0.75rem; color: #555;">
-                <i class="fas fa-check-circle"></i> Aceita <span style="color:#fff">Gmail</span> e <span class="highlight-iefp">@formacao.iefp.pt</span>
-            </div>
         </div>
     </div>
 
-    <div id="profile-view" class="profile-card hidden">
+    <div id="profile-view" class="login-card hidden animate">
         <img id="p-img" class="user-img" src="">
-        <h2 id="p-name" style="margin: 0; font-size: 1.2rem;"></h2>
-        <div id="p-email" style="color: #666; font-size: 0.8rem; margin-bottom: 10px;"></div>
+        <h2 id="p-name" style="margin: 0; font-size: 1.4rem;"></h2>
+        <div id="p-email" style="color: #666; font-size: 0.9rem; margin-bottom: 15px;"></div>
         <div id="p-badge" class="badge"></div>
         
         <div id="actions"></div>
-        <a href="#" onclick="logout()" class="logout-link">Terminar Sessão</a>
+        <div onclick="logout()" class="logout-link">Terminar Sessão</div>
     </div>
 
     <script>
-        // ==============================================================
-        // ⚠️ COLA AQUI O TEU CLIENT_ID NOVO DO GOOGLE CLOUD CONSOLE ⚠️
-        // ==============================================================
+        // ================= CONFIGURAÇÃO =================
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com"; 
-        
-        // O DOMÍNIO QUE DÁ PODERES DE ADMIN
         const DOMINIO_ADMIN = "formacao.iefp.pt"; 
-        // ==============================================================
+        // ================================================
 
         function handleLogin(response) {
             const data = jwtDecode(response.credential);
-            
-            // Verifica se o email termina em @formacao.iefp.pt
             const isAdmin = data.email.endsWith("@" + DOMINIO_ADMIN);
             
-            // Guarda a sessão
             sessionStorage.setItem("hub_user", JSON.stringify(data));
             sessionStorage.setItem("hub_role", isAdmin ? "admin" : "aluno");
 
-            // Envia para o PostHog
-            posthog.identify(data.email, { 
-                name: data.name, 
-                email: data.email, 
-                role: isAdmin ? "formador" : "aluno" 
-            });
+            posthog.identify(data.email, { name: data.name, email: data.email, role: isAdmin ? "formador" : "aluno" });
 
-            // Atualiza o Ecrã
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('profile-view').classList.remove('hidden');
             
@@ -117,12 +101,10 @@
             const actions = document.getElementById('actions');
 
             if(isAdmin) {
-                // --- É DO IEFP ---
                 badge.innerText = "FORMADOR IEFP";
                 badge.className = "badge admin";
                 actions.innerHTML = `<button class="btn-enter admin" onclick="entrar('admin.html')">Entrar no Painel</button>`;
             } else {
-                // --- É GMAIL NORMAL ---
                 badge.innerText = "ALUNO / CONVIDADO";
                 badge.className = "badge user";
                 actions.innerHTML = `<button class="btn-enter user" onclick="entrar('app.html')">Aceder aos Conteúdos</button>`;
@@ -140,14 +122,10 @@
         }
 
         window.onload = function() {
-            // Se já tiver sessão, mostra o perfil direto (opcional)
-            // const savedUser = sessionStorage.getItem("hub_user");
-            // if(savedUser) { ... lógica para saltar login ... }
-
             google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin });
             google.accounts.id.renderButton(
                 document.getElementById("googleBtn"), 
-                { theme: "outline", size: "large", width: "280", text: "continue_with" } 
+                { theme: "outline", size: "large", width: "300", text: "continue_with" } 
             );
         }
 
