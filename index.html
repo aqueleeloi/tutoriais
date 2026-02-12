@@ -10,9 +10,10 @@
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
         
-        // ⚠️ TUA CHAVE DO POSTHOG AQUI
         posthog.init('phc_9xPN0iLCE7yTiZleow1k93LPp2GIPDubHR92KDhmMoD', { api_host: 'https://us.i.posthog.com' });
     </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; }
@@ -25,11 +26,34 @@
         .brand { font-size: 2rem; font-weight: 800; margin-bottom: 5px; letter-spacing: -1px; }
         .brand span { color: #00C6FF; }
         
-        .info-block { 
-            background: #1a1a1a; padding: 15px; border-radius: 12px; margin: 25px 0; 
-            font-size: 0.85rem; color: #aaa; border: 1px solid #333; line-height: 1.6;
+        /* --- BOTÃO PERSONALIZADO (O TRUQUE) --- */
+        .custom-google-wrapper {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin-top: 30px;
+            border-radius: 50px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .highlight { color: #fff; font-weight: bold; }
+        .custom-google-wrapper:hover { transform: scale(1.02); }
+
+        /* O Visual do Botão (O que o user vê) */
+        .btn-visual {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; color: #333;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-weight: 700; font-size: 0.85rem;
+            border-radius: 50px; pointer-events: none; /* Deixa o clique passar */
+        }
+
+        /* O Botão Real do Google (Invisível por cima) */
+        .google-invisible {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.01; /* Torna invisível mas clicável */
+            z-index: 10;
+        }
 
         /* Card de Perfil */
         .user-img { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #333; margin-bottom: 15px; }
@@ -54,15 +78,18 @@
         <div class="brand">admin<span>HUB.</span></div>
         <p style="color:#666; font-size:0.9rem; margin-top:5px">Gestão de Conteúdos & Aulas</p>
         
-        <div class="info-block">
-            Para entrar, clica no botão abaixo e usa:<br>
-            📧 Email Pessoal (<span class="highlight">Gmail</span>)<br>
-            📧 Email Institucional (<span class="highlight">@formacao.iefp.pt</span>)
+        <div class="custom-google-wrapper">
+            <div class="btn-visual">
+                <i class="fab fa-google" style="color:#EA4335; font-size:1.1rem;"></i>
+                <span>ENTRAR COM GOOGLE OU IEFP</span>
+            </div>
+            
+            <div id="googleBtn" class="google-invisible"></div>
         </div>
 
-        <div style="display: flex; justify-content: center;">
-            <div id="googleBtn"></div>
-        </div>
+        <p style="font-size:0.7rem; color:#444; margin-top:15px;">
+            <i class="fas fa-lock"></i> Acesso seguro via Google Workspace
+        </p>
     </div>
 
     <div id="profile-view" class="login-card hidden animate">
@@ -76,10 +103,8 @@
     </div>
 
     <script>
-        // ================= CONFIGURAÇÃO =================
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com"; 
         const DOMINIO_ADMIN = "formacao.iefp.pt"; 
-        // ================================================
 
         function handleLogin(response) {
             const data = jwtDecode(response.credential);
@@ -123,9 +148,10 @@
 
         window.onload = function() {
             google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin });
+            // Renderizamos o botão invisível mas grande o suficiente para cobrir a área
             google.accounts.id.renderButton(
                 document.getElementById("googleBtn"), 
-                { theme: "outline", size: "large", width: "300", text: "continue_with" } 
+                { theme: "outline", size: "large", width: "400", height: "60", type: "standard" } 
             );
         }
 
