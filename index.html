@@ -17,13 +17,12 @@
         :root {
             --primary: #00C6FF;
             --bg: #000000;
-            --card: rgba(10, 10, 10, 0.8);
+            --card: rgba(10, 10, 10, 0.9);
             --border: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-dim: #444444;
         }
 
-        /* Bloqueia distorção inicial */
         html, body {
             background: var(--bg);
             margin: 0;
@@ -35,8 +34,8 @@
         }
 
         body {
-            opacity: 0; /* Começa invisível para evitar bugs de renderização */
-            transition: opacity 0.6s ease;
+            opacity: 0;
+            transition: opacity 0.4s ease;
             font-family: 'Inter', -apple-system, sans-serif;
         }
 
@@ -47,37 +46,19 @@
             text-align: center;
         }
 
-        /* Branding */
         .brand-box { margin-bottom: 60px; }
-        .logo {
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin: 0;
-            color: #fff;
-        }
-        .logo span {
-            color: var(--primary);
-            text-shadow: 0 0 30px rgba(0, 198, 255, 0.4);
-        }
-        .tagline {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            letter-spacing: 3px;
-            margin-top: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
+        .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -2px; margin: 0; color: #fff; }
+        .logo span { color: var(--primary); text-shadow: 0 0 30px rgba(0, 198, 255, 0.4); }
+        .tagline { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 3px; margin-top: 10px; font-weight: 700; text-transform: uppercase; }
 
-        /* Glass Login Box */
         .auth-box {
             background: var(--card);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 50px 30px;
+            padding: 60px 30px;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            min-height: 140px; /* Mantém estabilidade visual */
+            min-height: 180px;
         }
 
         .auth-label {
@@ -89,7 +70,6 @@
             font-weight: 600;
         }
 
-        /* Centralizar botão Google */
         #googleBtn {
             display: flex;
             justify-content: center;
@@ -97,51 +77,26 @@
             min-height: 44px;
         }
 
-        /* Perfil Estilizado */
-        .profile-view {
-            animation: fadeIn 0.4s ease forwards;
-        }
-        .avatar-container {
-            width: 84px;
-            height: 84px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            padding: 3px;
-            background: linear-gradient(180deg, var(--primary), transparent);
-        }
-        .avatar {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
+        /* Loading Overlay */
+        #loading-view {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
-        }
-        .user-name { font-size: 1.4rem; font-weight: 700; margin: 0; }
-        .user-email { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 35px; }
-
-        .btn-launch {
-            width: 100%;
-            padding: 18px;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 14px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
             font-weight: 800;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
+            letter-spacing: 2px;
         }
-        .btn-launch:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
 
         .hidden { display: none !important; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
+
+    <div id="loading-view" class="hidden">REDIRECTING...</div>
 
     <div class="container">
         <div class="brand-box">
@@ -153,45 +108,42 @@
             <div class="auth-label">Authentication Required</div>
             <div id="googleBtn"></div>
         </div>
-
-        <div id="profile-view" class="auth-box hidden profile-view">
-            <div class="avatar-container">
-                <img id="p-img" class="avatar" src="">
-            </div>
-            <h2 id="p-name" class="user-name"></h2>
-            <div id="p-email" class="user-email"></div>
-            
-            <button class="btn-launch" onclick="window.location.href='app.html'">
-                Launch Workspace <i class="fas fa-chevron-right" style="margin-left: 8px;"></i>
-            </button>
-            
-            <p onclick="location.reload()" style="margin-top: 25px; color: var(--text-dim); font-size: 0.7rem; cursor: pointer; text-transform: uppercase; font-weight: 700;">Sign Out</p>
-        </div>
     </div>
 
     <script>
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
+            // 1. Decifrar dados do utilizador
             const data = JSON.parse(atob(response.credential.split('.')[1]));
-            sessionStorage.setItem("hub_session", JSON.stringify({name: data.name, email: data.email}));
             
+            // 2. Guardar sessão no browser
+            sessionStorage.setItem("hub_session", JSON.stringify({name: data.name, email: data.email, photo: data.picture}));
+            
+            // 3. Analytics
+            posthog.identify(data.email, { name: data.name });
+            
+            // 4. MOSTRAR LOADING E REDIRECIONAR LOGO [CITE: 41.1]
             document.getElementById('login-view').classList.add('hidden');
-            document.getElementById('profile-view').classList.remove('hidden');
+            document.getElementById('loading-view').classList.remove('hidden');
             
-            document.getElementById('p-img').src = data.picture;
-            document.getElementById('p-name').innerText = data.name;
-            document.getElementById('p-email').innerText = data.email;
+            // Redireciona para a app.html imediatamente [CITE: 36.1]
+            window.location.href = 'app.html';
         }
 
         window.onload = function() {
-            // Torna o corpo visível apenas quando o CSS/Assets estiverem prontos
+            // Verificar se já está logado para saltar o login [CITE: 44.1]
+            if (sessionStorage.getItem("hub_session")) {
+                window.location.href = 'app.html';
+                return;
+            }
+
             document.body.style.opacity = "1";
 
             google.accounts.id.initialize({ 
                 client_id: GOOGLE_ID, 
                 callback: handleLogin,
-                auto_select: false
+                auto_select: true // Tenta logar sozinho se já o fez antes
             });
             
             google.accounts.id.renderButton(
@@ -200,9 +152,7 @@
                     theme: "outline", 
                     size: "large", 
                     width: "320",
-                    shape: "rectangular",
-                    text: "continue_with",
-                    logo_alignment: "left"
+                    shape: "rectangular"
                 } 
             );
         }
