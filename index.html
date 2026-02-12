@@ -23,6 +23,7 @@
             --text-dim: #444444;
         }
 
+        /* Bloqueia a distorção inicial */
         html, body {
             background: var(--bg);
             margin: 0;
@@ -34,8 +35,8 @@
         }
 
         body {
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            opacity: 0; /* Começa invisível para evitar o bug visual */
+            transition: opacity 0.5s ease-in-out;
             font-family: 'Inter', sans-serif;
         }
 
@@ -43,6 +44,7 @@
             text-align: center;
             width: 100%;
             max-width: 420px;
+            will-change: transform, opacity;
         }
 
         .brand-box { margin-bottom: 50px; }
@@ -55,9 +57,14 @@
             padding: 60px 30px;
             border-radius: 24px;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            min-height: 220px; /* Reserva espaço para evitar saltos de layout */
         }
 
-        #googleBtn { display: flex; justify-content: center; min-height: 44px; }
+        #googleBtn { 
+            display: flex; 
+            justify-content: center; 
+            min-height: 44px; /* Estabiliza o botão do Google */
+        }
         
         .loading-text {
             color: var(--primary);
@@ -99,7 +106,7 @@
 
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // CHAVE CORRIGIDA PARA "hub_user"
+            // Grava a sessão com o nome correto para o app.html
             sessionStorage.setItem("hub_user", "active");
             sessionStorage.setItem("user_name", data.name);
             sessionStorage.setItem("user_email", data.email);
@@ -112,13 +119,25 @@
         }
 
         window.onload = function() {
+            // Se já houver sessão, redireciona logo
             if (sessionStorage.getItem("hub_user")) {
                 window.location.replace('app.html');
                 return;
             }
+
+            // Ativa a visibilidade apenas após o carregamento
             document.body.style.opacity = "1";
-            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin, auto_select: true });
-            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", width: "320", shape: "rectangular" });
+
+            google.accounts.id.initialize({ 
+                client_id: GOOGLE_ID, 
+                callback: handleLogin,
+                auto_select: true 
+            });
+            
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtn"), 
+                { theme: "outline", size: "large", width: "320", shape: "rectangular" } 
+            );
         }
     </script>
 </body>
