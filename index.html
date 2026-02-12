@@ -48,7 +48,6 @@
         .brand-box { margin-bottom: 50px; }
         .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -2px; margin: 0; color: #fff; }
         .logo span { color: var(--primary); text-shadow: 0 0 30px rgba(0, 198, 255, 0.4); }
-        .tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; margin-top: 8px; font-weight: 600; text-transform: uppercase; }
 
         .auth-box {
             background: var(--card);
@@ -78,7 +77,7 @@
     <div class="container">
         <div class="brand-box">
             <h1 class="logo">creative<span>HUB.</span></h1>
-            <div class="tagline" style="color:#444; font-size:0.7rem; letter-spacing:2px; margin-top:10px;">Powered by Aquele.Eloi</div>
+            <div style="color:#444; font-size:0.7rem; letter-spacing:2px; margin-top:10px; font-weight:600; text-transform:uppercase;">Powered by Aquele.Eloi</div>
         </div>
 
         <div id="login-view" class="auth-box">
@@ -95,44 +94,31 @@
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
-            // Esconder o botão e mostrar o loading imediatamente
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('loading-view').classList.remove('hidden');
 
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // 1. Gravar sessão
-            sessionStorage.setItem("hub_session", "active");
+            // CHAVE CORRIGIDA PARA "hub_user"
+            sessionStorage.setItem("hub_user", "active");
             sessionStorage.setItem("user_name", data.name);
             sessionStorage.setItem("user_email", data.email);
             
             posthog.identify(data.email, { name: data.name });
 
-            // 2. Aguardar um milisegundo para garantir que o storage gravou e saltar
             setTimeout(() => {
                 window.location.replace('app.html');
             }, 100);
         }
 
         window.onload = function() {
-            // Se já houver sessão, salta logo
-            if (sessionStorage.getItem("hub_session")) {
+            if (sessionStorage.getItem("hub_user")) {
                 window.location.replace('app.html');
                 return;
             }
-
             document.body.style.opacity = "1";
-
-            google.accounts.id.initialize({ 
-                client_id: GOOGLE_ID, 
-                callback: handleLogin,
-                auto_select: true 
-            });
-            
-            google.accounts.id.renderButton(
-                document.getElementById("googleBtn"), 
-                { theme: "outline", size: "large", width: "320", shape: "rectangular" } 
-            );
+            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin, auto_select: true });
+            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", width: "320", shape: "rectangular" });
         }
     </script>
 </body>
