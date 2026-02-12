@@ -36,77 +36,58 @@
         body {
             opacity: 0;
             transition: opacity 0.4s ease;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .container {
+            text-align: center;
             width: 100%;
             max-width: 420px;
-            padding: 20px;
-            text-align: center;
         }
 
-        .brand-box { margin-bottom: 60px; }
+        .brand-box { margin-bottom: 50px; }
         .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -2px; margin: 0; color: #fff; }
         .logo span { color: var(--primary); text-shadow: 0 0 30px rgba(0, 198, 255, 0.4); }
-        .tagline { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 3px; margin-top: 10px; font-weight: 700; text-transform: uppercase; }
+        .tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; margin-top: 8px; font-weight: 600; text-transform: uppercase; }
 
         .auth-box {
             background: var(--card);
-            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 24px;
             padding: 60px 30px;
+            border-radius: 24px;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            min-height: 180px;
         }
 
-        .auth-label {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 35px;
-            font-weight: 600;
-        }
-
-        #googleBtn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 44px;
-        }
-
-        /* Loading Overlay */
-        #loading-view {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        #googleBtn { display: flex; justify-content: center; min-height: 44px; }
+        
+        .loading-text {
             color: var(--primary);
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            animation: pulse 1.5s infinite;
         }
 
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="loading-view" class="hidden">REDIRECTING...</div>
-
     <div class="container">
         <div class="brand-box">
             <h1 class="logo">creative<span>HUB.</span></h1>
-            <div class="tagline">Powered by Aquele.Eloi</div>
+            <div class="tagline" style="color:#444; font-size:0.7rem; letter-spacing:2px; margin-top:10px;">Powered by Aquele.Eloi</div>
         </div>
 
         <div id="login-view" class="auth-box">
-            <div class="auth-label">Authentication Required</div>
+            <div style="color:#444; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:30px;">Authentication Required</div>
             <div id="googleBtn"></div>
+        </div>
+
+        <div id="loading-view" class="auth-box hidden">
+            <div class="loading-text">Synchronizing...</div>
         </div>
     </div>
 
@@ -114,27 +95,29 @@
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
-            // 1. Decifrar dados do utilizador
-            const data = JSON.parse(atob(response.credential.split('.')[1]));
-            
-            // 2. Guardar sessão no browser
-            sessionStorage.setItem("hub_session", JSON.stringify({name: data.name, email: data.email, photo: data.picture}));
-            
-            // 3. Analytics
-            posthog.identify(data.email, { name: data.name });
-            
-            // 4. MOSTRAR LOADING E REDIRECIONAR LOGO [CITE: 41.1]
+            // Esconder o botão e mostrar o loading imediatamente
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('loading-view').classList.remove('hidden');
+
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // Redireciona para a app.html imediatamente [CITE: 36.1]
-            window.location.href = 'app.html';
+            // 1. Gravar sessão
+            sessionStorage.setItem("hub_session", "active");
+            sessionStorage.setItem("user_name", data.name);
+            sessionStorage.setItem("user_email", data.email);
+            
+            posthog.identify(data.email, { name: data.name });
+
+            // 2. Aguardar um milisegundo para garantir que o storage gravou e saltar
+            setTimeout(() => {
+                window.location.replace('app.html');
+            }, 100);
         }
 
         window.onload = function() {
-            // Verificar se já está logado para saltar o login [CITE: 44.1]
+            // Se já houver sessão, salta logo
             if (sessionStorage.getItem("hub_session")) {
-                window.location.href = 'app.html';
+                window.location.replace('app.html');
                 return;
             }
 
@@ -143,17 +126,12 @@
             google.accounts.id.initialize({ 
                 client_id: GOOGLE_ID, 
                 callback: handleLogin,
-                auto_select: true // Tenta logar sozinho se já o fez antes
+                auto_select: true 
             });
             
             google.accounts.id.renderButton(
                 document.getElementById("googleBtn"), 
-                { 
-                    theme: "outline", 
-                    size: "large", 
-                    width: "320",
-                    shape: "rectangular"
-                } 
+                { theme: "outline", size: "large", width: "320", shape: "rectangular" } 
             );
         }
     </script>
