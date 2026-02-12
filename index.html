@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>adminHUB | Portal de Acesso</title>
+    <title>HUB | Digital Space</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,19 +15,21 @@
 
     <style>
         :root {
-            --bg: #000000;
-            --card-bg: rgba(15, 15, 15, 0.6);
-            --accent: #00C6FF;
-            --text-main: #ffffff;
-            --text-dim: #888888;
-            --border: rgba(255, 255, 255, 0.1);
+            --primary: #00C6FF;
+            --bg-dark: #080808;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --text-dim: #666666;
         }
 
         body {
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% -20%, #111, #000);
-            color: var(--text-main);
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 198, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 198, 255, 0.05) 0%, transparent 40%);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -38,149 +40,200 @@
 
         .hidden { display: none !important; }
 
-        /* Login Card */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            padding: 48px;
-            border-radius: 28px;
-            text-align: center;
+        /* Hub Layout */
+        .hub-interface {
+            position: relative;
+            z-index: 10;
             width: 100%;
-            max-width: 380px;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 420px;
+            padding: 20px;
+            text-align: center;
+            animation: appAppear 1s ease-out;
         }
 
-        .brand {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 8px;
+        .logo-section {
+            margin-bottom: 60px;
         }
 
-        .brand span {
-            color: var(--accent);
-            text-shadow: 0 0 30px rgba(0, 198, 255, 0.4);
+        .hub-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin: 0;
+            background: linear-gradient(180deg, #fff 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        /* Profile State */
-        .user-img {
-            width: 84px;
-            height: 84px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 2px solid var(--accent);
-            padding: 4px;
-        }
-
-        .user-name {
-            font-size: 1.4rem;
+        .hub-tagline {
+            font-size: 0.75rem;
+            color: var(--primary);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 10px;
             font-weight: 600;
-            margin: 0 0 4px 0;
+            opacity: 0.8;
         }
 
-        .user-email {
+        /* Glass Login Box */
+        .login-module {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            padding: 50px 30px;
+            border-radius: 32px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        .login-title {
+            font-size: 1.1rem;
+            font-weight: 400;
             color: var(--text-dim);
-            font-size: 0.85rem;
             margin-bottom: 30px;
         }
 
-        /* Modern Button */
-        .btn-main {
+        /* Profile Interface */
+        .profile-module {
+            text-align: center;
+        }
+
+        .avatar-frame {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+        }
+
+        .avatar-frame::after {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .user-avatar {
             width: 100%;
-            padding: 16px;
-            border-radius: 14px;
-            border: none;
-            background: var(--text-main);
-            color: var(--bg);
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .welcome-text {
+            font-size: 1.5rem;
             font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 5px;
         }
 
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-            background: #f0f0f0;
-        }
-
-        .logout-trigger {
-            margin-top: 24px;
+        .user-id {
             color: var(--text-dim);
-            font-size: 0.8rem;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.2s;
-            display: inline-block;
+            font-size: 0.85rem;
+            margin-bottom: 40px;
         }
 
-        .logout-trigger:hover { color: var(--text-main); }
+        /* Action Button */
+        .hub-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--text);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-        /* Google Button Wrapper */
-        .google-wrapper {
+        .hub-btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.2);
+        }
+
+        .logout-btn {
+            display: inline-block;
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover { color: var(--primary); }
+
+        /* Animations */
+        @keyframes appAppear {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Customizing Google Button Container */
+        #googleBtn {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            filter: grayscale(1) invert(0.1);
+            transition: 0.3s;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        #googleBtn:hover {
+            filter: grayscale(0) invert(0);
         }
     </style>
 </head>
 <body>
 
-    <div id="login-view" class="card">
-        <div class="brand">admin<span>HUB.</span></div>
-        <p class="subtitle">Acede à tua área de formando.</p>
-        
-        <div class="google-wrapper">
+    <div class="hub-interface">
+        <div class="logo-section">
+            <h1 class="hub-logo">HUB.</h1>
+            <div class="hub-tagline">Digital Ecosystem</div>
+        </div>
+
+        <div id="login-view" class="login-module">
+            <div class="login-title">Inicie sessão para aceder ao espaço</div>
             <div id="googleBtn"></div>
         </div>
-        
-        <p style="margin-top: 30px; font-size: 0.7rem; color: #444; text-transform: uppercase; letter-spacing: 1px;">
-            Acesso encriptado via Google Cloud
-        </p>
-    </div>
 
-    <div id="profile-view" class="card hidden">
-        <img id="p-img" class="user-img" src="">
-        <h2 id="p-name" class="user-name"></h2>
-        <div id="p-email" class="user-email"></div>
-        
-        <button class="btn-main" onclick="window.location.href='app.html'">
-            Entrar no Portal
-        </button>
-        
-        <div onclick="logout()" class="logout-trigger">Terminar sessão</div>
+        <div id="profile-view" class="login-module hidden">
+            <div class="profile-module">
+                <div class="avatar-frame">
+                    <img id="p-img" class="user-avatar" src="">
+                </div>
+                <h2 id="p-name" class="welcome-text"></h2>
+                <div id="p-email" class="user-id"></div>
+                
+                <button class="hub-btn" onclick="window.location.href='app.html'">
+                    Lançar Workspace <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                </button>
+                
+                <div onclick="logout()" class="logout-btn">Desconectar</div>
+            </div>
+        </div>
     </div>
 
     <script>
+        // O teu Client ID atualizado conforme a imagem
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // Guardar sessão
+            // Persistência
             sessionStorage.setItem("hub_user", JSON.stringify({name: data.name, email: data.email}));
             
             // Analytics
             posthog.identify(data.email, { name: data.name });
-            posthog.capture('login_sucesso');
+            posthog.capture('user_entered_hub');
 
-            // UI Update
+            // UI Transition
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('profile-view').classList.remove('hidden');
             
@@ -206,8 +259,9 @@
                 { 
                     theme: "outline", 
                     size: "large", 
-                    width: "300",
-                    shape: "pill",
+                    width: "320",
+                    shape: "rectangular",
+                    text: "continue_with",
                     logo_alignment: "left"
                 } 
             );
