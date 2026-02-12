@@ -17,83 +17,114 @@
         :root {
             --primary: #00C6FF;
             --bg: #000000;
-            --card: rgba(10, 10, 10, 0.9);
-            --border: rgba(255, 255, 255, 0.05);
-            --text-main: #ffffff;
-            --text-dim: #444444;
+            --card: #0a0a0a;
+            --text-muted: #444444;
         }
 
-        /* Bloqueia a distorção inicial */
+        /* Reset e Estabilização Visual */
         html, body {
-            background: var(--bg);
+            background-color: var(--bg);
             margin: 0;
             height: 100%;
-            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         body {
-            opacity: 0; /* Começa invisível para evitar o bug visual */
-            transition: opacity 0.5s ease-in-out;
+            color: #fff;
             font-family: 'Inter', sans-serif;
+            opacity: 0; /* Começa oculto para evitar o bug de distorsão */
+            transition: opacity 0.5s ease;
         }
 
         .container {
             text-align: center;
             width: 100%;
-            max-width: 420px;
-            will-change: transform, opacity;
+            max-width: 320px; /* Largura compacta para evitar espaços soltos */
         }
 
-        .brand-box { margin-bottom: 50px; }
-        .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -2px; margin: 0; color: #fff; }
-        .logo span { color: var(--primary); text-shadow: 0 0 30px rgba(0, 198, 255, 0.4); }
+        /* Branding: CreativeHub */
+        .brand-section {
+            margin-bottom: 40px;
+        }
 
+        .logo {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin: 0;
+        }
+
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+        }
+
+        .powered {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-top: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Auth Box Minimalista */
         .auth-box {
             background: var(--card);
-            border: 1px solid var(--border);
-            padding: 60px 30px;
-            border-radius: 24px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            min-height: 220px; /* Reserva espaço para evitar saltos de layout */
+            border: 1px solid #111;
+            padding: 40px 20px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            min-height: 120px;
         }
 
-        #googleBtn { 
-            display: flex; 
-            justify-content: center; 
-            min-height: 44px; /* Estabiliza o botão do Google */
+        .auth-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
-        
-        .loading-text {
+
+        #googleBtn {
+            display: flex;
+            justify-content: center;
+            min-height: 44px; /* Reserva espaço para o botão injetado */
+        }
+
+        /* Estilos de Transição */
+        .sync-text {
             color: var(--primary);
             font-weight: 800;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.8rem;
             animation: pulse 1.5s infinite;
         }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="brand-box">
+        <div class="brand-section">
             <h1 class="logo">creative<span>HUB.</span></h1>
-            <div style="color:#444; font-size:0.7rem; letter-spacing:2px; margin-top:10px; font-weight:600; text-transform:uppercase;">Powered by Aquele.Eloi</div>
+            <div class="powered">Powered by Aquele.Eloi</div>
         </div>
 
         <div id="login-view" class="auth-box">
-            <div style="color:#444; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:30px;">Authentication Required</div>
+            <div class="auth-label">Authentication Required</div>
             <div id="googleBtn"></div>
         </div>
 
-        <div id="loading-view" class="auth-box hidden">
-            <div class="loading-text">Synchronizing...</div>
+        <div id="loading-view" class="auth-box hidden" style="display:flex; align-items:center; justify-content:center;">
+            <div class="sync-text">Synchronizing...</div>
         </div>
     </div>
 
@@ -106,7 +137,7 @@
 
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // Grava a sessão com o nome correto para o app.html
+            // Sincronização de chaves com app.html
             sessionStorage.setItem("hub_user", "active");
             sessionStorage.setItem("user_name", data.name);
             sessionStorage.setItem("user_email", data.email);
@@ -115,17 +146,17 @@
 
             setTimeout(() => {
                 window.location.replace('app.html');
-            }, 100);
+            }, 150);
         }
 
         window.onload = function() {
-            // Se já houver sessão, redireciona logo
+            // Se já logado, salta o ecrã
             if (sessionStorage.getItem("hub_user")) {
                 window.location.replace('app.html');
                 return;
             }
 
-            // Ativa a visibilidade apenas após o carregamento
+            // Revela o layout apenas quando pronto
             document.body.style.opacity = "1";
 
             google.accounts.id.initialize({ 
@@ -136,7 +167,12 @@
             
             google.accounts.id.renderButton(
                 document.getElementById("googleBtn"), 
-                { theme: "outline", size: "large", width: "320", shape: "rectangular" } 
+                { 
+                    theme: "outline", 
+                    size: "large", 
+                    width: "280", /* Largura ajustada para o container */
+                    shape: "rectangular" 
+                } 
             );
         }
     </script>
