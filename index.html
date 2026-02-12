@@ -15,187 +15,161 @@
 
     <style>
         :root {
-            --primary-blue: #00C6FF;
-            --bg-black: #000000;
-            --card-gray: #0a0a0a;
-            --text-white: #ffffff;
-            --text-muted: #444444;
+            --primary: #00C6FF;
+            --bg: #000000;
+            --card: rgba(10, 10, 10, 0.8);
+            --border: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff;
+            --text-dim: #444444;
         }
 
-        /* Evita o "flash" branco ou distorção no carregamento */
+        /* Bloqueia distorção inicial */
         html, body {
-            background-color: var(--bg-black);
+            background: var(--bg);
             margin: 0;
-            padding: 0;
             height: 100%;
             overflow: hidden;
-        }
-
-        body {
-            color: var(--text-white);
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0; /* Começa invisível para evitar o bug visual */
-            transition: opacity 0.5s ease-in-out;
         }
 
-        .hidden { display: none !important; }
+        body {
+            opacity: 0; /* Começa invisível para evitar bugs de renderização */
+            transition: opacity 0.6s ease;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
 
         .container {
-            text-align: center;
             width: 100%;
-            max-width: 400px;
-            will-change: transform, opacity;
+            max-width: 420px;
+            padding: 20px;
+            text-align: center;
         }
 
-        /* Branding Vibe: CreativeHub */
-        .brand-section {
-            margin-bottom: 50px;
-        }
-
-        .main-logo {
+        /* Branding */
+        .brand-box { margin-bottom: 60px; }
+        .logo {
             font-size: 2.8rem;
             font-weight: 900;
             letter-spacing: -2px;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            color: #fff;
+        }
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 30px rgba(0, 198, 255, 0.4);
+        }
+        .tagline {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .main-logo span {
-            color: var(--primary-blue);
-            text-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+        /* Glass Login Box */
+        .auth-box {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px 30px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            min-height: 140px; /* Mantém estabilidade visual */
         }
 
-        .powered-by {
+        .auth-label {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-dim);
+            text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 8px;
+            margin-bottom: 35px;
             font-weight: 600;
-            text-transform: uppercase;
         }
 
-        /* Interface Module */
-        .glass-box {
-            background: var(--card-gray);
-            border: 1px solid #151515;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            min-height: 200px; /* Reserva espaço para evitar saltos */
-        }
-
-        .box-title {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Google Button Style */
+        /* Centralizar botão Google */
         #googleBtn {
             display: flex;
             justify-content: center;
-            margin: 0 auto;
-            min-height: 44px; /* Evita distorção enquanto o botão carrega */
+            align-items: center;
+            min-height: 44px;
         }
 
-        /* Profile Interface */
-        .avatar-wrapper {
-            width: 80px;
-            height: 80px;
+        /* Perfil Estilizado */
+        .profile-view {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .avatar-container {
+            width: 84px;
+            height: 84px;
             margin: 0 auto 20px;
             border-radius: 50%;
             padding: 3px;
-            background: linear-gradient(180deg, var(--primary-blue), transparent);
+            background: linear-gradient(180deg, var(--primary), transparent);
         }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
+        .avatar {
+            width: 100%; height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            background: #111;
+            background: #000;
         }
-
-        .user-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 0 0 5px 0;
-        }
-
-        .user-email {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
+        .user-name { font-size: 1.4rem; font-weight: 700; margin: 0; }
+        .user-email { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 35px; }
 
         .btn-launch {
             width: 100%;
             padding: 18px;
-            background: var(--text-white);
-            color: var(--bg-black);
+            background: #fff;
+            color: #000;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: 800;
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
             transition: 0.3s;
         }
+        .btn-launch:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
 
-        .btn-launch:hover {
-            background: var(--primary-blue);
-            color: white;
-        }
+        .hidden { display: none !important; }
 
-        .btn-logout {
-            display: inline-block;
-            margin-top: 25px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            cursor: pointer;
-            text-transform: uppercase;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="brand-section">
-            <h1 class="main-logo">creative<span>HUB.</span></h1>
-            <div class="powered-by">POWERED BY AQUELE.ELOI</div>
+        <div class="brand-box">
+            <h1 class="logo">creative<span>HUB.</span></h1>
+            <div class="tagline">Powered by Aquele.Eloi</div>
         </div>
 
-        <div id="login-view" class="glass-box">
-            <div class="box-title">Authentication Required</div>
+        <div id="login-view" class="auth-box">
+            <div class="auth-label">Authentication Required</div>
             <div id="googleBtn"></div>
         </div>
 
-        <div id="profile-view" class="glass-box hidden">
-            <div class="avatar-wrapper">
-                <img id="p-img" class="avatar-img" src="">
+        <div id="profile-view" class="auth-box hidden profile-view">
+            <div class="avatar-container">
+                <img id="p-img" class="avatar" src="">
             </div>
             <h2 id="p-name" class="user-name"></h2>
             <div id="p-email" class="user-email"></div>
             
             <button class="btn-launch" onclick="window.location.href='app.html'">
-                Launch Workspace
+                Launch Workspace <i class="fas fa-chevron-right" style="margin-left: 8px;"></i>
             </button>
             
-            <div onclick="logout()" class="btn-logout">Sign Out</div>
+            <p onclick="location.reload()" style="margin-top: 25px; color: var(--text-dim); font-size: 0.7rem; cursor: pointer; text-transform: uppercase; font-weight: 700;">Sign Out</p>
         </div>
     </div>
 
     <script>
-        // Configuração do seu Client ID
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
 
         function handleLogin(response) {
@@ -210,18 +184,14 @@
             document.getElementById('p-email').innerText = data.email;
         }
 
-        function logout() {
-            sessionStorage.clear();
-            location.reload();
-        }
-
         window.onload = function() {
-            // Torna o corpo visível apenas quando tudo estiver pronto
+            // Torna o corpo visível apenas quando o CSS/Assets estiverem prontos
             document.body.style.opacity = "1";
 
             google.accounts.id.initialize({ 
                 client_id: GOOGLE_ID, 
-                callback: handleLogin 
+                callback: handleLogin,
+                auto_select: false
             });
             
             google.accounts.id.renderButton(
@@ -229,8 +199,10 @@
                 { 
                     theme: "outline", 
                     size: "large", 
-                    width: "300",
-                    shape: "rectangular"
+                    width: "320",
+                    shape: "rectangular",
+                    text: "continue_with",
+                    logo_alignment: "left"
                 } 
             );
         }
