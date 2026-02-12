@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HUB | Segurança Máxima</title>
+    <title>adminHUB | Portal de Acesso</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script>
@@ -15,98 +14,203 @@
     </script>
 
     <style>
-        body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .hidden { display: none !important; }
-        .container { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; padding: 20px; }
-        .card { 
-            background: #111; border: 1px solid #222; padding: 40px; border-radius: 24px; 
-            text-align: center; width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; justify-content: center;
+        :root {
+            --bg: #000000;
+            --card-bg: rgba(15, 15, 15, 0.6);
+            --accent: #00C6FF;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --border: rgba(255, 255, 255, 0.1);
         }
-        .brand { font-size: 2rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
-        .brand span { color: #00C6FF; }
-        
-        /* Botão Microsoft Custom */
-        .ms-btn {
-            background: #2f2f2f; color: white; border: none; padding: 12px; border-radius: 5px;
-            font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: 0.2s; width: 100%;
-        }
-        .ms-btn:hover { background: #404040; }
-        .ms-btn img { width: 20px; }
 
-        .user-img { width: 90px; border-radius: 50%; margin-bottom: 15px; border: 3px solid #333; }
-        .btn-enter { width: 100%; padding: 16px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; margin-top: 20px; background: #fff; color: #000; }
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% -20%, #111, #000);
+            color: var(--text-main);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Login Card */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 48px;
+            border-radius: 28px;
+            text-align: center;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .brand {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+        }
+
+        .brand span {
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(0, 198, 255, 0.4);
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Profile State */
+        .user-img {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 2px solid var(--accent);
+            padding: 4px;
+        }
+
+        .user-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+        }
+
+        .user-email {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+
+        /* Modern Button */
+        .btn-main {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            background: var(--text-main);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            background: #f0f0f0;
+        }
+
+        .logout-trigger {
+            margin-top: 24px;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .logout-trigger:hover { color: var(--text-main); }
+
+        /* Google Button Wrapper */
+        .google-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div id="login-view" class="container">
-        <div class="card">
-            <div class="brand">admin<span>HUB.</span></div>
-            <p style="color:#666; font-size:0.8rem; margin-bottom:20px;">Conta Pessoal</p>
+    <div id="login-view" class="card">
+        <div class="brand">admin<span>HUB.</span></div>
+        <p class="subtitle">Acede à tua área de formando.</p>
+        
+        <div class="google-wrapper">
             <div id="googleBtn"></div>
         </div>
-
-        <div class="card" style="border-top: 3px solid #00a4ef;">
-            <div class="brand">IEFP<span>HUB.</span></div>
-            <p style="color:#666; font-size:0.8rem; margin-bottom:20px;">Conta Institucional</p>
-            <button class="ms-btn" onclick="loginMicrosoft()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
-                Entrar com Conta IEFP
-            </button>
-            <p style="font-size:0.6rem; color:#444; margin-top:15px;">Validação oficial via Microsoft Azure</p>
-        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.7rem; color: #444; text-transform: uppercase; letter-spacing: 1px;">
+            Acesso encriptado via Google Cloud
+        </p>
     </div>
 
-    <div id="profile-view" class="card hidden" style="width: 380px;">
+    <div id="profile-view" class="card hidden">
         <img id="p-img" class="user-img" src="">
-        <h2 id="p-name" style="margin: 0;"></h2>
-        <div id="p-email" style="color: #666; margin-bottom: 15px;"></div>
-        <button class="btn-enter" onclick="window.location.href='app.html'">Aceder Conteúdos</button>
-        <div onclick="sessionStorage.clear(); location.reload();" style="margin-top:20px; color:#666; cursor:pointer; font-size:0.8rem;">Sair</div>
+        <h2 id="p-name" class="user-name"></h2>
+        <div id="p-email" class="user-email"></div>
+        
+        <button class="btn-main" onclick="window.location.href='app.html'">
+            Entrar no Portal
+        </button>
+        
+        <div onclick="logout()" class="logout-trigger">Terminar sessão</div>
     </div>
 
     <script>
-        // CONFIGURAÇÕES
         const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
-        const MS_CONFIG = {
-            auth: {
-                clientId: "TU_TENS_DE_CRIAR_UM_ID_NA_AZURE", // Ver explicação abaixo
-                authority: "https://login.microsoftonline.com/common"
-            }
-        };
 
-        const msalInstance = new msal.PublicClientApplication(MS_CONFIG);
-
-        // LOGIN MICROSOFT
-        async function loginMicrosoft() {
-            try {
-                const loginResponse = await msalInstance.loginPopup({ scopes: ["user.read"] });
-                const user = loginResponse.account;
-                finalizarLogin(user.name, user.username, `https://ui-avatars.com/api/?name=${user.name}&background=00a4ef&color=fff`);
-            } catch (err) { alert("Erro no login Microsoft. Tenta novamente."); }
-        }
-
-        // LOGIN GOOGLE
-        function handleGoogleLogin(response) {
+        function handleLogin(response) {
             const data = JSON.parse(atob(response.credential.split('.')[1]));
-            finalizarLogin(data.name, data.email, data.picture);
-        }
+            
+            // Guardar sessão
+            sessionStorage.setItem("hub_user", JSON.stringify({name: data.name, email: data.email}));
+            
+            // Analytics
+            posthog.identify(data.email, { name: data.name });
+            posthog.capture('login_sucesso');
 
-        function finalizarLogin(nome, email, foto) {
-            sessionStorage.setItem("hub_user", JSON.stringify({name: nome, email: email}));
+            // UI Update
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('profile-view').classList.remove('hidden');
-            document.getElementById('p-img').src = foto;
-            document.getElementById('p-name').innerText = nome;
-            document.getElementById('p-email').innerText = email;
-            posthog.identify(email, { name: nome });
+            
+            document.getElementById('p-img').src = data.picture;
+            document.getElementById('p-name').innerText = data.name;
+            document.getElementById('p-email').innerText = data.email;
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.reload();
         }
 
         window.onload = function() {
-            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleGoogleLogin });
-            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large" });
+            google.accounts.id.initialize({ 
+                client_id: GOOGLE_ID, 
+                callback: handleLogin,
+                auto_select: false 
+            });
+            
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtn"), 
+                { 
+                    theme: "outline", 
+                    size: "large", 
+                    width: "300",
+                    shape: "pill",
+                    logo_alignment: "left"
+                } 
+            );
         }
     </script>
 </body>
