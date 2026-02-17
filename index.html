@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>creativeHUB | Space</title>
+    <title>creativeHUB | Login</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -14,79 +14,32 @@
     </script>
 
     <style>
-        :root {
-            --primary: #00C6FF;
-            --bg: #000000;
-            --card: #0a0a0a;
-            --text-muted: #444444;
-        }
-
-        html, body {
-            background-color: var(--bg);
-            margin: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        body {
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            opacity: 0; 
-            transition: opacity 0.5s ease;
-        }
-
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 320px;
-        }
-
+        :root { --primary: #00C6FF; --bg: #000000; --card: #0a0a0a; --text-muted: #444444; }
+        html, body { background-color: var(--bg); margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        body { color: #fff; font-family: 'Inter', sans-serif; opacity: 0; transition: opacity 0.5s ease; }
+        .container { text-align: center; width: 100%; max-width: 320px; }
         .brand-section { margin-bottom: 40px; }
         .logo { font-size: 2.4rem; font-weight: 900; letter-spacing: -1.5px; margin: 0; }
         .logo span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
         .powered { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-top: 5px; font-weight: 700; text-transform: uppercase; }
-
-        .auth-box {
-            background: var(--card);
-            border: 1px solid #111;
-            padding: 40px 20px;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            min-height: 120px;
-        }
-
-        .auth-label {
-            font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;
-            letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 700;
-        }
-
+        .auth-box { background: var(--card); border: 1px solid #111; padding: 40px 20px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); min-height: 120px; }
+        .auth-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 700; }
         #googleBtn { display: flex; justify-content: center; min-height: 44px; }
-
-        .sync-text {
-            color: var(--primary); font-weight: 800; letter-spacing: 3px;
-            font-size: 0.75rem; text-transform: uppercase; animation: pulse 1.5s infinite;
-        }
-
+        .sync-text { color: var(--primary); font-weight: 800; letter-spacing: 3px; font-size: 0.75rem; text-transform: uppercase; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="brand-section">
             <h1 class="logo">creative<span>HUB.</span></h1>
             <div class="powered">Powered by Aquele.Eloi</div>
         </div>
-
         <div id="login-view" class="auth-box">
             <div class="auth-label">Authentication Required</div>
             <div id="googleBtn"></div>
         </div>
-
         <div id="loading-view" class="auth-box hidden" style="display:flex; align-items:center; justify-content:center;">
             <div class="sync-text">Synchronizing...</div>
         </div>
@@ -101,7 +54,7 @@
 
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // ALTERADO PARA LOCALSTORAGE (MEMÓRIA PERMANENTE)
+            // --- AQUI ESTÁ A CORREÇÃO CRÍTICA: LOCALSTORAGE ---
             localStorage.setItem("hub_user", "active");
             localStorage.setItem("user_name", data.name);
             localStorage.setItem("user_email", data.email);
@@ -114,24 +67,14 @@
         }
 
         window.onload = function() {
-            // Verifica a memória permanente antes de carregar o site
+            // Verifica MEMÓRIA PERMANENTE (localStorage)
             if (localStorage.getItem("hub_user")) {
                 window.location.replace('app.html');
                 return;
             }
-
             document.body.style.opacity = "1";
-
-            google.accounts.id.initialize({ 
-                client_id: GOOGLE_ID, 
-                callback: handleLogin,
-                auto_select: true 
-            });
-            
-            google.accounts.id.renderButton(
-                document.getElementById("googleBtn"), 
-                { theme: "outline", size: "large", width: "280", shape: "rectangular" } 
-            );
+            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin, auto_select: true });
+            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", width: "280", shape: "rectangular" });
         }
     </script>
 </body>
