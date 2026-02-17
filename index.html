@@ -21,7 +21,6 @@
             --text-muted: #444444;
         }
 
-        /* Reset e Estabilização Visual */
         html, body {
             background-color: var(--bg);
             margin: 0;
@@ -35,43 +34,21 @@
         body {
             color: #fff;
             font-family: 'Inter', sans-serif;
-            opacity: 0; /* Começa oculto para evitar o bug de distorsão */
+            opacity: 0; 
             transition: opacity 0.5s ease;
         }
 
         .container {
             text-align: center;
             width: 100%;
-            max-width: 320px; /* Largura compacta para evitar espaços soltos */
+            max-width: 320px;
         }
 
-        /* Branding: CreativeHub */
-        .brand-section {
-            margin-bottom: 40px;
-        }
+        .brand-section { margin-bottom: 40px; }
+        .logo { font-size: 2.4rem; font-weight: 900; letter-spacing: -1.5px; margin: 0; }
+        .logo span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
+        .powered { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-top: 5px; font-weight: 700; text-transform: uppercase; }
 
-        .logo {
-            font-size: 2.4rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            margin: 0;
-        }
-
-        .logo span {
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
-        }
-
-        .powered {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            margin-top: 5px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* Auth Box Minimalista */
         .auth-box {
             background: var(--card);
             border: 1px solid #111;
@@ -82,28 +59,15 @@
         }
 
         .auth-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-            font-weight: 700;
+            font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 700;
         }
 
-        #googleBtn {
-            display: flex;
-            justify-content: center;
-            min-height: 44px; /* Reserva espaço para o botão injetado */
-        }
+        #googleBtn { display: flex; justify-content: center; min-height: 44px; }
 
-        /* Estilos de Transição */
         .sync-text {
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: 3px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            animation: pulse 1.5s infinite;
+            color: var(--primary); font-weight: 800; letter-spacing: 3px;
+            font-size: 0.75rem; text-transform: uppercase; animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -137,10 +101,10 @@
 
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             
-            // Sincronização de chaves com app.html
-            sessionStorage.setItem("hub_user", "active");
-            sessionStorage.setItem("user_name", data.name);
-            sessionStorage.setItem("user_email", data.email);
+            // ALTERADO PARA LOCALSTORAGE (MEMÓRIA PERMANENTE)
+            localStorage.setItem("hub_user", "active");
+            localStorage.setItem("user_name", data.name);
+            localStorage.setItem("user_email", data.email);
             
             posthog.identify(data.email, { name: data.name });
 
@@ -150,13 +114,12 @@
         }
 
         window.onload = function() {
-            // Se já logado, salta o ecrã
-            if (sessionStorage.getItem("hub_user")) {
+            // Verifica a memória permanente antes de carregar o site
+            if (localStorage.getItem("hub_user")) {
                 window.location.replace('app.html');
                 return;
             }
 
-            // Revela o layout apenas quando pronto
             document.body.style.opacity = "1";
 
             google.accounts.id.initialize({ 
@@ -167,12 +130,7 @@
             
             google.accounts.id.renderButton(
                 document.getElementById("googleBtn"), 
-                { 
-                    theme: "outline", 
-                    size: "large", 
-                    width: "280", /* Largura ajustada para o container */
-                    shape: "rectangular" 
-                } 
+                { theme: "outline", size: "large", width: "280", shape: "rectangular" } 
             );
         }
     </script>
