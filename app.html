@@ -24,11 +24,12 @@
             --bg-body: #050505; 
             --sidebar-bg: #090909; 
             --card-bg: #111111;
+            /* Definição correta dos gradientes */
             --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
+            --grad-green: linear-gradient(90deg, #00b09b, #96c93d); /* O VERDE ESTÁ AQUI */
+            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
             --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
-            --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
-            --c-blue: #00C6FF;
             --text-main: #fff; 
             --text-dim: #777;
         }
@@ -36,26 +37,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* Sidebar Fixa */
+        /* Sidebar Fixa e Scrollável */
         .sidebar { 
             width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a; 
             display: flex; flex-direction: column; padding: 40px 25px; 
-            position: fixed; height: 100vh; z-index: 100; 
+            position: fixed; height: 100vh; z-index: 100; overflow-y: auto; /* Scroll se o ecrã for pequeno */
         }
         
-        .logo-container { margin-bottom: 60px; padding: 0 10px; }
+        .logo-container { margin-bottom: 50px; padding: 0 10px; }
         .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -1.5px; }
-        .brand-name span { background-image: var(--grad-blue); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .brand-power { font-size: 0.65rem; color: #444; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        .brand-name span { 
+            background-image: var(--grad-blue); 
+            background-clip: text; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            transition: background-image 0.3s ease; /* Transição suave */
+        }
+        .brand-power { font-size: 0.65rem; color: #444; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
-        /* Navegação */
+        /* Botões de Navegação */
         .nav-btn { 
-            width: 100%; background: transparent; border: 2px solid transparent; color: var(--text-dim); 
+            width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-dim); 
             text-align: left; padding: 14px 18px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; 
             cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
         }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
-        .nav-btn.active { color: white; font-weight: 700; background-clip: padding-box, border-box; background-origin: padding-box, border-box; }
+        .nav-btn.active { color: white; font-weight: 700; background-clip: padding-box, border-box; background-origin: padding-box, border-box; border-color: transparent; }
         .nav-btn.active.soft { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue); }
         .nav-btn.active.mkt { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink); }
         .nav-btn.active.inspo { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow); }
@@ -64,32 +71,39 @@
         .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 40px; }
         .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 30px; }
 
-        .chips-container { display: flex; gap: 12px; margin-bottom: 40px; }
+        /* Chips (Filtros) */
+        .chips-container { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
         .chip { 
             background: transparent; border: 1px solid #222; color: #666; padding: 10px 20px; 
             border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: 0.3s; 
             display: flex; align-items: center; gap: 8px;
         }
+        /* Importante: O background-image aqui define a cor da borda do chip ativo */
         .chip.active { border-color: transparent; color: white; background-clip: padding-box, border-box; background-origin: padding-box, border-box; }
         .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); }
         .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
         .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
 
-        /* Grelha de Cards */
+        /* Grid e Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         .card { 
             background: var(--card-bg); border-radius: 20px; overflow: hidden; 
             border: 1px solid #1a1a1a; display: flex; flex-direction: column; transition: 0.3s; 
         }
-        .card:hover { transform: translateY(-8px); border-color: #333; }
+        .card:hover { transform: translateY(-8px); border-color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        .thumb { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #000; border-top-left-radius: 20px; border-top-right-radius: 20px; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .thumb { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #000; border-top-left-radius: 20px; border-top-right-radius: 20px; position: relative; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; opacity: 0.9; }
+        .card:hover .thumb img { transform: scale(1.05); opacity: 1; }
         
         .content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .category-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; }
         
-        .t-soft { color: #00C6FF; background: rgba(0, 198, 255, 0.1); }
+        /* Cores das Tags (Corrigido para ter Verde no Photopea) */
+        .category-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.5px; }
+        
+        .t-ps { color: #00C6FF; background: rgba(0, 198, 255, 0.1); } /* Photoshop */
+        .t-pp { color: #00b09b; background: rgba(0, 176, 155, 0.1); } /* Photopea - VERDE */
+        .t-cv { color: #9D50BB; background: rgba(157, 80, 187, 0.1); } /* Canva */
         .t-mkt { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
         .t-inspo { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
 
@@ -105,7 +119,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
         @media (max-width: 900px) {
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; padding: 20px; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; padding: 20px; overflow-y: visible; }
             .main-content { margin-left: 0; width: 100%; padding: 30px 20px; }
         }
     </style>
@@ -123,7 +137,7 @@
         <button class="nav-btn inspo" onclick="switchMain('INSPIRATION', this)"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
     </nav>
     <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #1a1a1a;">
-        <button onclick="logout()" style="background: transparent; border: none; color: #555; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+        <button onclick="logout()" style="background: transparent; border: none; color: #555; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;">
             <i class="fas fa-sign-out-alt"></i> SAIR
         </button>
     </div>
@@ -168,16 +182,30 @@
         Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
+            // Filtro de Software
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
+            // Tratamento de Links e Imagens
             let thumb = item.thumb || `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
             let link = item.type === 'video' ? `https://www.youtube.com/watch?v=${item.id}` : item.id;
-            let tagClass = item.section === 'SOFTWARE' ? 't-soft' : (item.section === 'MARKETING' ? 't-mkt' : 't-inspo');
+            
+            // Lógica de Cores das Tags (CORRIGIDO)
+            let tagClass = '';
+            if (item.section === 'SOFTWARE') {
+                if(item.program === 'ps') tagClass = 't-ps';
+                else if(item.program === 'pp') tagClass = 't-pp'; // Verde
+                else if(item.program === 'cv') tagClass = 't-cv'; // Roxo
+                else tagClass = 't-ps';
+            } else if (item.section === 'MARKETING') {
+                tagClass = 't-mkt';
+            } else {
+                tagClass = 't-inspo';
+            }
 
             const html = `
                 <article class="card">
                     <a href="${link}" target="_blank" class="thumb">
-                        <img src="${thumb}">
+                        <img src="${thumb}" loading="lazy" alt="${item.title}">
                     </a>
                     <div class="content">
                         <div class="category-tag ${tagClass}">${item.tag}</div>
@@ -209,9 +237,12 @@
         document.querySelectorAll('.chip').forEach(e => e.classList.remove('active'));
         btn.classList.add('active');
         currentSoftware = prog;
+        
+        // Atualiza a cor do logo conforme o software selecionado
         if (prog === 'ps') updateHubColor('--grad-blue');
-        if (prog === 'pp') updateHubColor('--grad-green');
+        if (prog === 'pp') updateHubColor('--grad-green'); // Ativa o verde no HUB.
         if (prog === 'cv') updateHubColor('--grad-purple');
+        
         render(prog);
     }
 
