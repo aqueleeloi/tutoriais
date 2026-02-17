@@ -6,7 +6,8 @@
     <title>creativeHUB | Space</title>
     
     <script>
-        if (!sessionStorage.getItem("hub_user")) { 
+        // Agora verifica o localStorage em vez do sessionStorage
+        if (!localStorage.getItem("hub_user")) { 
             window.location.replace("index.html"); 
         }
     </script>
@@ -24,9 +25,8 @@
             --bg-body: #050505; 
             --sidebar-bg: #090909; 
             --card-bg: #111111;
-            /* Definição correta dos gradientes */
             --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
-            --grad-green: linear-gradient(90deg, #00b09b, #96c93d); /* O VERDE ESTÁ AQUI */
+            --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
             --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
             --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
@@ -41,7 +41,7 @@
         .sidebar { 
             width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a; 
             display: flex; flex-direction: column; padding: 40px 25px; 
-            position: fixed; height: 100vh; z-index: 100; overflow-y: auto; /* Scroll se o ecrã for pequeno */
+            position: fixed; height: 100vh; z-index: 100; overflow-y: auto;
         }
         
         .logo-container { margin-bottom: 50px; padding: 0 10px; }
@@ -51,11 +51,10 @@
             background-clip: text; 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
-            transition: background-image 0.3s ease; /* Transição suave */
+            transition: background-image 0.3s ease;
         }
         .brand-power { font-size: 0.65rem; color: #444; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
-        /* Botões de Navegação */
         .nav-btn { 
             width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-dim); 
             text-align: left; padding: 14px 18px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; 
@@ -67,24 +66,20 @@
         .nav-btn.active.mkt { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-pink); }
         .nav-btn.active.inspo { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-yellow); }
 
-        /* Área Principal */
         .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 50px 40px; }
         .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 30px; }
 
-        /* Chips (Filtros) */
         .chips-container { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
         .chip { 
             background: transparent; border: 1px solid #222; color: #666; padding: 10px 20px; 
             border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: 0.3s; 
             display: flex; align-items: center; gap: 8px;
         }
-        /* Importante: O background-image aqui define a cor da borda do chip ativo */
         .chip.active { border-color: transparent; color: white; background-clip: padding-box, border-box; background-origin: padding-box, border-box; }
         .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); }
         .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
         .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
 
-        /* Grid e Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         .card { 
             background: var(--card-bg); border-radius: 20px; overflow: hidden; 
@@ -98,12 +93,11 @@
         
         .content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
         
-        /* Cores das Tags (Corrigido para ter Verde no Photopea) */
         .category-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.5px; }
         
-        .t-ps { color: #00C6FF; background: rgba(0, 198, 255, 0.1); } /* Photoshop */
-        .t-pp { color: #00b09b; background: rgba(0, 176, 155, 0.1); } /* Photopea - VERDE */
-        .t-cv { color: #9D50BB; background: rgba(157, 80, 187, 0.1); } /* Canva */
+        .t-ps { color: #00C6FF; background: rgba(0, 198, 255, 0.1); } 
+        .t-pp { color: #00b09b; background: rgba(0, 176, 155, 0.1); }
+        .t-cv { color: #9D50BB; background: rgba(157, 80, 187, 0.1); }
         .t-mkt { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
         .t-inspo { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
 
@@ -182,19 +176,16 @@
         Object.values(grids).forEach(g => g.innerHTML = '');
 
         tutorialData.forEach(item => {
-            // Filtro de Software
             if (item.section === 'SOFTWARE' && item.program !== filter) return;
 
-            // Tratamento de Links e Imagens
             let thumb = item.thumb || `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`;
             let link = item.type === 'video' ? `https://www.youtube.com/watch?v=${item.id}` : item.id;
             
-            // Lógica de Cores das Tags (CORRIGIDO)
             let tagClass = '';
             if (item.section === 'SOFTWARE') {
                 if(item.program === 'ps') tagClass = 't-ps';
-                else if(item.program === 'pp') tagClass = 't-pp'; // Verde
-                else if(item.program === 'cv') tagClass = 't-cv'; // Roxo
+                else if(item.program === 'pp') tagClass = 't-pp';
+                else if(item.program === 'cv') tagClass = 't-cv';
                 else tagClass = 't-ps';
             } else if (item.section === 'MARKETING') {
                 tagClass = 't-mkt';
@@ -238,16 +229,16 @@
         btn.classList.add('active');
         currentSoftware = prog;
         
-        // Atualiza a cor do logo conforme o software selecionado
         if (prog === 'ps') updateHubColor('--grad-blue');
-        if (prog === 'pp') updateHubColor('--grad-green'); // Ativa o verde no HUB.
+        if (prog === 'pp') updateHubColor('--grad-green');
         if (prog === 'cv') updateHubColor('--grad-purple');
         
         render(prog);
     }
 
     function logout() { 
-        sessionStorage.clear(); 
+        // LIMPA A MEMÓRIA PERMANENTE
+        localStorage.clear(); 
         window.location.replace("index.html"); 
     }
 
