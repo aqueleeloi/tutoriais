@@ -6,7 +6,7 @@
     <title>creativeHUB | Space</title>
     
     <script>
-        // Agora verifica o localStorage em vez do sessionStorage
+        // Agora procura EXATAMENTE o que o index guardou: localStorage
         if (!localStorage.getItem("hub_user")) { 
             window.location.replace("index.html"); 
         }
@@ -22,44 +22,24 @@
     
     <style>
         :root {
-            --bg-body: #050505; 
-            --sidebar-bg: #090909; 
-            --card-bg: #111111;
+            --bg-body: #050505; --sidebar-bg: #090909; --card-bg: #111111;
             --grad-blue: linear-gradient(90deg, #00C6FF, #0072FF);
             --grad-green: linear-gradient(90deg, #00b09b, #96c93d);
             --grad-purple: linear-gradient(90deg, #9D50BB, #6E48AA);
             --grad-pink: linear-gradient(90deg, #FF416C, #FF4B2B);
             --grad-yellow: linear-gradient(90deg, #F2994A, #F2C94C);
-            --text-main: #fff; 
-            --text-dim: #777;
+            --text-main: #fff; --text-dim: #777;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* Sidebar Fixa e Scrollável */
-        .sidebar { 
-            width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a; 
-            display: flex; flex-direction: column; padding: 40px 25px; 
-            position: fixed; height: 100vh; z-index: 100; overflow-y: auto;
-        }
-        
+        .sidebar { width: 280px; background: var(--sidebar-bg); border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; padding: 40px 25px; position: fixed; height: 100vh; z-index: 100; overflow-y: auto; }
         .logo-container { margin-bottom: 50px; padding: 0 10px; }
         .brand-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: white; letter-spacing: -1.5px; }
-        .brand-name span { 
-            background-image: var(--grad-blue); 
-            background-clip: text; 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            transition: background-image 0.3s ease;
-        }
+        .brand-name span { background-image: var(--grad-blue); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: background-image 0.3s ease; }
         .brand-power { font-size: 0.65rem; color: #444; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
-        .nav-btn { 
-            width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-dim); 
-            text-align: left; padding: 14px 18px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; 
-            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
-        }
+        .nav-btn { width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-dim); text-align: left; padding: 14px 18px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-btn.active { color: white; font-weight: 700; background-clip: padding-box, border-box; background-origin: padding-box, border-box; border-color: transparent; }
         .nav-btn.active.soft { background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), var(--grad-blue); }
@@ -70,42 +50,28 @@
         .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 30px; }
 
         .chips-container { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
-        .chip { 
-            background: transparent; border: 1px solid #222; color: #666; padding: 10px 20px; 
-            border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: 0.3s; 
-            display: flex; align-items: center; gap: 8px;
-        }
+        .chip { background: transparent; border: 1px solid #222; color: #666; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .chip.active { border-color: transparent; color: white; background-clip: padding-box, border-box; background-origin: padding-box, border-box; }
         .chip.active[data-prog="ps"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-blue); }
         .chip.active[data-prog="pp"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-green); }
         .chip.active[data-prog="cv"] { background-image: linear-gradient(var(--bg-body), var(--bg-body)), var(--grad-purple); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { 
-            background: var(--card-bg); border-radius: 20px; overflow: hidden; 
-            border: 1px solid #1a1a1a; display: flex; flex-direction: column; transition: 0.3s; 
-        }
+        .card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid #1a1a1a; display: flex; flex-direction: column; transition: 0.3s; }
         .card:hover { transform: translateY(-8px); border-color: #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
         .thumb { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #000; border-top-left-radius: 20px; border-top-right-radius: 20px; position: relative; }
         .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; opacity: 0.9; }
         .card:hover .thumb img { transform: scale(1.05); opacity: 1; }
-        
         .content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
         
         .category-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.5px; }
-        
         .t-ps { color: #00C6FF; background: rgba(0, 198, 255, 0.1); } 
         .t-pp { color: #00b09b; background: rgba(0, 176, 155, 0.1); }
         .t-cv { color: #9D50BB; background: rgba(157, 80, 187, 0.1); }
         .t-mkt { color: #FF416C; background: rgba(255, 65, 108, 0.1); }
         .t-inspo { color: #F2994A; background: rgba(242, 153, 74, 0.1); }
 
-        .card-btn { 
-            text-decoration: none; width: 100%; padding: 12px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; 
-            margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: #1a1a1a; color: #fff; border: 1px solid #252525; transition: 0.2s;
-        }
+        .card-btn { text-decoration: none; width: 100%; padding: 12px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 8px; background: #1a1a1a; color: #fff; border: 1px solid #252525; transition: 0.2s; }
         .card:hover .card-btn { background: #222; border-color: #444; }
 
         .view-section { display: none; }
@@ -237,7 +203,7 @@
     }
 
     function logout() { 
-        // LIMPA A MEMÓRIA PERMANENTE
+        // LIMPA A SESSÃO PERMANENTE AO SAIR
         localStorage.clear(); 
         window.location.replace("index.html"); 
     }
