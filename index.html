@@ -36,7 +36,7 @@
         ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #050505; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
         /* =========================================
-           ECRÃ DE LOGIN (VISUAL ORIGINAL)
+           ECRÃ DE LOGIN (GOOGLE & IEFP)
            ========================================= */
         #login-screen { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .auth-container { background: var(--card); border: var(--border); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
@@ -101,7 +101,6 @@
         #msg-box { display: none; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; font-weight: 700; text-align: center; }
         .msg-error { background: rgba(255, 68, 68, 0.1); color: #ff4444; border: 1px solid #ff4444; }
         .msg-success { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid #22c55e; }
-        .only-register { display: none; }
     </style>
 </head>
 <body>
@@ -119,16 +118,12 @@
                 Entrar com Google
             </button>
 
-            <div class="divider">ou</div>
+            <div class="divider">ou Email Institucional</div>
 
             <form id="auth-form">
-                <div class="input-group only-register">
-                    <label>Nome Completo</label>
-                    <input type="text" id="name">
-                </div>
                 <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="email" required>
+                    <label>Email do IEFP</label>
+                    <input type="email" id="email" placeholder="exemplo@iefp.pt" required>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
@@ -138,9 +133,9 @@
                 <button type="submit" class="btn-auth" id="btn-submit">Entrar na App</button>
             </form>
 
-            <div class="toggle-text">
-                <span id="toggle-hint">Não tem conta?</span> 
-                <a onclick="toggleMode()" id="toggle-link">Criar Conta</a>
+            <div class="toggle-text" style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #888;">
+                <span id="toggle-hint">Primeira vez?</span> 
+                <a onclick="toggleMode()" id="toggle-link" style="color: #00c6ff; font-weight: 700; cursor: pointer;">Criar Conta</a>
             </div>
         </div>
     </div>
@@ -172,7 +167,7 @@
     </div>
 
 <script>
-    // CONFIGURAÇÃO FIREBASE (CREATIVEHUB)
+    // CONFIGURAÇÃO FIREBASE
     const firebaseConfig = {
         apiKey: "AIzaSyANzDE9P75ElkvMjShnNTeVQYeeGvfDqxw",
         authDomain: "creativehub-2117d.firebaseapp.com",
@@ -193,9 +188,10 @@
     // --- INTERFACE LOGIN ---
     function toggleMode() {
         isLoginMode = !isLoginMode;
-        document.querySelectorAll('.only-register').forEach(el => el.style.display = isLoginMode ? 'none' : 'block');
         document.getElementById('btn-submit').innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
         document.getElementById('toggle-link').innerText = isLoginMode ? "Criar Conta" : "Fazer Login";
+        document.getElementById('toggle-hint').innerText = isLoginMode ? "Primeira vez?" : "Já tens conta?";
+        document.getElementById('msg-box').style.display = 'none';
     }
 
     function showMessage(msg, isError = false) {
@@ -208,11 +204,11 @@
     // --- RECURSOS SERVIDOR ---
     async function resetPassword() {
         const email = document.getElementById('email').value;
-        if (!email) return showMessage("Indique o seu email primeiro.", true);
+        if (!email) return showMessage("Preenche o teu email do IEFP primeiro.", true);
         try {
             await auth.sendPasswordResetEmail(email);
             showMessage("Email de recuperação enviado! Verifica a tua caixa.", false);
-        } catch (e) { showMessage("Erro ao enviar recuperação.", true); }
+        } catch (e) { showMessage("Erro ao enviar recuperação. Verifica se o email está correto.", true); }
     }
 
     // LOGIN COM GOOGLE
@@ -223,27 +219,40 @@
             const userRef = db.collection('users').doc(user.uid);
             const doc = await userRef.get();
             if (!doc.exists) {
-                await userRef.set({ name: user.displayName, email: user.email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 1, status: "Online", verified: true });
+                await userRef.set({ name: user.displayName, email: user.email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 1, status: "Online" });
             } else {
                 await userRef.update({ sessions: firebase.firestore.FieldValue.increment(1), status: "Online" });
             }
-        } catch (e) { showMessage("Erro no login Google", true); }
+        } catch (e) { showMessage("Erro no login Google.", true); }
     });
 
-    // LOGIN / REGISTO EMAIL
+    // LOGIN / REGISTO EMAIL (APENAS IEFP E PASSWORD)
     document.getElementById('auth-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
-        const name = document.getElementById('name').value;
         
+        // Bloqueio de segurança (Pro mode): Força o uso do email IEFP no registo
+        if (!isLoginMode && !email.toLowerCase().includes('iefp.pt')) {
+            showMessage("O registo direto requer um email válido do IEFP (@iefp.pt).", true);
+            return;
+        }
+
+        // Criar um nome automático a partir do email (ex: joao.silva@iefp.pt -> joao.silva)
+        const autoName = email.split('@')[0];
+        
+        const btn = document.getElementById('btn-submit');
+        btn.disabled = true; btn.innerText = "A processar...";
+
         try {
             if (isLoginMode) {
                 const res = await auth.signInWithEmailAndPassword(email, password);
                 
-                // VALIDAR EMAIL ANTES DE ENTRAR
+                // VALIDAR EMAIL COM O SERVIDOR
                 if (!res.user.emailVerified) {
-                    showMessage("A tua conta ainda não foi validada. Verifica o teu email!", true);
+                    showMessage("A tua conta IEFP ainda não foi validada. Verifica o teu email (e a pasta SPAM)!", true);
+                    auth.signOut();
+                    btn.disabled = false; btn.innerText = "Entrar na App";
                     return;
                 }
 
@@ -251,20 +260,32 @@
             } else {
                 const res = await auth.createUserWithEmailAndPassword(email, password);
                 
-                // ENVIAR LINK DE VALIDAÇÃO
+                // COMUNICAÇÃO COM O SERVIDOR: ENVIAR LINK DE VALIDAÇÃO
                 await res.user.sendEmailVerification();
                 
-                await db.collection('users').doc(res.user.uid).set({ name: name, email: email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 1, status: "Offline" });
+                await db.collection('users').doc(res.user.uid).set({ name: autoName, email: email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 0, status: "Offline" });
                 
-                showMessage("Registo feito! Enviámos um link de validação para o teu email.", false);
-                auth.signOut(); // Força a validar antes de entrar
+                showMessage("Registo feito! Verifica o teu email IEFP para validar a conta antes de entrar.", false);
+                auth.signOut(); // Desconecta para obrigar a validação
+                
+                btn.disabled = false; btn.innerText = "Registar Agora";
+                setTimeout(toggleMode, 3000); // Volta ao modo login automaticamente
             }
-        } catch (error) { showMessage(error.message, true); }
+        } catch (error) { 
+            let errorMsg = "Ocorreu um erro.";
+            if(error.code === 'auth/email-already-in-use') errorMsg = "Este email já está registado.";
+            if(error.code === 'auth/weak-password') errorMsg = "A password deve ter pelo menos 6 caracteres.";
+            if(error.code === 'auth/invalid-credential') errorMsg = "Email ou password incorretos.";
+            showMessage(errorMsg, true); 
+            btn.disabled = false; btn.innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
+        }
     });
 
-    // OBSERVAR SESSÃO
+    // OBSERVAR SESSÃO E VERIFICAR VALIDAÇÃO DE EMAIL
     auth.onAuthStateChanged(async (user) => {
-        if (user && user.emailVerified) {
+        // Se entrou com o Google, o emailVerified é automaticamente true. 
+        // Se for IEFP, tem de ter clicado no link.
+        if (user && (user.emailVerified || user.providerData[0].providerId === 'google.com')) {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-screen').style.display = 'flex';
             const doc = await db.collection('users').doc(user.uid).get();
