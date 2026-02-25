@@ -1,318 +1,71 @@
-<!DOCTYPE html>
-<html lang="pt-pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CreativeHUB | Inteligência Criativa</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-
-    <script src="videos.js"></script>
-
-    <style>
-        :root {
-            --bg: #050505; --sidebar: #090909; --card: #111111;
-            --text-main: #ffffff; --text-dim: #888888;
-            --border: 1px solid rgba(255, 255, 255, 0.08);
-            
-            /* GRADIENTES ORIGINAIS RESTAURADOS */
-            --grad-creative: linear-gradient(135deg, #00c6ff, #0072ff);
-            --grad-software: linear-gradient(135deg, #00c6ff, #0072ff); 
-            --grad-marketing: linear-gradient(135deg, #FF512F, #DD2476); 
-            --grad-inspiration: linear-gradient(135deg, #F2994A, #F2C94C); 
-            --grad-photopea: linear-gradient(135deg, #20bf55, #01baef); 
-            --grad-canva: linear-gradient(135deg, #7f00ff, #e100ff); 
-            
-            --active-grad: var(--grad-creative);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
-        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #050505; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-
-        /* =========================================
-           ECRÃ DE LOGIN (VISUAL ORIGINAL)
-           ========================================= */
-        #login-screen { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .auth-container { background: var(--card); border: var(--border); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
-        .brand { text-align: center; margin-bottom: 30px; }
-        .brand h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 800; color: white; }
-        .brand span { background: var(--grad-creative); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .btn-google { width: 100%; padding: 12px; background: #fff; border: none; border-radius: 12px; color: #000; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .btn-google:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
-
-        .divider { display: flex; align-items: center; text-align: center; color: #444; font-size: 0.7rem; text-transform: uppercase; font-weight: 800; margin-bottom: 20px; gap: 10px; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #222; }
-
-        .input-group { margin-bottom: 20px; position: relative; }
-        .input-group label { display: block; font-size: 0.65rem; font-weight: 800; color: #555; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
-        .input-group input { width: 100%; background: #050505; border: 1px solid #222; padding: 14px; border-radius: 12px; color: #fff; transition: 0.3s; }
-        .input-group input:focus { border-color: #00c6ff; }
-
-        .forgot-pw { position: absolute; right: 0; top: 0; font-size: 0.7rem; color: #00c6ff; cursor: pointer; font-weight: 700; background: none; border: none; }
-
-        .btn-auth { width: 100%; padding: 15px; background: var(--grad-creative); border: none; border-radius: 12px; color: #fff; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-auth:hover { filter: brightness(1.2); transform: translateY(-2px); }
-
-        /* =========================================
-           APP SCREEN & SIDEBAR
-           ========================================= */
-        #app-screen { display: none; width: 100%; height: 100%; }
-        .sidebar { width: 260px; background: var(--sidebar); border-right: var(--border); display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0; }
-        .nav-label { font-size: 0.65rem; color: #444; text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 10px 15px; font-weight: 800; }
-        
-        .nav-btn { width: 100%; background: transparent; border: 1px solid transparent; color: var(--text-dim); text-align: left; padding: 12px 18px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; margin-bottom: 5px; position: relative; }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.03); }
-        
-        .nav-btn.active { background: #0a0a0a; color: #fff; border-color: transparent; }
-        .nav-btn.active::before { content: ""; position: absolute; inset: 0; border-radius: 12px; padding: 1px; background: var(--active-grad); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; pointer-events: none; }
-        .nav-btn.active i { background: var(--active-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .main-content { flex-grow: 1; padding: 40px 60px; overflow-y: auto; }
-        .page-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 35px; }
-        
-        /* PILLS & CARDS */
-        .pills-container { display: flex; gap: 10px; margin-bottom: 30px; }
-        .pill { background: #111; border: 1px solid #222; color: #666; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 0.8rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; position: relative; }
-        .pill.active { background: #0a0a0a; color: #fff; border-color: transparent; }
-        .pill.active::before { content: ""; position: absolute; inset: 0; border-radius: 50px; padding: 1px; background: var(--active-grad); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
-        .pill.active i { background: var(--active-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .video-card { background: var(--card); border: 1px solid #1a1a1a; border-radius: 16px; overflow: hidden; transition: 0.3s; text-decoration: none; display: flex; flex-direction: column; }
-        .video-card:hover { transform: translateY(-5px); border-color: #333; }
-        
-        .thumb-box { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; }
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .info-box { padding: 20px; }
-        .v-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #00c6ff; margin-bottom: 8px; letter-spacing: 1px; }
-        .v-title { font-weight: 700; font-size: 0.95rem; color: #fff; line-height: 1.4; }
-
-        .user-profile { display: flex; align-items: center; gap: 12px; background: #0a0a0a; padding: 8px 15px; border-radius: 50px; border: var(--border); margin-top: auto; }
-        .user-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--grad-creative); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; }
-
-        #msg-box { display: none; padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; font-weight: 700; text-align: center; }
-        .msg-error { background: rgba(255, 68, 68, 0.1); color: #ff4444; border: 1px solid #ff4444; }
-        .msg-success { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid #22c55e; }
-        .only-register { display: none; }
-    </style>
-</head>
-<body>
-
-    <div id="login-screen">
-        <div class="auth-container">
-            <div class="brand">
-                <h1>Creative<span>HUB.</span></h1>
-            </div>
-
-            <div id="msg-box"></div>
-
-            <button type="button" class="btn-google" id="btn-google">
-                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path></svg>
-                Entrar com Google
-            </button>
-
-            <div class="divider">ou</div>
-
-            <form id="auth-form">
-                <div class="input-group only-register">
-                    <label>Nome Completo</label>
-                    <input type="text" id="name">
-                </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <button type="button" class="forgot-pw" onclick="resetPassword()">Recuperar</button>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn-auth" id="btn-submit">Entrar na App</button>
-            </form>
-
-            <div class="toggle-text">
-                <span id="toggle-hint">Não tem conta?</span> 
-                <a onclick="toggleMode()" id="toggle-link">Criar Conta</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="app-screen">
-        <aside class="sidebar">
-            <div class="brand" style="margin-bottom:30px;">
-                <h1>Creative<span>HUB.</span></h1>
-            </div>
-            <nav>
-                <div class="nav-label">CATEGORIAS</div>
-                <button class="nav-btn active" id="btn-sw" onclick="setCategory('SOFTWARE')"><i class="fas fa-layer-group"></i> Software Lab</button>
-                <button class="nav-btn" id="btn-mk" onclick="setCategory('MARKETING')"><i class="fas fa-rocket"></i> Marketing Toolkit</button>
-                <button class="nav-btn" id="btn-in" onclick="setCategory('INSPIRATION')"><i class="fas fa-lightbulb"></i> Mindset & Cultura</button>
-            </nav>
-            
-            <div class="user-profile">
-                <div class="user-avatar" id="userInitials">?</div>
-                <div style="font-size:0.8rem; font-weight:700; color:#fff;" id="userDisplayName">User</div>
-                <button onclick="auth.signOut()" style="background:none; border:none; color:#ff4444; cursor:pointer; font-size:0.9rem; margin-left:auto;"><i class="fas fa-power-off"></i></button>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <h1 class="page-title" id="pageTitle">Software Lab</h1>
-            <div class="pills-container" id="pillsContainer"></div>
-            <div id="videoGrid" class="video-grid"></div>
-        </main>
-    </div>
-
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyANzDE9P75ElkvMjShnNTeVQYeeGvfDqxw",
-        authDomain: "creativehub-2117d.firebaseapp.com",
-        projectId: "creativehub-2117d",
-        storageBucket: "creativehub-2117d.firebasestorage.app",
-        messagingSenderId: "139416951818",
-        appId: "1:139416951818:web:487083c72843b2e78413f3",
-        measurementId: "G-0HPC5W1P96"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-
-    let isLoginMode = true;
-
-    function toggleMode() {
-        isLoginMode = !isLoginMode;
-        document.querySelectorAll('.only-register').forEach(el => el.style.display = isLoginMode ? 'none' : 'block');
-        document.getElementById('btn-submit').innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
-        document.getElementById('toggle-link').innerText = isLoginMode ? "Criar Conta" : "Fazer Login";
+// --- FUNÇÃO PARA ENVIAR VERIFICAÇÃO DE EMAIL ---
+async function sendVerification(user) {
+    try {
+        await user.sendEmailVerification();
+        showMessage("Email de verificação enviado! Por favor, verifica a tua caixa de entrada (e o SPAM).", false);
+    } catch (error) {
+        console.error("Erro ao enviar verificação:", error);
     }
+}
 
-    function showMessage(msg, isError = false) {
-        const box = document.getElementById('msg-box');
-        box.innerText = msg;
-        box.style.display = 'block';
-        box.className = isError ? 'msg-error' : 'msg-success';
-    }
+// --- LOGICA DE REGISTO ATUALIZADA ---
+document.getElementById('auth-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const name = document.getElementById('name').value;
 
-    async function resetPassword() {
-        const email = document.getElementById('email').value;
-        if (!email) return showMessage("Indique o seu email primeiro.", true);
-        try {
-            await auth.sendPasswordResetEmail(email);
-            showMessage("Email de recuperação enviado!", false);
-        } catch (e) { showMessage("Erro ao enviar recuperação.", true); }
-    }
-
-    document.getElementById('btn-google').addEventListener('click', async () => {
-        try {
-            const res = await auth.signInWithPopup(googleProvider);
-            const user = res.user;
-            const userRef = db.collection('users').doc(user.uid);
-            const doc = await userRef.get();
-            if (!doc.exists) {
-                await userRef.set({ name: user.displayName, email: user.email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 1, status: "Online" });
-            } else {
-                await userRef.update({ sessions: firebase.firestore.FieldValue.increment(1), status: "Online" });
+    try {
+        if (isLoginMode) {
+            const res = await auth.signInWithEmailAndPassword(email, password);
+            
+            // VERIFICAÇÃO: O email já foi validado?
+            if (!res.user.emailVerified) {
+                showMessage("A tua conta ainda não foi validada. Verificámos o teu email? Clique aqui para reenviar.", true);
+                // Opcional: Impedir entrada
+                // auth.signOut(); return; 
             }
-        } catch (e) { showMessage("Erro no login Google", true); }
-    });
-
-    document.getElementById('auth-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const name = document.getElementById('name').value;
-        try {
-            if (isLoginMode) {
-                const res = await auth.signInWithEmailAndPassword(email, password);
-                db.collection('users').doc(res.user.uid).update({ sessions: firebase.firestore.FieldValue.increment(1), status: "Online" });
-            } else {
-                const res = await auth.createUserWithEmailAndPassword(email, password);
-                await db.collection('users').doc(res.user.uid).set({ name: name, email: email, role: "Membro", date: new Date().toLocaleDateString(), sessions: 1, status: "Online" });
-            }
-        } catch (e) { showMessage(e.message, true); }
-    });
-
-    auth.onAuthStateChanged(async (user) => {
-        if (user) {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-screen').style.display = 'flex';
-            const doc = await db.collection('users').doc(user.uid).get();
-            if(doc.exists) {
-                document.getElementById('userDisplayName').innerText = doc.data().name;
-                document.getElementById('userInitials').innerText = doc.data().name.charAt(0).toUpperCase();
-            }
-            setCategory('SOFTWARE');
+            
+            db.collection('users').doc(res.user.uid).update({ 
+                sessions: firebase.firestore.FieldValue.increment(1), 
+                status: "Online" 
+            });
         } else {
-            document.getElementById('login-screen').style.display = 'flex';
-            document.getElementById('app-screen').style.display = 'none';
+            // REGISTO
+            const res = await auth.createUserWithEmailAndPassword(email, password);
+            
+            // Enviar email de verificação imediatamente após registo
+            await sendVerification(res.user);
+
+            await db.collection('users').doc(res.user.uid).set({ 
+                name: name, 
+                email: email, 
+                role: "Membro", 
+                date: new Date().toLocaleDateString(), 
+                sessions: 1, 
+                status: "Online",
+                emailVerified: false // Guardamos o status na BD também
+            });
         }
-    });
+    } catch (e) { showMessage(e.message, true); }
+});
 
-    const themes = {
-        'SOFTWARE': { grad: 'linear-gradient(135deg, #00c6ff, #0072ff)' },
-        'MARKETING': { grad: 'linear-gradient(135deg, #FF512F, #DD2476)' },
-        'INSPIRATION': { grad: 'linear-gradient(135deg, #f2994a, #f2c94c)' },
-        'PHOTOPEA': { grad: 'linear-gradient(135deg, #20bf55, #01baef)' },
-        'CANVA': { grad: 'linear-gradient(135deg, #7f00ff, #e100ff)' }
-    };
+// --- OBSERVAR SESSÃO (COM CHECK DE VALIDAÇÃO) ---
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        // Se quiseres ser RÍGIDO: Só entra se tiver o email verificado
+        /*
+        if(!user.emailVerified) {
+            auth.signOut();
+            return;
+        }
+        */
 
-    let currentCategory = 'SOFTWARE';
-    let currentSubCategory = 'ps';
-
-    function setCategory(catKey) {
-        currentCategory = catKey;
-        const structure = {
-            'SOFTWARE': { title: 'Software Lab', pills: [{id:'ps', label:'Photoshop', icon:'fab fa-adobe'}, {id:'pp', label:'Photopea', icon:'fas fa-leaf'}, {id:'cv', label:'Canva', icon:'fas fa-pen-nib'}] },
-            'MARKETING': { title: 'Marketing Toolkit', pills: [{id:'mk', label:'Ferramentas', icon:'fas fa-rocket'}] },
-            'INSPIRATION': { title: 'Mindset & Cultura', pills: [{id:'in', label:'Geral', icon:'fas fa-lightbulb'}] }
-        };
-        currentSubCategory = structure[catKey].pills[0].id;
-        document.documentElement.style.setProperty('--active-grad', themes[catKey].grad);
-        
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(catKey === 'SOFTWARE' ? 'btn-sw' : catKey === 'MARKETING' ? 'btn-mk' : 'btn-in').classList.add('active');
-        document.getElementById('pageTitle').innerText = structure[catKey].title;
-        
-        document.getElementById('pillsContainer').innerHTML = structure[catKey].pills.map(p => `
-            <button class="pill ${currentSubCategory === p.id ? 'active' : ''}" onclick="setSubCategory('${p.id}')">
-                <i class="${p.icon}"></i> <span>${p.label}</span>
-            </button>`).join('');
-        renderVideoGrid();
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-screen').style.display = 'flex';
+        // ... resto do teu código de carregar dados ...
+    } else {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('app-screen').style.display = 'none';
     }
-
-    function setSubCategory(subId) {
-        currentSubCategory = subId;
-        const subThemes = { 'pp': 'PHOTOPEA', 'cv': 'CANVA' };
-        const themeKey = subThemes[subId] || currentCategory;
-        document.documentElement.style.setProperty('--active-grad', themes[themeKey].grad);
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        renderVideoGrid();
-    }
-
-    function renderVideoGrid() {
-        if(typeof tutorialData === 'undefined') return;
-        const filtered = tutorialData.filter(item => item.section === currentCategory && item.program === currentSubCategory);
-        const grid = document.getElementById('videoGrid');
-        grid.innerHTML = filtered.length ? filtered.map(item => `
-            <a href="${item.id.includes('http') ? item.id : 'https://www.youtube.com/watch?v='+item.id}" target="_blank" class="video-card">
-                <div class="thumb-box"><img src="${item.thumb}"></div>
-                <div class="info-box">
-                    <span class="v-tag" style="color: var(--active-grad)">${item.tag || 'Novo'}</span>
-                    <div class="v-title">${item.title}</div>
-                </div>
-            </a>`).join('') : '<div style="grid-column:1/-1;text-align:center;padding:50px;color:#333;">Em breve novos conteúdos.</div>';
-    }
-</script>
-</body>
-</html>
+});
