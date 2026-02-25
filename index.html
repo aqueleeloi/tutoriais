@@ -3,79 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>creativeHUB | Login</title>
+    <title>Login | Master Intelligence</title>
     
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <script>
-        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-        posthog.init('phc_9xPN0iLCE7yTiZleow1k93LPp2GIPDubHR92KDhmMoD', { api_host: 'https://us.i.posthog.com' });
-    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 
     <style>
-        :root { --primary: #00C6FF; --bg: #000000; --card: #0a0a0a; --text-muted: #444444; }
-        html, body { background-color: var(--bg); margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        body { color: #fff; font-family: 'Inter', sans-serif; opacity: 0; transition: opacity 0.5s ease; }
-        .container { text-align: center; width: 100%; max-width: 320px; }
-        .brand-section { margin-bottom: 40px; }
-        .logo { font-size: 2.4rem; font-weight: 900; letter-spacing: -1.5px; margin: 0; }
-        .logo span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 198, 255, 0.3); }
-        .powered { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-top: 5px; font-weight: 700; text-transform: uppercase; }
-        .auth-box { background: var(--card); border: 1px solid #111; padding: 40px 20px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); min-height: 120px; }
-        .auth-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; font-weight: 700; }
-        #googleBtn { display: flex; justify-content: center; min-height: 44px; }
-        .sync-text { color: var(--primary); font-weight: 800; letter-spacing: 3px; font-size: 0.75rem; text-transform: uppercase; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .hidden { display: none !important; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; font-family: 'Inter', sans-serif; }
+        body { background-color: #050505; color: #fff; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+
+        .auth-container { background: #111; border: 1px solid #333; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        
+        .brand { text-align: center; margin-bottom: 30px; }
+        .brand h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; font-weight: 800; }
+        .brand span { background: linear-gradient(135deg, #00c6ff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand p { color: #888; font-size: 0.85rem; margin-top: 5px; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.75rem; font-weight: 700; color: #666; text-transform: uppercase; margin-bottom: 8px; }
+        .input-group input { width: 100%; background: #050505; border: 1px solid #333; padding: 14px; border-radius: 10px; color: #fff; font-size: 0.9rem; transition: 0.3s; }
+        .input-group input:focus { border-color: #00c6ff; box-shadow: 0 0 10px rgba(0, 198, 255, 0.2); }
+
+        .btn-auth { width: 100%; padding: 15px; background: linear-gradient(135deg, #00c6ff, #0072ff); border: none; border-radius: 10px; color: #fff; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-auth:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        .btn-auth:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .toggle-text { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #888; }
+        .toggle-text a { color: #00c6ff; text-decoration: none; font-weight: 700; cursor: pointer; }
+        .toggle-text a:hover { text-decoration: underline; }
+
+        /* Mensagens de erro/sucesso */
+        #msg-box { display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.85rem; font-weight: 600; text-align: center; }
+        .msg-error { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; }
+        .msg-success { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid #22c55e; }
+
+        /* Ocultar campo de nome no login */
+        .only-register { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="brand-section">
-            <h1 class="logo">creative<span>HUB.</span></h1>
-            <div class="powered">Powered by Aquele.Eloi</div>
+
+    <div class="auth-container">
+        <div class="brand">
+            <h1>Master<span>HUB.</span></h1>
+            <p id="form-subtitle">Acesso à plataforma</p>
         </div>
-        <div id="login-view" class="auth-box">
-            <div class="auth-label">Authentication Required</div>
-            <div id="googleBtn"></div>
-        </div>
-        <div id="loading-view" class="auth-box hidden" style="display:flex; align-items:center; justify-content:center;">
-            <div class="sync-text">Synchronizing...</div>
+
+        <div id="msg-box"></div>
+
+        <form id="auth-form">
+            <div class="input-group only-register">
+                <label>Nome Completo</label>
+                <input type="text" id="name" placeholder="Ex: João Silva">
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="O seu email" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Mínimo 6 caracteres" required>
+            </div>
+
+            <button type="submit" class="btn-auth" id="btn-submit">Entrar na App</button>
+        </form>
+
+        <div class="toggle-text">
+            <span id="toggle-hint">Não tem conta?</span> 
+            <a onclick="toggleMode()" id="toggle-link">Criar Conta</a>
         </div>
     </div>
 
-    <script>
-        const GOOGLE_ID = "996132120935-0v98fg6n86hfjsk4p55qop3jld4sruos.apps.googleusercontent.com";
+<script>
+    // --- LIGAÇÃO AO TEU FIREBASE ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyANzDE9P75ElkvMjShnNTeVQYeeGvfDqxw",
+        authDomain: "creativehub-2117d.firebaseapp.com",
+        projectId: "creativehub-2117d",
+        storageBucket: "creativehub-2117d.firebasestorage.app",
+        messagingSenderId: "139416951818",
+        appId: "1:139416951818:web:487083c72843b2e78413f3",
+        measurementId: "G-0HPC5W1P96"
+    };
 
-        function handleLogin(response) {
-            document.getElementById('login-view').classList.add('hidden');
-            document.getElementById('loading-view').classList.remove('hidden');
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-            const data = JSON.parse(atob(response.credential.split('.')[1]));
-            
-            // --- AQUI ESTÁ A CORREÇÃO CRÍTICA: LOCALSTORAGE ---
-            localStorage.setItem("hub_user", "active");
-            localStorage.setItem("user_name", data.name);
-            localStorage.setItem("user_email", data.email);
-            
-            posthog.identify(data.email, { name: data.name });
+    // Lógica de Interface (Alternar entre Entrar e Registar)
+    let isLoginMode = true;
 
-            setTimeout(() => {
-                window.location.replace('app.html');
-            }, 150);
+    function toggleMode() {
+        isLoginMode = !isLoginMode;
+        const nameFields = document.querySelectorAll('.only-register');
+        const btn = document.getElementById('btn-submit');
+        const hint = document.getElementById('toggle-hint');
+        const link = document.getElementById('toggle-link');
+        const subtitle = document.getElementById('form-subtitle');
+
+        if(isLoginMode) {
+            nameFields.forEach(el => el.style.display = 'none');
+            btn.innerText = "Entrar na App";
+            subtitle.innerText = "Acesso à plataforma";
+            hint.innerText = "Não tem conta?";
+            link.innerText = "Criar Conta";
+        } else {
+            nameFields.forEach(el => el.style.display = 'block');
+            btn.innerText = "Registar Agora";
+            subtitle.innerText = "Crie a sua conta gratuita";
+            hint.innerText = "Já tem uma conta?";
+            link.innerText = "Fazer Login";
         }
+    }
 
-        window.onload = function() {
-            // Verifica MEMÓRIA PERMANENTE (localStorage)
-            if (localStorage.getItem("hub_user")) {
-                window.location.replace('app.html');
-                return;
+    function showMessage(msg, isError = false) {
+        const box = document.getElementById('msg-box');
+        box.innerText = msg;
+        box.style.display = 'block';
+        if(isError) {
+            box.className = 'msg-error';
+        } else {
+            box.className = 'msg-success';
+        }
+    }
+
+    // Ação Principal: O utilizador clica no botão
+    document.getElementById('auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btn-submit');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        btn.disabled = true;
+        btn.innerText = "Aguarde...";
+        document.getElementById('msg-box').style.display = 'none';
+
+        try {
+            if (isLoginMode) {
+                // FAZER LOGIN
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                // Atualizar o número de sessões deste utilizador no Firebase (para tu veres no Admin!)
+                const userDoc = db.collection('users').doc(userCredential.user.uid);
+                await userDoc.update({
+                    sessions: firebase.firestore.FieldValue.increment(1),
+                    status: "Online"
+                });
+
+                showMessage("Login com sucesso! A entrar...", false);
+                
+                // Redirecionar para a App principal
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+
+            } else {
+                // FAZER REGISTO
+                if(!name) throw new Error("Por favor, preencha o seu nome.");
+
+                // 1. Cria a conta no Firebase Auth
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // 2. Grava os dados dele na tua Base de Dados (Para aparecer no teu AdminHUB!)
+                await db.collection('users').doc(user.uid).set({
+                    name: name,
+                    email: email,
+                    role: "Membro Gratuito", // Nível base
+                    date: new Date().toLocaleDateString(),
+                    engagement: "Novo",
+                    sessions: 1,
+                    status: "Online"
+                });
+
+                showMessage("Conta criada com sucesso! Bem-vindo.", false);
+
+                // Redirecionar para a App principal
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
             }
-            document.body.style.opacity = "1";
-            google.accounts.id.initialize({ client_id: GOOGLE_ID, callback: handleLogin, auto_select: true });
-            google.accounts.id.renderButton(document.getElementById("googleBtn"), { theme: "outline", size: "large", width: "280", shape: "rectangular" });
+        } catch (error) {
+            console.error(error);
+            // Traduzir erros comuns do Firebase para o utilizador
+            let erroPT = "Ocorreu um erro. Tente novamente.";
+            if(error.code === 'auth/email-already-in-use') erroPT = "Este email já está registado.";
+            if(error.code === 'auth/weak-password') erroPT = "A password tem de ter pelo menos 6 caracteres.";
+            if(error.code === 'auth/invalid-credential') erroPT = "Email ou password incorretos.";
+            if(error.message === "Por favor, preencha o seu nome.") erroPT = error.message;
+
+            showMessage(erroPT, true);
+            btn.disabled = false;
+            btn.innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
         }
-    </script>
+    });
+</script>
 </body>
 </html>
