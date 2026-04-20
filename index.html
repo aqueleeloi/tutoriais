@@ -217,7 +217,7 @@
         'SOFTWARE': { grad: 'linear-gradient(135deg, #00c6ff, #0072ff)' },
         'MARKETING': { grad: 'linear-gradient(135deg, #FF512F, #DD2476)' },
         'INSPIRATION': { grad: 'linear-gradient(135deg, #f2994a, #f2c94c)' },
-        'PHOTOPEA': { grad: 'linear-gradient(135deg, #20bf55, #01baef)' },
+        'PREMIERE': { grad: 'linear-gradient(135deg, #9999ff, #cc66ff)' }, 'CAPCUT': { grad: 'linear-gradient(135deg, #111111, #444444)' }, 'PHOTOPEA': { grad: 'linear-gradient(135deg, #20bf55, #01baef)' },
         'CANVA': { grad: 'linear-gradient(135deg, #7f00ff, #e100ff)' }
     };
 
@@ -227,7 +227,7 @@
     function setCategory(catKey) {
         currentCategory = catKey;
         const structure = {
-            'SOFTWARE': { title: 'Software Lab', pills: [{id:'ps', label:'Photoshop', icon:'fab fa-adobe'}, {id:'pp', label:'Photopea', icon:'fas fa-leaf'}, {id:'cv', label:'Canva', icon:'fas fa-pen-nib'}] },
+            'SOFTWARE': { title: 'Software Lab', pills: [{id:'ps', label:'Photoshop', icon:'fab fa-adobe'}, {id:'pr', label:'Premiere', icon:'fas fa-video'}, {id:'cc', label:'CapCut', icon:'fas fa-cut'}, {id:'pp', label:'Photopea', icon:'fas fa-leaf'}, {id:'cv', label:'Canva', icon:'fas fa-pen-nib'}] },
             'MARKETING': { title: 'Marketing Toolkit', pills: [{id:'mk', label:'Ferramentas', icon:'fas fa-rocket'}] },
             'INSPIRATION': { title: 'Mindset & Cultura', pills: [{id:'in', label:'Geral', icon:'fas fa-lightbulb'}] }
         };
@@ -247,7 +247,7 @@
 
     function setSubCategory(subId) {
         currentSubCategory = subId;
-        const subThemes = { 'pp': 'PHOTOPEA', 'cv': 'CANVA' };
+        const subThemes = { 'pr': 'PREMIERE', 'cc': 'CAPCUT', 'pp': 'PHOTOPEA', 'cv': 'CANVA' };
         const themeKey = subThemes[subId] || currentCategory;
         document.documentElement.style.setProperty('--active-grad', themes[themeKey].grad);
         document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
