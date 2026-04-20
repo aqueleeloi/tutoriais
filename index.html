@@ -165,25 +165,12 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const googleProvider = new firebase.auth.GoogleAuthProvider();
-    
-            } else {
-                await userRef.update({ sessions: firebase.firestore.FieldValue.increment(1), status: "Online" });
-            }
-        } catch (e) { showMessage("Erro no login Microsoft.", true); }
-    });
-
-    
-
-    
 
     function showMessage(msg, isError = false) {
         const box = document.getElementById('msg-box');
         box.innerText = msg;
         box.style.display = 'block';
         box.className = isError ? 'msg-error' : 'msg-success';
-    }
-
-     catch (e) { showMessage("Erro ao tentar recuperar a password.", true); }
     }
 
     // LOGIN COM GOOGLE
@@ -201,32 +188,6 @@
         } catch (e) { showMessage("Erro no login Google.", true); }
     });
 
-    
-            } else {
-                // FAZER REGISTO E ENTRAR LOGO
-                const res = await auth.createUserWithEmailAndPassword(email, password);
-                
-                await db.collection('users').doc(res.user.uid).set({ 
-                    name: autoName, 
-                    email: email, 
-                    role: "Aluno IEFP", 
-                    date: new Date().toLocaleDateString(), 
-                    sessions: 1, 
-                    status: "Online" 
-                });
-                
-                // O Firebase vai automaticamente fazer o login e a App abre.
-            }
-        } catch (error) { 
-            let errorMsg = "Ocorreu um erro.";
-            if(error.code === 'auth/email-already-in-use') errorMsg = "Este email já está registado. Tenta fazer Login.";
-            if(error.code === 'auth/weak-password') errorMsg = "A password deve ter pelo menos 6 caracteres.";
-            if(error.code === 'auth/invalid-credential') errorMsg = "Email ou password incorretos.";
-            showMessage(errorMsg, true); 
-            btn.disabled = false; btn.innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
-        }
-    });
-
     // OBSERVAR SESSÃO (Liberta a entrada se o utilizador estiver autenticado)
     auth.onAuthStateChanged(async (user) => {
         if (user) {
@@ -238,6 +199,9 @@
                 if(doc.exists) {
                     document.getElementById('userDisplayName').innerText = doc.data().name;
                     document.getElementById('userInitials').innerText = doc.data().name.charAt(0).toUpperCase();
+                } else {
+                    document.getElementById('userDisplayName').innerText = user.displayName;
+                    document.getElementById('userInitials').innerText = user.displayName.charAt(0).toUpperCase();
                 }
             } catch(e) {}
             
@@ -307,3 +271,4 @@
 </script>
 </body>
 </html>
+
