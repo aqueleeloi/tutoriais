@@ -92,7 +92,7 @@
         .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
         
         .info-box { padding: 20px; }
-        .v-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #00c6ff; margin-bottom: 8px; letter-spacing: 1px; }
+        .v-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; background: var(--active-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .v-title { font-weight: 700; font-size: 0.95rem; color: #fff; line-height: 1.4; }
 
         .user-profile { display: flex; align-items: center; gap: 12px; background: #0a0a0a; padding: 8px 15px; border-radius: 50px; border: var(--border); margin-top: auto; }
@@ -263,7 +263,7 @@
             <a href="${item.id.includes('http') ? item.id : 'https://www.youtube.com/watch?v='+item.id}" target="_blank" class="video-card">
                 <div class="thumb-box"><img src="${item.thumb}"></div>
                 <div class="info-box">
-                    <span class="v-tag" style="color: var(--active-grad)">${item.tag || 'Novo'}</span>
+                    <span class="v-tag">${item.tag || 'Novo'}</span>
                     <div class="v-title">${item.title}</div>
                 </div>
             </a>`).join('') : '<div style="grid-column:1/-1;text-align:center;padding:50px;color:#333;">Em breve novos conteúdos.</div>';
