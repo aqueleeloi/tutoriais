@@ -119,25 +119,7 @@
                 Entrar com Google
             </button>
 
-            <div class="divider">ou Email Institucional</div>
-
-            <form id="auth-form">
-                <div class="input-group">
-                    <label>Email do IEFP</label>
-                    <input type="email" id="email" placeholder="exemplo@iefp.pt" required>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <button type="button" class="forgot-pw" onclick="resetPassword()">Recuperar</button>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn-auth" id="btn-submit">Entrar na App</button>
-            </form>
-
-            <div class="toggle-text" style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: #888;">
-                <span id="toggle-hint">Primeira vez?</span> 
-                <a onclick="toggleMode()" id="toggle-link" style="color: #00c6ff; font-weight: 700; cursor: pointer;">Criar Conta</a>
-            </div>
+            
         </div>
     </div>
 
@@ -190,16 +172,9 @@
         } catch (e) { showMessage("Erro no login Microsoft.", true); }
     });
 
-    let isLoginMode = true;
+    
 
-    // --- INTERFACE LOGIN ---
-    function toggleMode() {
-        isLoginMode = !isLoginMode;
-        document.getElementById('btn-submit').innerText = isLoginMode ? "Entrar na App" : "Registar Agora";
-        document.getElementById('toggle-link').innerText = isLoginMode ? "Criar Conta" : "Fazer Login";
-        document.getElementById('toggle-hint').innerText = isLoginMode ? "Primeira vez?" : "Já tens conta?";
-        document.getElementById('msg-box').style.display = 'none';
-    }
+    
 
     function showMessage(msg, isError = false) {
         const box = document.getElementById('msg-box');
@@ -208,14 +183,7 @@
         box.className = isError ? 'msg-error' : 'msg-success';
     }
 
-    // --- RECURSOS SERVIDOR ---
-    async function resetPassword() {
-        const email = document.getElementById('email').value;
-        if (!email) return showMessage("Preenche o teu email do IEFP primeiro.", true);
-        try {
-            await auth.sendPasswordResetEmail(email);
-            showMessage("Se o email existir, enviámos a recuperação (verifica o SPAM).", false);
-        } catch (e) { showMessage("Erro ao tentar recuperar a password.", true); }
+     catch (e) { showMessage("Erro ao tentar recuperar a password.", true); }
     }
 
     // LOGIN COM GOOGLE
@@ -233,29 +201,7 @@
         } catch (e) { showMessage("Erro no login Google.", true); }
     });
 
-    // LOGIN / REGISTO EMAIL (APENAS IEFP E PASSWORD)
-    document.getElementById('auth-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        
-        // Bloqueio de segurança: Força o uso do email IEFP no registo
-        if (!isLoginMode && !email.toLowerCase().includes('iefp.pt')) {
-            showMessage("O registo direto requer um email válido do IEFP (@iefp.pt ou @formacao.iefp.pt).", true);
-            return;
-        }
-
-        // Criar um nome automático a partir do email (ex: FOR158342@formacao.iefp.pt -> FOR158342)
-        const autoName = email.split('@')[0].toUpperCase();
-        
-        const btn = document.getElementById('btn-submit');
-        btn.disabled = true; btn.innerText = "A processar...";
-
-        try {
-            if (isLoginMode) {
-                // FAZER LOGIN NORMAL (Sem exigir clique no email)
-                const res = await auth.signInWithEmailAndPassword(email, password);
-                db.collection('users').doc(res.user.uid).update({ sessions: firebase.firestore.FieldValue.increment(1), status: "Online" });
+    
             } else {
                 // FAZER REGISTO E ENTRAR LOGO
                 const res = await auth.createUserWithEmailAndPassword(email, password);
